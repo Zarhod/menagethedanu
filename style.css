@@ -2,22 +2,22 @@
 
 /* --- Variables CSS (pour la cohérence et la facilité de modification) --- */
 :root {
-    --bg-color: #e0e5ec; /* Couleur de fond principale, base du neumorphisme */
-    --primary-color: #4A90E2; /* Bleu vif pour les éléments principaux */
-    --secondary-color: #2ECC71; /* Vert pour les actions positives/succès */
-    --text-color: #34495e; /* Texte principal foncé */
-    --light-text-color: #7f8c8d; /* Texte secondaire, info */
-    --shadow-light: #ffffff; /* Ombre claire pour l'effet de relief */
-    --shadow-dark: #c8d0e7; /* Ombre foncée pour l'effet de relief */
-    --border-color: #d1d9e6; /* Bordure subtile */
-    --gold: linear-gradient(145deg, #f1c40f, #e67e22);
-    --silver: linear-gradient(145deg, #bdc3c7, #95a5a6);
-    --bronze: linear-gradient(145deg, #d35400, #c0392b);
+    --bg-color: #f4f6f9; /* Arrière-plan plus clair et neutre */
+    --primary-blue: #007bff; /* Bleu principal dynamique */
+    --primary-blue-dark: #0056b3; /* Bleu plus foncé pour le hover */
+    --secondary-green: #28a745; /* Vert vif pour le succès */
+    --secondary-green-dark: #218838; /* Vert plus foncé pour le hover */
+    --text-color: #343a40; /* Texte principal sombre */
+    --light-text-color: #6c757d; /* Texte secondaire */
+    --card-bg: #ffffff; /* Fond blanc pur pour les cartes */
+    --border-light: #e9ecef; /* Bordure très légère */
+    --red-alert: #dc3545; /* Rouge pour les actions d'alerte */
+    --red-alert-dark: #c82333;
 }
 
 /* --- Styles Généraux --- */
 body {
-    font-family: 'Poppins', sans-serif; /* Nouvelle police */
+    font-family: 'Poppins', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
@@ -27,123 +27,129 @@ body {
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    overflow-x: hidden; /* Empêche le défilement horizontal */
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* Pour le défilement fluide */
 }
 
 .container {
-    background-color: var(--bg-color);
+    background-color: var(--card-bg);
     padding: 30px;
-    border-radius: 25px; /* Rayon plus prononcé pour l'effet neumorphique */
-    box-shadow: 
-        10px 10px 20px var(--shadow-dark),
-        -10px -10px 20px var(--shadow-light); /* Ombre douce neumorphique plus prononcée */
+    border-radius: 12px; /* Coins légèrement arrondis */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Ombre douce et plate */
     width: 100%;
-    max-width: 900px; /* Légèrement plus large */
+    max-width: 900px;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
 }
 
 h1, h2, h3 {
     color: var(--text-color);
-    text-align: center; /* Centré par défaut pour tous les titres */
+    text-align: center;
     margin-bottom: 20px;
-    font-weight: 700; /* Plus épais */
+    font-weight: 700;
 }
 
 h1 {
-    font-size: 3em; /* Plus grand */
+    font-size: 3em;
     padding-bottom: 15px;
     position: relative;
-    letter-spacing: 1.5px; /* Plus d'espacement */
+    letter-spacing: 1.5px;
+    color: var(--primary-blue); /* Titre principal en bleu */
 }
 
-/* Soulignement stylisé pour h1 */
+/* Soulignement plat pour h1 */
 h1::after {
     content: '';
     display: block;
-    width: 100px; /* Plus large */
-    height: 5px; /* Plus épais */
-    background: var(--primary-color);
-    margin: 15px auto 0; /* Marge plus grande */
-    border-radius: 3px;
+    width: 100px;
+    height: 5px;
+    background: var(--primary-blue);
+    margin: 15px auto 0;
+    border-radius: 2px; /* Moins d'arrondi */
 }
 
 h2 {
-    font-size: 2.2em; /* Plus grand */
-    color: var(--primary-color);
-    margin-top: 40px; /* Plus de marge */
-    margin-bottom: 25px; /* Plus de marge */
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Petite ombre textuelle */
+    font-size: 2.2em;
+    color: var(--text-color); /* H2 en couleur texte standard */
+    margin-top: 40px;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h2::after { /* Soulignement pour h2 */
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary-green); /* Soulignement vert */
+    margin: 10px auto 0;
+    border-radius: 2px;
 }
 
 p {
     margin-bottom: 10px;
     color: var(--light-text-color);
-    text-align: center; /* Centré par défaut pour les paragraphes */
+    text-align: center;
 }
 
 /* --- Logo --- */
 .logo-container {
     text-align: center;
-    margin-bottom: 40px; /* Plus d'espace */
+    margin-bottom: 40px;
 }
 
 .app-logo {
-    max-width: 200px; /* Taille légèrement plus grande */
+    max-width: 200px;
     height: auto;
     border-radius: 50%;
-    box-shadow: 
-        8px 8px 15px var(--shadow-dark),
-        -8px -8px 15px var(--shadow-light); /* Effet neumorphique pour le logo plus prononcé */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Ombre plus douce et diffuse */
     transition: transform 0.3s ease;
 }
 
 .app-logo:hover {
-    transform: scale(1.08); /* Effet de zoom plus grand */
+    transform: scale(1.05);
 }
 
 /* --- Onglets --- */
 .tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px; /* Plus d'espace */
-    gap: 20px; /* Espace entre les boutons */
+    margin-bottom: 40px;
+    gap: 15px; /* Espacement fixe */
 }
 
 .tab-button {
-    background-color: var(--bg-color);
+    background-color: var(--border-light); /* Couleur de fond neutre */
     border: none;
-    padding: 16px 35px; /* Plus grand padding */
+    padding: 16px 30px;
     cursor: pointer;
-    font-size: 1.2em; /* Plus grand */
-    font-weight: 600; /* Plus épais */
+    font-size: 1.1em;
+    font-weight: 600;
     color: var(--light-text-color);
     transition: all 0.3s ease;
-    border-radius: 20px; /* Plus arrondi */
-    box-shadow: 
-        6px 6px 12px var(--shadow-dark),
-        -6px -6px 12px var(--shadow-light); /* Ombre sortie par défaut */
+    border-radius: 8px; /* Coins plus marqués */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Ombre légère */
 }
 
 .tab-button:hover {
-    color: var(--primary-color);
-    box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé au survol */
+    background-color: var(--primary-blue-dark); /* Bleu foncé au survol */
+    color: #ffffff;
+    transform: translateY(-2px); /* Léger effet de soulèvement */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .tab-button.active {
-    background: var(--primary-color); /* Couleur principale quand actif */
+    background: var(--primary-blue); /* Bleu principal quand actif */
     color: #ffffff;
-    box-shadow: 
-        inset 6px 6px 12px rgba(0, 0, 0, 0.2), /* Ombre interne pour l'effet enfoncé plus prononcée */
-        inset -6px -6px 12px rgba(255, 255, 255, 0.3);
-    pointer-events: none; /* Ne pas permettre le clic sur l'onglet actif */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(0); /* Pas de translation pour l'actif */
+    pointer-events: none;
 }
 
 .tab-content {
     display: none;
-    padding: 25px 0; /* Plus de padding */
+    padding: 25px 0;
 }
 
 .tab-content.active {
@@ -152,145 +158,142 @@ p {
 
 /* --- Sections de Tâches et Scores --- */
 .task-section, .scores-section, .history-section {
-    background-color: var(--bg-color);
-    padding: 30px; /* Plus de padding */
-    border-radius: 20px; /* Plus arrondi */
-    margin-bottom: 30px; /* Plus d'espace */
-    box-shadow: 
-        8px 8px 15px var(--shadow-dark),
-        -8px -8px 15px var(--shadow-light); /* Effet neumorphique de base plus prononcé */
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Ombre plate */
+    border: 1px solid var(--border-light); /* Bordure fine */
 }
 
 .task-list, .scores-list, .history-list {
-    margin-top: 25px; /* Plus de marge */
+    margin-top: 25px;
 }
 
 /* --- Style des cartes de tâches (Pending/Active) --- */
 .task-item {
-    background-color: var(--bg-color);
-    border-radius: 20px; /* Plus arrondi */
-    padding: 20px 30px; /* Plus de padding */
-    margin-bottom: 20px; /* Plus d'espace */
-    box-shadow: 
-        6px 6px 12px var(--shadow-dark),
-        -6px -6px 12px var(--shadow-light);
-    transition: all 0.3s ease;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centrer verticalement */
-    align-items: center; /* Centrer horizontalement */
-    text-align: center; /* Centrer le texte à l'intérieur */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--border-light);
 }
 
 .task-item:hover:not(.completed) {
-    box-shadow: 
-        inset 4px 4px 8px var(--shadow-dark),
-        inset -4px -4px 8px var(--shadow-light); /* Effet d'enfoncement subtil au survol */
-    transform: translateY(0);
+    transform: translateY(-3px); /* Effet de soulèvement au survol */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .task-item h3 {
     margin-top: 0;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     color: var(--text-color);
-    font-size: 1.4em; /* Plus grand */
+    font-size: 1.3em;
     font-weight: 600;
 }
 
 .task-item p {
-    margin-bottom: 10px;
-    font-size: 1.05em; /* Légèrement plus grand */
+    margin-bottom: 8px;
+    font-size: 0.95em;
     color: var(--light-text-color);
 }
 
 .task-meta {
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--primary-blue);
 }
 
 .task-score {
     font-weight: 700;
-    color: var(--secondary-color);
-    font-size: 1.2em; /* Plus grand */
+    color: var(--secondary-green);
+    font-size: 1.1em;
 }
 
 /* Style des tâches terminées (plus discrètes mais lisibles) */
 .task-item.completed {
-    background-color: var(--bg-color);
-    opacity: 0.6; /* Plus d'opacité */
-    box-shadow: 
-        inset 4px 4px 8px var(--shadow-dark),
-        inset -4px -4px 8px var(--shadow-light); /* Effet "enfoncé" plus prononcé */
-    color: var(--light-text-color);
+    background-color: #f0f3f6; /* Gris très clair, proche du fond */
+    color: #99a2ab; /* Texte plus gris */
+    opacity: 0.9;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Ombre interne discrète */
+    transform: none; /* Annule tout transform */
     cursor: not-allowed;
+    border-color: #dbe0e6;
 }
 
 .task-item.completed h3,
 .task-item.completed .task-meta,
 .task-item.completed .task-score {
-    color: var(--light-text-color); /* Texte plus pâle */
+    color: inherit; /* Hérite de la couleur gris de .completed */
 }
 
 
-/* --- Boutons Généraux --- */
-button {
-    background: var(--primary-color);
+/* --- Boutons Généraux (Flat Design) --- */
+.flat-button {
+    background: var(--primary-blue);
     color: white;
-    padding: 14px 25px; /* Plus de padding */
+    padding: 14px 25px;
     border: none;
-    border-radius: 15px; /* Plus arrondi */
+    border-radius: 8px; /* Moins arrondi */
     cursor: pointer;
-    font-size: 1.1em; /* Plus grand */
+    font-size: 1.05em;
     font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 
-        4px 4px 8px var(--shadow-dark),
-        -4px -4px 8px var(--shadow-light); /* Ombre de bouton neumorphique */
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    text-decoration: none; /* Pour les boutons qui pourraient être des liens */
+    display: inline-block;
+    text-align: center;
 }
 
-button:hover {
-    background: var(--primary-color);
-    box-shadow: 
-        inset 3px 3px 7px rgba(0, 0, 0, 0.2),
-        inset -3px -3px 7px rgba(255, 255, 255, 0.3); /* Effet enfoncé au survol */
-    transform: scale(0.97); /* Plus petit au survol */
+.flat-button:hover {
+    background: var(--primary-blue-dark);
+    transform: translateY(-2px); /* Léger effet de soulèvement */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-button:active {
-    box-shadow: 
-        inset 4px 4px 8px var(--shadow-dark),
-        inset -4px -4px 8px var(--shadow-light);
-    transform: scale(0.96);
+.flat-button:active {
+    transform: translateY(0);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Effet "cliqué" */
 }
 
 /* Bouton spécifique de réinitialisation */
 #resetScoresButton {
-    background: #e74c3c; /* Rouge pour l'action de réinitialisation */
+    background: var(--red-alert); /* Rouge pour l'action de réinitialisation */
     display: block;
-    margin: 30px auto 0; /* Plus de marge */
+    margin: 30px auto 0;
 }
 
 #resetScoresButton:hover {
-    background: #c0392b;
+    background: var(--red-alert-dark);
 }
 
-/* --- Champ de saisie du nom (avec animation) --- */
+/* Classe pour cacher les éléments */
+.hidden {
+    display: none !important;
+}
+
+/* --- Champ de saisie du nom (Flat Design) --- */
 .name-input-wrapper {
     display: flex;
-    flex-direction: column; /* Les éléments sont empilés pour un meilleur centrage */
+    flex-direction: column;
     gap: 12px;
     margin-top: 20px;
     padding: 20px;
-    background-color: var(--bg-color);
-    border-radius: 15px;
-    box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé pour l'input wrapper */
+    background-color: var(--border-light); /* Fond clair */
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Ombre interne légère */
     opacity: 1; 
-    max-height: 120px; /* Taille maximale pour la transition */
+    max-height: 120px; 
     overflow: hidden; 
     transition: max-height 0.4s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out;
-    align-items: center; /* Centrer les éléments */
+    align-items: center;
+    border: 1px solid #dbe0e6;
 }
 
 .name-input-wrapper.hidden {
@@ -300,77 +303,73 @@ button:active {
     padding-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
+    border: none;
     box-shadow: none;
 }
 
 .assignee-name-input {
-    width: 80%; /* Largeur définie */
-    max-width: 300px; /* Max width pour les grands écrans */
-    padding: 15px; /* Plus de padding */
-    border: none; 
-    border-radius: 10px;
-    font-size: 1.1em;
-    background-color: var(--bg-color);
-    box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé pour l'input */
+    width: 80%;
+    max-width: 300px;
+    padding: 12px 15px; /* Padding ajusté */
+    border: 1px solid var(--border-light); /* Bordure fine */
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: var(--card-bg); /* Fond blanc pur */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* Ombre interne subtile */
     color: var(--text-color);
     outline: none;
-    transition: box-shadow 0.3s ease;
-    text-align: center; /* Centrer le texte de l'input */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
 }
 
 .assignee-name-input:focus {
-    box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light),
-        0 0 0 4px var(--primary-color); /* Anneau de focus élégant plus prononcé */
+    border-color: var(--primary-blue); /* Bordure bleue au focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Anneau de focus flat */
 }
 
 .submit-assignee-name {
-    padding: 12px 20px;
-    font-size: 1.05em;
-    background: var(--secondary-color); /* Vert pour l'action de validation */
+    padding: 10px 20px;
+    font-size: 1em;
+    background: var(--secondary-green); /* Vert pour l'action de validation */
 }
 
 .submit-assignee-name:hover {
-    background: var(--secondary-color);
+    background: var(--secondary-green-dark);
 }
 
-/* --- Indicateur de chargement --- */
+/* --- Indicateur de chargement (Flat Design) --- */
 #loadingOverlay {
-    background-color: rgba(224, 229, 236, 0.95); /* Utilise la couleur de fond avec plus de transparence */
-    color: var(--primary-color);
-    font-size: 1.4em; /* Plus grand */
-    font-weight: 700;
+    background-color: rgba(244, 246, 249, 0.95); /* Utilise la couleur de fond avec plus de transparence */
+    color: var(--primary-blue);
+    font-size: 1.4em;
+    font-weight: 600;
 }
 
 .spinner {
-    border: 6px solid rgba(0, 0, 0, 0.1); /* Plus épais */
-    border-left-color: var(--primary-color);
-    width: 60px; /* Plus grand */
-    height: 60px; /* Plus grand */
+    border: 6px solid rgba(0, 123, 255, 0.2); /* Moins visible */
+    border-left-color: var(--primary-blue);
+    width: 60px;
+    height: 60px;
 }
 
-/* --- Styles du Podium --- */
+/* --- Styles du Podium (Flat Design) --- */
 .current-podium-section {
-    background-color: var(--bg-color);
-    padding: 30px; /* Plus de padding */
-    border-radius: 20px; /* Plus arrondi */
-    margin-bottom: 35px; /* Plus d'espace */
-    box-shadow: 
-        8px 8px 15px var(--shadow-dark),
-        -8px -8px 15px var(--shadow-light);
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 35px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
     text-align: center;
     position: relative;
     overflow: hidden;
+    border: 1px solid var(--border-light);
 }
 
 .current-podium-section h2 {
-    color: var(--primary-color);
+    color: var(--primary-blue); /* Titre du podium en bleu */
     margin-top: 0;
     margin-bottom: 25px;
-    font-size: 2.5em; /* Plus grand */
+    font-size: 2.5em;
     font-weight: 700;
 }
 
@@ -381,89 +380,86 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Espacement entre les podiums */
+    gap: 15px;
 }
 
 .podium-list li {
-    font-size: 1.3em; /* Plus grand */
-    padding: 18px 30px; /* Plus de padding */
-    border-radius: 20px; /* Plus arrondi */
+    font-size: 1.3em;
+    padding: 18px 30px;
+    border-radius: 10px; /* Moins arrondi */
     width: 90%;
-    max-width: 400px; /* Plus large */
+    max-width: 400px;
     display: flex;
-    justify-content: space-between; /* Garde les éléments séparés */
+    justify-content: space-between;
     align-items: center;
     font-weight: 600;
-    box-shadow: 
-        8px 8px 15px var(--shadow-dark),
-        -8px -8px 15px var(--shadow-light); /* Ombre sortie plus prononcée */
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Ombre plate */
+    transition: all 0.2s ease-in-out;
     position: relative;
     overflow: hidden;
+    color: white; /* Texte blanc sur fond de couleur */
 }
 
 .podium-list li:hover {
-    transform: translateY(-8px) scale(1.03); /* Effet de zoom et levée plus prononcé */
-    box-shadow: 
-        10px 10px 20px var(--shadow-dark),
-        -10px -10px 20px var(--shadow-light);
+    transform: translateY(-5px); /* Effet de soulèvement */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* Styles pour les médailles avec émojis stylisés */
 .podium-list li::before {
-    font-size: 2.5em; /* Taille plus grande pour les émojis */
+    font-size: 2.5em;
     position: absolute;
-    left: 20px; /* Plus éloigné du bord */
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Ombre plus prononcée pour les médailles */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Ombre douce */
 }
 
 .podium-list li.gold {
-    background: var(--gold);
-    color: #fff;
+    background: #FFD700; /* Or direct */
+    color: var(--text-color); /* Texte sombre sur l'or */
 }
 .podium-list li.gold::before { content: '🥇'; }
 
 .podium-list li.silver {
-    background: var(--silver);
-    color: #fff;
+    background: #C0C0C0; /* Argent direct */
+    color: var(--text-color); /* Texte sombre sur l'argent */
 }
 .podium-list li.silver::before { content: '🥈'; }
 
 .podium-list li.bronze {
-    background: var(--bronze);
-    color: #fff;
+    background: #CD7F32; /* Bronze direct */
+    color: white; /* Texte blanc sur le bronze */
 }
 .podium-list li.bronze::before { content: '🥉'; }
 
 .podium-list li .player-name {
     flex-grow: 1;
-    text-align: left; /* Garde le nom aligné à gauche pour la lisibilité avec la médaille */
-    margin-left: 60px; /* Espace pour la médaille plus grand */
-    color: inherit;
+    text-align: left;
+    margin-left: 60px;
+    color: inherit; /* Hérite de la couleur définie sur li */
 }
 
 .podium-list li .player-score {
     text-align: right;
     margin-left: 15px;
     color: inherit;
-    font-size: 1.2em; /* Plus grand */
+    font-size: 1.2em;
     opacity: 0.9;
 }
 
 
 .full-scores-button {
-    background: var(--secondary-color);
+    background: var(--secondary-green);
     margin-top: 25px;
     padding: 14px 30px;
     font-size: 1.1em;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .full-scores-button:hover {
-    background: var(--secondary-color);
+    background: var(--secondary-green-dark);
 }
 
 /* --- Liste complète des scores (dans l'onglet Scores) --- */
@@ -474,35 +470,32 @@ button:active {
 }
 
 .scores-full-list li {
-    background-color: var(--bg-color);
-    border-radius: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
     padding: 15px 25px;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé léger */
-    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Ombre très légère */
+    transition: all 0.15s ease-in-out;
+    border: 1px solid var(--border-light);
 }
 
 .scores-full-list li:hover {
-    box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light);
-    transform: translateY(-2px);
+    transform: translateX(5px); /* Petit décalage au survol */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .scores-full-list li strong {
     color: var(--text-color);
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1.05em;
 }
 .scores-full-list li span {
-    color: var(--primary-color);
+    color: var(--primary-blue);
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1.05em;
 }
 
 /* --- Liste historique du podium --- */
@@ -513,96 +506,193 @@ button:active {
 }
 
 .history-item {
-    background-color: var(--bg-color);
-    border-radius: 20px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
     padding: 20px 25px;
     margin-bottom: 25px;
-    box-shadow: 
-        6px 6px 12px var(--shadow-dark),
-        -6px -6px 12px var(--shadow-light);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease-in-out;
+    border: 1px solid var(--border-light);
 }
 
 .history-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 
-        8px 8px 15px var(--shadow-dark),
-        -8px -8px 15px var(--shadow-light);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .history-item h3 {
-    text-align: center; /* Centrer le titre de l'historique */
-    font-size: 1.8em; /* Plus grand */
-    color: var(--primary-color);
+    text-align: center;
+    font-size: 1.8em;
+    color: var(--text-color); /* Titre historique en couleur texte standard */
     margin-top: 0;
     margin-bottom: 15px;
 }
 
 .podium-history-list li {
-    font-size: 1.05em; /* Légèrement plus grand */
+    font-size: 1em;
     padding: 10px 20px;
     margin-bottom: 8px;
-    border-radius: 15px;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 500;
-    background-color: var(--bg-color);
-    box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light);
+    background-color: #f8f9fa; /* Fond très léger pour l'historique */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e3e6;
 }
 
 .podium-history-list li::before {
-    font-size: 1.8em; /* Plus grand */
+    font-size: 1.8em;
     margin-right: 12px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);
 }
 
 /* Couleurs spécifiques pour l'historique */
-.podium-history-list li.gold { background: rgba(241, 196, 15, 0.1); } /* Moins opaque */
+.podium-history-list li.gold { background: rgba(255, 215, 0, 0.1); }
 .podium-history-list li.gold::before { content: '🥇'; }
 
-.podium-history-list li.silver { background: rgba(189, 195, 199, 0.1); }
+.podium-history-list li.silver { background: rgba(192, 192, 192, 0.1); }
 .podium-history-list li.silver::before { content: '🥈'; }
 
-.podium-history-list li.bronze { background: rgba(211, 84, 0, 0.1); }
+.podium-history-list li.bronze { background: rgba(205, 127, 50, 0.1); }
 .podium-history-list li.bronze::before { content: '🥉'; }
 
 
 /* --- Messages d'info/erreur --- */
 .loading-message, .info-message, .error-message {
     text-align: center;
-    padding: 18px; /* Plus de padding */
-    border-radius: 15px; /* Plus arrondi */
+    padding: 18px;
+    border-radius: 10px;
     margin-top: 25px;
     font-weight: 600;
-    box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .loading-message {
-    color: var(--primary-color);
-    background-color: var(--bg-color);
+    color: var(--primary-blue);
+    background-color: #e6f2ff; /* Bleu clair */
 }
 
 .info-message {
     color: var(--light-text-color);
-    background-color: var(--bg-color);
+    background-color: #f8f9fa;
 }
 
 .error-message {
-    color: #e74c3c;
-    background-color: var(--bg-color);
-    border: 1px solid #e74c3c;
+    color: var(--red-alert);
+    background-color: #ffe6e6; /* Rouge clair */
+    border-color: var(--red-alert);
 }
+
+/* --- Styles de la Popup de validation personnalisée --- */
+.alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond sombre semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0; /* Caché par défaut */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.alert-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.alert-box {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Ombre plus prononcée */
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    transform: translateY(20px); /* Commence légèrement décalé */
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.alert-overlay.visible .alert-box {
+    transform: translateY(0); /* Remonte en position */
+    opacity: 1;
+}
+
+.close-alert {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8em;
+    color: var(--light-text-color);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-alert:hover {
+    color: var(--text-color);
+}
+
+.alert-icon {
+    font-size: 4em; /* Grosse icône */
+    margin-bottom: 15px;
+    line-height: 1;
+    animation: bounceIn 0.8s forwards; /* Animation d'apparition */
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
+.alert-box h3 {
+    color: var(--primary-blue);
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.alert-box p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 25px;
+}
+
+.alert-button {
+    background-color: var(--secondary-green);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.alert-button:hover {
+    background-color: var(--secondary-green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
     .container {
         padding: 25px;
-        border-radius: 20px;
+        border-radius: 10px;
     }
     h1 {
         font-size: 2.5em;
@@ -615,16 +705,16 @@ button:active {
     }
     .tabs {
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 10px;
     }
     .tab-button {
-        padding: 12px 25px;
-        font-size: 1.1em;
-        border-radius: 15px;
+        padding: 12px 20px;
+        font-size: 1em;
+        border-radius: 6px;
     }
     .task-item, .scores-full-list li, .history-item, .podium-list li {
-        padding: 18px;
-        border-radius: 15px;
+        padding: 15px;
+        border-radius: 8px;
     }
     .podium-list li {
         max-width: 95%;
@@ -644,6 +734,19 @@ button:active {
     .assignee-name-input {
         width: 90%;
     }
+    .alert-box {
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .alert-icon {
+        font-size: 3em;
+    }
+    .alert-box h3 {
+        font-size: 1.5em;
+    }
+    .alert-box p {
+        font-size: 1em;
+    }
 }
 
 @media (max-width: 480px) {
@@ -659,8 +762,8 @@ button:active {
     .tab-button {
         width: 100%;
         margin: 5px 0;
-        padding: 10px 20px;
-        font-size: 1em;
+        padding: 10px 15px;
+        font-size: 0.95em;
     }
     .task-item {
         padding: 15px 20px;
@@ -673,7 +776,7 @@ button:active {
     }
     .podium-list li {
         font-size: 1.1em;
-        padding: 15px 20px;
+        padding: 12px 15px;
         padding-left: 45px;
     }
     .podium-list li::before {
@@ -684,11 +787,11 @@ button:active {
         margin-left: 35px;
     }
     .assignee-name-input {
-        padding: 12px;
-        font-size: 1em;
+        padding: 10px;
+        font-size: 0.95em;
     }
     .submit-assignee-name {
-        padding: 10px 15px;
-        font-size: 0.95em;
+        padding: 8px 12px;
+        font-size: 0.9em;
     }
 }

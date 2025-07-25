@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ménage The Danu</title>
+    <title>Clean'App Challenge</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="logo-container">
-            <img src="logo.png" alt="Logo Ménage The Danu" class="app-logo">
+            <img src="logo.png" alt="Clean'App Logo" class="app-logo">
         </div>
-        
-        <h1>Ménage The Danu</h1>
+        <h1>Clean'App Challenge</h1>
 
         <div class="tabs">
             <button class="tab-button active" data-tab="tasks">Tâches</button>
@@ -22,52 +21,53 @@
             <button class="tab-button" data-tab="history">Historique</button>
         </div>
 
-        <div id="loadingOverlay">
-            <div class="spinner"></div>
-            <p>Validation en cours...</p>
-        </div>
-
         <div id="tasks-tab" class="tab-content active">
-            <div id="currentPodium" class="current-podium-section">
+            <div class="current-podium-section" id="currentPodium">
                 </div>
 
-            <section class="task-section">
+            <div class="task-section">
                 <h2>Tâches à faire</h2>
-                <div id="pendingTaskList" class="task-list">
+                <div class="task-list" id="pendingTaskList">
                     </div>
-            </section>
+            </div>
 
-            <section class="task-section">
-                <h2>Tâches terminées</h2>
-                <div id="completedTaskList" class="task-list">
+            <div class="task-section">
+                <h2>Tâches terminées cette semaine</h2>
+                <div class="task-list" id="completedTaskList">
                     </div>
-            </section>
+            </div>
         </div>
 
         <div id="scores-tab" class="tab-content">
-            <section class="scores-section">
+            <div class="scores-section">
                 <h2>Scores de la semaine</h2>
-                <div id="scoresList" class="scores-list">
+                <div class="scores-list" id="scoresList">
                     </div>
-                <button id="resetScoresButton" class="flat-button hidden">Réinitialiser les scores & Enregistrer le podium</button>
-            </section>
+                <button id="resetScoresButton" class="flat-button">Réinitialiser les scores de la semaine</button>
+            </div>
         </div>
 
         <div id="history-tab" class="tab-content">
-            <section class="history-section">
+            <div class="history-section">
                 <h2>Historique des podiums</h2>
-                <div id="historyList" class="history-list">
+                <div class="history-list" id="historyList">
                     </div>
-            </section>
+            </div>
         </div>
+    </div>
+
+    <div id="loadingOverlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Chargement en cours...</p>
     </div>
 
     <div id="customAlertOverlay" class="alert-overlay">
         <div class="alert-box">
             <span class="close-alert">&times;</span>
-            <div class="alert-icon">🎉</div> <h3 id="alertTitle">Merci pour votre implication !</h3>
-            <p id="alertMessage">Votre action a été enregistrée avec succès.</p>
-            <button class="alert-button flat-button">Super !</button>
+            <div class="alert-icon"></div>
+            <h3 id="alertTitle"></h3>
+            <p id="alertMessage"></p>
+            <button class="alert-button">OK</button>
         </div>
     </div>
 

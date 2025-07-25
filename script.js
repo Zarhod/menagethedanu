@@ -1,6 +1,5 @@
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 // Remplacez cette URL par l'URL de votre Cloudflare Worker déployé.
-// Elle DOIT être l'adresse de base de votre Worker, sans aucun '?' ni paramètre.
 // Exemple : const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev';
 const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev/'; 
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
@@ -71,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scores.slice(0, 3).forEach((player, index) => { 
             const li = document.createElement('li');
             li.className = podiumClasses[index] || ''; 
+            // Supprime la balise <span class="rank"> pour laisser la place aux médailles CSS
             li.innerHTML = `
-                <span class="rank">${index + 1}.</span>
                 <span class="player-name">${player.name}</span>
                 <span class="player-score">${player.score} points</span>
             `;
@@ -83,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ajouter le bouton "Scores Complets"
         const fullScoresButton = document.createElement('button');
         fullScoresButton.textContent = 'Voir tous les scores';
-        fullScoresButton.className = 'full-scores-button';
+        fullScoresButton.className = 'full-scores-button neumorphic-button'; // Nouvelle classe
         fullScoresButton.addEventListener('click', () => {
             // Simuler le clic sur l'onglet "Scores"
             scoresTabButton.click();
@@ -160,14 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Fonctions de chargement et d'affichage des données (inchangées ou avec petites corrections) ---
 
     async function loadTasks() {
-        completedTaskListDiv.innerHTML = '<p class="task-meta">Chargement des tâches terminées...</p>';
-        pendingTaskListDiv.innerHTML = '<p>Chargement des tâches à faire...</p>';
+        completedTaskListDiv.innerHTML = '<p class="info-message">Chargement des tâches terminées...</p>';
+        pendingTaskListDiv.innerHTML = '<p class="info-message">Chargement des tâches à faire...</p>';
         
         const tasks = await fetchData('getTasks');
         
         if (!Array.isArray(tasks)) {
             console.error("Les données reçues de 'getTasks' ne sont pas un tableau:", tasks);
-            completedTaskListDiv.innerHTML = '<p class="task-meta error">Erreur: Impossible de charger les tâches. La réponse de l\'API est invalide.</p>';
+            completedTaskListDiv.innerHTML = '<p class="error-message">Erreur: Impossible de charger les tâches. La réponse de l\'API est invalide.</p>';
             pendingTaskListDiv.innerHTML = '';
             return;
         }
@@ -191,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 completedTaskListDiv.appendChild(taskItem);
             });
         } else {
-            completedTaskListDiv.innerHTML = '<p class="task-meta">Aucune tâche terminée cette semaine.</p>';
+            completedTaskListDiv.innerHTML = '<p class="info-message">Aucune tâche terminée cette semaine.</p>';
         }
 
         // Afficher les tâches à faire
@@ -203,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3>${task.Description_Tache}</h3>
                     <p><span class="task-meta">Catégorie:</span> ${task.Libelle}</p>
                     <p><span class="task-score">Score:</span> ${task.Score}</p>
-                    <button class="assign-button" data-task-id="${task.ID_Tache}">Prendre cette tâche</button>
+                    <button class="assign-button neumorphic-button" data-task-id="${task.ID_Tache}">Prendre cette tâche</button>
                 `;
                 pendingTaskListDiv.appendChild(taskItem);
             });
@@ -225,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     nameInputWrapper.className = 'name-input-wrapper hidden'; // Commencer caché
                     nameInputWrapper.innerHTML = `
                         <input type="text" placeholder="Entrez votre nom" class="assignee-name-input">
-                        <button class="submit-assignee-name">Valider</button>
+                        <button class="submit-assignee-name neumorphic-button">Valider</button>
                     `;
                     
                     buttonElement.parentNode.insertBefore(nameInputWrapper, buttonElement.nextSibling);
@@ -296,30 +295,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         } else {
-            pendingTaskListDiv.innerHTML = '<p>Bravo ! Toutes les tâches sont faites pour le moment.</p>';
+            pendingTaskListDiv.innerHTML = '<p class="info-message">Bravo ! Toutes les tâches sont faites pour le moment.</p>';
         }
     }
 
     async function loadCurrentWeeklyScores() {
-        scoresListDiv.innerHTML = '<p>Chargement des scores...</p>';
+        scoresListDiv.innerHTML = '<p class="info-message">Chargement des scores...</p>';
         
         const scores = await fetchData('getCurrentWeeklyScores');
         
         if (!Array.isArray(scores)) {
             console.error("Les données reçues de 'getCurrentWeeklyScores' ne sont pas un tableau:", scores);
-            scoresListDiv.innerHTML = '<p class="error">Erreur: Impossible de charger les scores. La réponse de l\'API est invalide.</p>';
+            scoresListDiv.innerHTML = '<p class="error-message">Erreur: Impossible de charger les scores. La réponse de l\'API est invalide.</p>';
             return;
         }
 
         scoresListDiv.innerHTML = '';
         
         if (scores.length === 0) {
-            scoresListDiv.innerHTML = '<p>Aucun score enregistré pour cette semaine.</p>';
+            scoresListDiv.innerHTML = '<p class="info-message">Aucun score enregistré pour cette semaine.</p>';
             return;
         }
         
         const ul = document.createElement('ul');
-        ul.classList.add('scores-full-list'); // Ajout d'une classe pour le défilement
+        ul.classList.add('scores-full-list'); 
         scores.sort((a, b) => b.score - a.score); 
 
         scores.forEach(score => {
@@ -331,34 +330,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadWeeklyPodiums() {
-        historyListDiv.innerHTML = '<p>Chargement de l\'historique...</p>';
+        historyListDiv.innerHTML = '<p class="info-message">Chargement de l\'historique...</p>';
         const podiums = await fetchData('getWeeklyPodiums');
         
         if (!Array.isArray(podiums)) {
             console.error("Les données reçues de 'getWeeklyPodiums' ne sont pas un tableau:", podiums);
-            historyListDiv.innerHTML = '<p class="error">Erreur: Impossible de charger l\'historique des podiums. La réponse de l\'API est invalide.</p>';
+            historyListDiv.innerHTML = '<p class="error-message">Erreur: Impossible de charger l\'historique des podiums. La réponse de l\'API est invalide.</p>';
             return;
         }
 
         historyListDiv.innerHTML = '';
         if (podiums.length === 0) {
-            historyListDiv.innerHTML = '<p>Aucun podium enregistré pour le moment.</p>';
+            historyListDiv.innerHTML = '<p class="info-message">Aucun podium enregistré pour le moment.</p>';
             return;
         }
+        // Trier par semaine (la plus récente en premier)
         podiums.sort((a, b) => b.week.localeCompare(a.week)); 
         podiums.forEach(item => {
             const historyItem = document.createElement('div');
             historyItem.className = 'history-item';
             let podiumHtml = '';
             if (item.podium && item.podium.length > 0) {
-                podiumHtml = '<ol class="podium-history-list">'; // Nouvelle classe
+                podiumHtml = '<ol class="podium-history-list">'; 
                 item.podium.forEach((p, index) => {
                     const podiumClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
                     podiumHtml += `<li class="${podiumClass}"><strong>${p.name}</strong> <span>${p.score} points</span></li>`;
                 });
                 podiumHtml += '</ol>';
             } else {
-                podiumHtml = '<p>Pas de participants cette semaine.</p>';
+                podiumHtml = '<p class="info-message">Pas de participants cette semaine-là.</p>';
             }
             historyItem.innerHTML = `
                 <h3>${item.week}</h3>

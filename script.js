@@ -1,7 +1,7 @@
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 // Remplacez cette URL par l'URL de votre Cloudflare Worker déployé.
 // Exemple : const CLOUDFLARE_WORKER_URL = 'https://apps-script-proxy.votre-nom-utilisateur.workers.dev';
-const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev/?function=getTasks'; 
+const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev'; 
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 
 document.addEventListener('DOMContentLoaded', () => {

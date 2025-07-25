@@ -4,6 +4,7 @@
 :root {
     --bg-color: #f4f6f9; /* Arrière-plan plus clair et neutre */
     --primary-blue: #007bff; /* Bleu principal dynamique */
+    --primary-blue-light: #4da6ff; /* Bleu plus clair pour les dégradés/effets */
     --primary-blue-dark: #0056b3; /* Bleu plus foncé pour le hover */
     --secondary-green: #28a745; /* Vert vif pour le succès */
     --secondary-green-dark: #218838; /* Vert plus foncé pour le hover */
@@ -13,6 +14,8 @@
     --border-light: #e9ecef; /* Bordure très légère */
     --red-alert: #dc3545; /* Rouge pour les actions d'alerte */
     --red-alert-dark: #c82333;
+    --shadow-base: rgba(0, 0, 0, 0.08); /* Ombre de base plus subtile */
+    --shadow-hover: rgba(0, 0, 0, 0.15); /* Ombre au survol plus présente */
 }
 
 /* --- Styles Généraux --- */
@@ -28,14 +31,14 @@ body {
     align-items: flex-start;
     min-height: 100vh;
     overflow-x: hidden;
-    scroll-behavior: smooth; /* Pour le défilement fluide */
+    scroll-behavior: smooth;
 }
 
 .container {
     background-color: var(--card-bg);
     padding: 30px;
-    border-radius: 12px; /* Coins légèrement arrondis */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Ombre douce et plate */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--shadow-base); /* Ombre douce et plate */
     width: 100%;
     max-width: 900px;
     box-sizing: border-box;
@@ -54,10 +57,9 @@ h1 {
     padding-bottom: 15px;
     position: relative;
     letter-spacing: 1.5px;
-    color: var(--primary-blue); /* Titre principal en bleu */
+    color: var(--primary-blue);
 }
 
-/* Soulignement plat pour h1 */
 h1::after {
     content: '';
     display: block;
@@ -65,24 +67,24 @@ h1::after {
     height: 5px;
     background: var(--primary-blue);
     margin: 15px auto 0;
-    border-radius: 2px; /* Moins d'arrondi */
+    border-radius: 2px;
 }
 
 h2 {
     font-size: 2.2em;
-    color: var(--text-color); /* H2 en couleur texte standard */
+    color: var(--text-color);
     margin-top: 40px;
     margin-bottom: 25px;
     position: relative;
     padding-bottom: 10px;
 }
 
-h2::after { /* Soulignement pour h2 */
+h2::after {
     content: '';
     display: block;
     width: 60px;
     height: 3px;
-    background: var(--secondary-green); /* Soulignement vert */
+    background: var(--secondary-green);
     margin: 10px auto 0;
     border-radius: 2px;
 }
@@ -103,7 +105,7 @@ p {
     max-width: 200px;
     height: auto;
     border-radius: 50%;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Ombre plus douce et diffuse */
+    box-shadow: 0 6px 15px var(--shadow-base);
     transition: transform 0.3s ease;
 }
 
@@ -116,11 +118,11 @@ p {
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
-    gap: 15px; /* Espacement fixe */
+    gap: 15px;
 }
 
 .tab-button {
-    background-color: var(--border-light); /* Couleur de fond neutre */
+    background-color: var(--border-light);
     border: none;
     padding: 16px 30px;
     cursor: pointer;
@@ -128,22 +130,22 @@ p {
     font-weight: 600;
     color: var(--light-text-color);
     transition: all 0.3s ease;
-    border-radius: 8px; /* Coins plus marqués */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Ombre légère */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-base);
 }
 
 .tab-button:hover {
-    background-color: var(--primary-blue-dark); /* Bleu foncé au survol */
+    background-color: var(--primary-blue-dark);
     color: #ffffff;
-    transform: translateY(-2px); /* Léger effet de soulèvement */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 .tab-button.active {
-    background: var(--primary-blue); /* Bleu principal quand actif */
+    background: var(--primary-blue);
     color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(0); /* Pas de translation pour l'actif */
+    box-shadow: 0 4px 10px var(--shadow-hover);
+    transform: translateY(0);
     pointer-events: none;
 }
 
@@ -162,8 +164,8 @@ p {
     padding: 30px;
     border-radius: 12px;
     margin-bottom: 30px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Ombre plate */
-    border: 1px solid var(--border-light); /* Bordure fine */
+    box-shadow: 0 6px 15px var(--shadow-base);
+    border: 1px solid var(--border-light);
 }
 
 .task-list, .scores-list, .history-list {
@@ -172,65 +174,78 @@ p {
 
 /* --- Style des cartes de tâches (Pending/Active) --- */
 .task-item {
-    background-color: var(--card-bg);
-    border-radius: 10px;
+    /* Suppression du background-color et de l'ombre de base ici */
+    border-radius: 12px; /* Un peu plus arrondi pour le dynamisme */
     padding: 20px 25px;
     margin-bottom: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease-in-out;
+    transition: all 0.25s ease-in-out; /* Transition plus fluide */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 1px solid var(--border-light);
+    position: relative; /* Pour les effets */
+    overflow: hidden; /* S'assurer que les dégradés ne débordent pas */
+
+    /* Nouveau style Flat / Dynamique */
+    background: linear-gradient(135deg, var(--primary-blue-light), var(--primary-blue)); /* Dégradé de bleu */
+    color: #ffffff; /* Texte blanc sur fond bleu */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.25); /* Ombre de bleu plus prononcée */
+    border: none; /* Plus de bordure apparente */
 }
 
 .task-item:hover:not(.completed) {
-    transform: translateY(-3px); /* Effet de soulèvement au survol */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-7px) scale(1.02); /* Soulèvement et légère augmentation */
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4); /* Ombre encore plus prononcée au survol */
+    cursor: pointer; /* Indique la cliquabilité */
 }
 
 .task-item h3 {
     margin-top: 0;
     margin-bottom: 10px;
-    color: var(--text-color);
-    font-size: 1.3em;
-    font-weight: 600;
+    color: #ffffff; /* Titre en blanc */
+    font-size: 1.4em; /* Un peu plus grand */
+    font-weight: 700; /* Plus épais */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Légère ombre pour le texte */
 }
 
 .task-item p {
     margin-bottom: 8px;
-    font-size: 0.95em;
-    color: var(--light-text-color);
+    font-size: 1em; /* Légèrement plus grand */
+    color: rgba(255, 255, 255, 0.9); /* Texte légèrement transparent pour contraste */
 }
 
 .task-meta {
     font-weight: 600;
-    color: var(--primary-blue);
+    color: inherit; /* Hérite du blanc */
 }
 
 .task-score {
-    font-weight: 700;
-    color: var(--secondary-green);
-    font-size: 1.1em;
+    font-weight: 800; /* Très épais */
+    color: #ffe66d; /* Jaune vif pour le score */
+    font-size: 1.2em; /* Plus grand */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Style des tâches terminées (plus discrètes mais lisibles) */
 .task-item.completed {
-    background-color: #f0f3f6; /* Gris très clair, proche du fond */
-    color: #99a2ab; /* Texte plus gris */
+    background: var(--bg-color); /* Retour au fond neutre du body */
+    color: var(--light-text-color); /* Texte gris clair */
     opacity: 0.9;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Ombre interne discrète */
-    transform: none; /* Annule tout transform */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    transform: none;
     cursor: not-allowed;
-    border-color: #dbe0e6;
+    border: 1px solid var(--border-light); /* Bordure légère pour les démarquer */
 }
 
 .task-item.completed h3,
 .task-item.completed .task-meta,
 .task-item.completed .task-score {
     color: inherit; /* Hérite de la couleur gris de .completed */
+}
+/* Le bouton à l'intérieur de task-item.completed doit rester caché s'il y en a un */
+.task-item.completed .assign-button {
+    display: none;
 }
 
 
@@ -240,31 +255,31 @@ p {
     color: white;
     padding: 14px 25px;
     border: none;
-    border-radius: 8px; /* Moins arrondi */
+    border-radius: 8px;
     cursor: pointer;
     font-size: 1.05em;
     font-weight: 600;
     transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
-    text-decoration: none; /* Pour les boutons qui pourraient être des liens */
+    box-shadow: 0 4px 10px var(--shadow-base);
+    text-decoration: none;
     display: inline-block;
     text-align: center;
 }
 
 .flat-button:hover {
     background: var(--primary-blue-dark);
-    transform: translateY(-2px); /* Léger effet de soulèvement */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 .flat-button:active {
     transform: translateY(0);
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Effet "cliqué" */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Bouton spécifique de réinitialisation */
 #resetScoresButton {
-    background: var(--red-alert); /* Rouge pour l'action de réinitialisation */
+    background: var(--red-alert);
     display: block;
     margin: 30px auto 0;
 }
@@ -285,9 +300,9 @@ p {
     gap: 12px;
     margin-top: 20px;
     padding: 20px;
-    background-color: var(--border-light); /* Fond clair */
+    background-color: var(--border-light);
     border-radius: 10px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Ombre interne légère */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
     opacity: 1; 
     max-height: 120px; 
     overflow: hidden; 
@@ -310,12 +325,12 @@ p {
 .assignee-name-input {
     width: 80%;
     max-width: 300px;
-    padding: 12px 15px; /* Padding ajusté */
-    border: 1px solid var(--border-light); /* Bordure fine */
+    padding: 12px 15px;
+    border: 1px solid var(--border-light);
     border-radius: 8px;
     font-size: 1em;
-    background-color: var(--card-bg); /* Fond blanc pur */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* Ombre interne subtile */
+    background-color: var(--card-bg);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
     color: var(--text-color);
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -323,14 +338,14 @@ p {
 }
 
 .assignee-name-input:focus {
-    border-color: var(--primary-blue); /* Bordure bleue au focus */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Anneau de focus flat */
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
 .submit-assignee-name {
     padding: 10px 20px;
     font-size: 1em;
-    background: var(--secondary-green); /* Vert pour l'action de validation */
+    background: var(--secondary-green);
 }
 
 .submit-assignee-name:hover {
@@ -339,14 +354,14 @@ p {
 
 /* --- Indicateur de chargement (Flat Design) --- */
 #loadingOverlay {
-    background-color: rgba(244, 246, 249, 0.95); /* Utilise la couleur de fond avec plus de transparence */
+    background-color: rgba(244, 246, 249, 0.95);
     color: var(--primary-blue);
     font-size: 1.4em;
     font-weight: 600;
 }
 
 .spinner {
-    border: 6px solid rgba(0, 123, 255, 0.2); /* Moins visible */
+    border: 6px solid rgba(0, 123, 255, 0.2);
     border-left-color: var(--primary-blue);
     width: 60px;
     height: 60px;
@@ -358,7 +373,7 @@ p {
     padding: 30px;
     border-radius: 12px;
     margin-bottom: 35px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 15px var(--shadow-base);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -366,7 +381,7 @@ p {
 }
 
 .current-podium-section h2 {
-    color: var(--primary-blue); /* Titre du podium en bleu */
+    color: var(--primary-blue);
     margin-top: 0;
     margin-bottom: 25px;
     font-size: 2.5em;
@@ -386,23 +401,23 @@ p {
 .podium-list li {
     font-size: 1.3em;
     padding: 18px 30px;
-    border-radius: 10px; /* Moins arrondi */
+    border-radius: 10px;
     width: 90%;
     max-width: 400px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Ombre plate */
+    box-shadow: 0 4px 10px var(--shadow-base);
     transition: all 0.2s ease-in-out;
     position: relative;
     overflow: hidden;
-    color: white; /* Texte blanc sur fond de couleur */
+    color: white;
 }
 
 .podium-list li:hover {
-    transform: translateY(-5px); /* Effet de soulèvement */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 /* Styles pour les médailles avec émojis stylisés */
@@ -413,24 +428,24 @@ p {
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Ombre douce */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 .podium-list li.gold {
-    background: #FFD700; /* Or direct */
-    color: var(--text-color); /* Texte sombre sur l'or */
+    background: #FFD700;
+    color: var(--text-color);
 }
 .podium-list li.gold::before { content: '🥇'; }
 
 .podium-list li.silver {
-    background: #C0C0C0; /* Argent direct */
-    color: var(--text-color); /* Texte sombre sur l'argent */
+    background: #C0C0C0;
+    color: var(--text-color);
 }
 .podium-list li.silver::before { content: '🥈'; }
 
 .podium-list li.bronze {
-    background: #CD7F32; /* Bronze direct */
-    color: white; /* Texte blanc sur le bronze */
+    background: #CD7F32;
+    color: white;
 }
 .podium-list li.bronze::before { content: '🥉'; }
 
@@ -438,7 +453,7 @@ p {
     flex-grow: 1;
     text-align: left;
     margin-left: 60px;
-    color: inherit; /* Hérite de la couleur définie sur li */
+    color: inherit;
 }
 
 .podium-list li .player-score {
@@ -477,14 +492,14 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Ombre très légère */
+    box-shadow: 0 2px 8px var(--shadow-base);
     transition: all 0.15s ease-in-out;
     border: 1px solid var(--border-light);
 }
 
 .scores-full-list li:hover {
-    transform: translateX(5px); /* Petit décalage au survol */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transform: translateX(5px);
+    box-shadow: 0 4px 10px var(--shadow-hover);
 }
 
 .scores-full-list li strong {
@@ -510,20 +525,20 @@ p {
     border-radius: 12px;
     padding: 20px 25px;
     margin-bottom: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px var(--shadow-base);
     transition: all 0.2s ease-in-out;
     border: 1px solid var(--border-light);
 }
 
 .history-item:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 .history-item h3 {
     text-align: center;
     font-size: 1.8em;
-    color: var(--text-color); /* Titre historique en couleur texte standard */
+    color: var(--text-color);
     margin-top: 0;
     margin-bottom: 15px;
 }
@@ -537,7 +552,7 @@ p {
     justify-content: space-between;
     align-items: center;
     font-weight: 500;
-    background-color: #f8f9fa; /* Fond très léger pour l'historique */
+    background-color: #f8f9fa;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
     border: 1px solid #e0e3e6;
 }
@@ -567,12 +582,12 @@ p {
     margin-top: 25px;
     font-weight: 600;
     border: 1px solid var(--border-light);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px var(--shadow-base);
 }
 
 .loading-message {
     color: var(--primary-blue);
-    background-color: #e6f2ff; /* Bleu clair */
+    background-color: #e6f2ff;
 }
 
 .info-message {
@@ -582,7 +597,7 @@ p {
 
 .error-message {
     color: var(--red-alert);
-    background-color: #ffe6e6; /* Rouge clair */
+    background-color: #ffe6e6;
     border-color: var(--red-alert);
 }
 
@@ -593,12 +608,12 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fond sombre semi-transparent */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    opacity: 0; /* Caché par défaut */
+    opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
@@ -612,18 +627,18 @@ p {
     background-color: var(--card-bg);
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Ombre plus prononcée */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     text-align: center;
     max-width: 400px;
     width: 90%;
     position: relative;
-    transform: translateY(20px); /* Commence légèrement décalé */
+    transform: translateY(20px);
     opacity: 0;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .alert-overlay.visible .alert-box {
-    transform: translateY(0); /* Remonte en position */
+    transform: translateY(0);
     opacity: 1;
 }
 
@@ -642,10 +657,10 @@ p {
 }
 
 .alert-icon {
-    font-size: 4em; /* Grosse icône */
+    font-size: 4em;
     margin-bottom: 15px;
     line-height: 1;
-    animation: bounceIn 0.8s forwards; /* Animation d'apparition */
+    animation: bounceIn 0.8s forwards;
 }
 
 @keyframes bounceIn {
@@ -678,13 +693,13 @@ p {
     font-size: 1.05em;
     font-weight: 600;
     transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px var(--shadow-base);
 }
 
 .alert-button:hover {
     background-color: var(--secondary-green-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 

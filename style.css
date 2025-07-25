@@ -2,7 +2,7 @@
 
 /* --- Variables CSS (pour la cohérence et la facilité de modification) --- */
 :root {
-    --bg-color: #f4f6f9; /* Arrière-plan plus clair et neutre */
+    --bg-color: #38309a; /* Arrière-plan plus clair et neutre */
     --primary-blue: #007bff; /* Bleu principal dynamique */
     --primary-blue-light: #e6f2ff; /* Bleu très clair pour fond discret */
     --primary-blue-dark: #0056b3; /* Bleu plus foncé pour le hover */

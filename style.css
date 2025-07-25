@@ -38,7 +38,7 @@ body {
     background-color: var(--card-bg);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px var(--shadow-base); /* Ombre douce et plate */
+    box-shadow: 0 8px 20px var(--shadow-base);
     width: 100%;
     max-width: 900px;
     box-sizing: border-box;
@@ -174,76 +174,78 @@ p {
 
 /* --- Style des cartes de tâches (Pending/Active) --- */
 .task-item {
-    /* Suppression du background-color et de l'ombre de base ici */
-    border-radius: 12px; /* Un peu plus arrondi pour le dynamisme */
-    padding: 20px 25px;
-    margin-bottom: 15px;
-    transition: all 0.25s ease-in-out; /* Transition plus fluide */
+    border-radius: 12px;
+    padding: 18px 25px; /* Réduction du padding pour moins de hauteur */
+    margin-bottom: 12px; /* Réduction de la marge entre les cartes */
+    transition: all 0.25s ease-in-out;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Garde la colonne pour le contenu */
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative; /* Pour les effets */
-    overflow: hidden; /* S'assurer que les dégradés ne débordent pas */
+    position: relative;
+    overflow: hidden;
 
-    /* Nouveau style Flat / Dynamique */
-    background: linear-gradient(135deg, var(--primary-blue-light), var(--primary-blue)); /* Dégradé de bleu */
-    color: #ffffff; /* Texte blanc sur fond bleu */
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.25); /* Ombre de bleu plus prononcée */
+    background: linear-gradient(135deg, var(--primary-blue-light), var(--primary-blue));
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.25);
     border: none; /* Plus de bordure apparente */
 }
 
 .task-item:hover:not(.completed) {
-    transform: translateY(-7px) scale(1.02); /* Soulèvement et légère augmentation */
-    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4); /* Ombre encore plus prononcée au survol */
-    cursor: pointer; /* Indique la cliquabilité */
+    transform: translateY(-7px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
+    cursor: pointer;
 }
 
 .task-item h3 {
     margin-top: 0;
-    margin-bottom: 10px;
-    color: #ffffff; /* Titre en blanc */
-    font-size: 1.4em; /* Un peu plus grand */
-    font-weight: 700; /* Plus épais */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Légère ombre pour le texte */
+    margin-bottom: 8px; /* Réduction de la marge sous le titre */
+    color: #ffffff;
+    font-size: 1.3em; /* Légèrement réduit pour compacter */
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .task-item p {
-    margin-bottom: 8px;
-    font-size: 1em; /* Légèrement plus grand */
-    color: rgba(255, 255, 255, 0.9); /* Texte légèrement transparent pour contraste */
+    margin-bottom: 6px; /* Réduction de la marge sous le paragraphe */
+    font-size: 0.95em; /* Légèrement réduit */
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .task-meta {
     font-weight: 600;
-    color: inherit; /* Hérite du blanc */
+    color: inherit;
 }
 
 .task-score {
-    font-weight: 800; /* Très épais */
-    color: #ffe66d; /* Jaune vif pour le score */
-    font-size: 1.2em; /* Plus grand */
+    font-weight: 800;
+    color: #ffe66d;
+    font-size: 1.1em; /* Légèrement réduit */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    margin-top: 5px; /* Ajout d'une petite marge au-dessus du score */
 }
 
 /* Style des tâches terminées (plus discrètes mais lisibles) */
 .task-item.completed {
-    background: var(--bg-color); /* Retour au fond neutre du body */
-    color: var(--light-text-color); /* Texte gris clair */
+    background: var(--bg-color);
+    color: var(--light-text-color);
     opacity: 0.9;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
     transform: none;
     cursor: not-allowed;
-    border: 1px solid var(--border-light); /* Bordure légère pour les démarquer */
+    border: 1px solid var(--border-light);
+    padding: 15px 20px; /* Réduction du padding pour l'état terminé aussi */
+    margin-bottom: 10px; /* Réduction de la marge */
 }
 
 .task-item.completed h3,
+.task-item.completed p, /* Assurer que les paragraphes héritent aussi */
 .task-item.completed .task-meta,
 .task-item.completed .task-score {
-    color: inherit; /* Hérite de la couleur gris de .completed */
+    color: inherit;
+    font-size: inherit; /* Réinitialiser la taille pour ne pas être trop grand */
 }
-/* Le bouton à l'intérieur de task-item.completed doit rester caché s'il y en a un */
 .task-item.completed .assign-button {
     display: none;
 }
@@ -781,13 +783,13 @@ p {
         font-size: 0.95em;
     }
     .task-item {
-        padding: 15px 20px;
+        padding: 15px 20px; /* Ajustement pour les petits écrans */
     }
     .task-item h3 {
         font-size: 1.2em;
     }
     .task-item p {
-        font-size: 0.95em;
+        font-size: 0.9em; /* Encore plus petit sur mobile */
     }
     .podium-list li {
         font-size: 1.1em;

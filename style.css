@@ -227,7 +227,7 @@ p {
 
 /* Style des tâches terminées (plus discrètes mais lisibles) */
 .task-item.completed {
-    background: var(--bg-color);
+    background: var(#f4f6f9);
     color: var(--light-text-color);
     opacity: 0.8;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);

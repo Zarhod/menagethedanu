@@ -1,401 +1,397 @@
 /* public/style.css */
 
-/* --- Variables CSS (pour la cohérence et la facilité de modification) --- */
+/* Variables CSS pour gérer les couleurs facilement */
 :root {
-    --bg-color: #f4f6f9; /* Arrière-plan plus clair et neutre */
-    --primary-blue: #007bff; /* Bleu principal dynamique */
-    --primary-blue-light: #e6f2ff; /* Bleu très clair pour fond discret */
-    --primary-blue-dark: #0056b3; /* Bleu plus foncé pour le hover */
-    --secondary-green: #28a745; /* Vert vif pour le succès */
-    --secondary-green-dark: #218838; /* Vert plus foncé pour le hover */
-    --text-color: #343a40; /* Texte principal sombre */
-    --light-text-color: #6c757d; /* Texte secondaire */
-    --card-bg: #ffffff; /* Fond blanc pur pour les cartes */
-    --border-light: #e9ecef; /* Bordure très légère */
-    --red-alert: #dc3545; /* Rouge pour les actions d'alerte */
-    --red-alert-dark: #c82333;
-    --shadow-base: rgba(0, 0, 0, 0.08); /* Ombre de base plus subtile */
-    --shadow-hover: rgba(0, 0, 0, 0.15); /* Ombre au survol plus présente */
+    --primary-blue: #007bff; /* Bleu d'accent */
+    --accent-color: #28a745; /* Vert pour les succès, par exemple */
+    --light-gray: #f8f9fa; /* Fond clair */
+    --medium-gray: #e9ecef; /* Bordures, séparateurs */
+    --dark-text: #343a40; /* Couleur de texte principale */
+    --container-bg: #ffffff; /* Fond des conteneurs (blanc) */
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Ombre légère */
+    --main-bg-color: #38309a; /* Couleur de fond principale désirée */
 }
 
-/* --- Styles Généraux --- */
+/* Styles généraux du corps de la page */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     line-height: 1.6;
+    color: var(--dark-text);
     margin: 0;
-    padding: 20px;
+    padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
     min-height: 100vh;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+    background-color: var(--main-bg-color); /* Nouvelle couleur de fond */
+    /* Ajout d'une légère texture subtile pour un fond plus riche */
+    background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23433b9e" fill-opacity="0.4"%3E%3Cpath d="M1 3h1v1H1V3zm2 0h1v1H3V3zM0 0h1v1H0V0zm2 0h1v1H2V0zm4 0h1v1H4V0zm0 2h1v1H4V2zm0 4h1v1H4V4zM2 4h1v1H2V4zm-2 2h1v1H0V4zm0-2h1v1H0V2z"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
 }
 
+/* Conteneur principal de l'application */
 .container {
-    background-color: var(--card-bg);
+    background-color: var(--container-bg);
+    margin: 20px auto;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px var(--shadow-base);
-    width: 100%;
-    max-width: 900px;
+    box-shadow: 0 10px 30px var(--shadow-light);
+    width: 90%;
+    max-width: 800px;
     box-sizing: border-box;
-    transition: all 0.3s ease-in-out;
-}
-
-h1, h2, h3 {
-    color: var(--text-color);
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-h1 {
-    font-size: 3em;
-    padding-bottom: 15px;
     position: relative;
-    letter-spacing: 1.5px;
-    color: var(--primary-blue);
+    /* Ajout d'une texture discrète au conteneur blanc */
+    background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23f0f0f0" fill-opacity="0.3"%3E%3Cpath d="M1 3h1v1H1V3zm2 0h1v1H3V3zM0 0h1v1H0V0zm2 0h1v1H2V0zm4 0h1v1H4V0zm0 2h1v1H4V2zm0 4h1v1H4V4zM2 4h1v1H2V4zm-2 2h1v1H0V4zm0-2h1v1H0V2z"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
 }
 
-h1::after {
-    content: '';
-    display: block;
-    width: 100px;
-    height: 5px;
-    background: var(--primary-blue);
-    margin: 15px auto 0;
-    border-radius: 2px;
-}
-
-h2 {
-    font-size: 2.2em;
-    color: var(--text-color);
-    margin-top: 40px;
-    margin-bottom: 25px;
+/* Styles du titre et de l'en-tête */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    color: white; /* Texte du titre en blanc */
+    background-color: var(--main-bg-color); /* Le header prend la même couleur de fond que le body */
+    border-radius: 12px 12px 0 0; /* Arrondir juste les coins du haut si le header est inclus dans .container */
     position: relative;
-    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: -30px; /* Remonte le header au-dessus du padding du container */
+    margin-left: -30px; /* Élargit le header sur toute la largeur du container */
+    margin-right: -30px; /* Élargit le header sur toute la largeur du container */
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2); /* Ligne de séparation subtile */
+    
+    /* Image d'arrière-plan pour un effet de titre plus riche */
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://source.unsplash.com/random/800x200?cleaning,home-chores'); /* Exemple: image aléatoire de ménage */
+    background-size: cover;
+    background-position: center;
 }
 
-h2::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: var(--secondary-green);
-    margin: 10px auto 0;
-    border-radius: 2px;
+header h1 {
+    font-size: 3.5em; /* Taille plus grande pour le titre principal */
+    margin: 0;
+    font-weight: 800; /* Plus gras */
+    letter-spacing: 1.5px; /* Espacement des lettres */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Ombre pour le texte */
+    text-transform: uppercase; /* Tout en majuscules */
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espace entre le texte et l'icône */
 }
 
-p {
-    margin-bottom: 10px;
-    color: var(--light-text-color);
-    text-align: center;
+header h1 .icon {
+    font-size: 1.2em; /* Taille de l'icône par rapport au texte */
+    animation: bounce 2s infinite ease-in-out; /* Animation subtile */
 }
 
-/* --- Logo --- */
-.logo-container {
-    text-align: center;
-    margin-bottom: 40px;
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
-.app-logo {
-    max-width: 200px;
-    height: auto;
-    border-radius: 50%;
-    box-shadow: 0 6px 15px var(--shadow-base);
-    transition: transform 0.3s ease;
-}
-
-.app-logo:hover {
-    transform: scale(1.05);
-}
-
-/* --- Onglets --- */
+/* Styles des onglets de navigation */
 .tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
-    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--medium-gray);
+    padding-bottom: 5px;
 }
 
 .tab-button {
-    background-color: var(--border-light);
+    background-color: transparent;
     border: none;
-    padding: 16px 30px;
-    cursor: pointer;
+    padding: 12px 20px;
     font-size: 1.1em;
-    font-weight: 600;
-    color: var(--light-text-color);
+    cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px var(--shadow-base);
+    color: var(--dark-text);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden; /* Pour l'effet de soulignement */
 }
 
-.tab-button:hover {
-    background-color: var(--primary-blue-dark);
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px var(--shadow-hover);
+.tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-blue);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
 }
 
 .tab-button.active {
-    background: var(--primary-blue);
-    color: #ffffff;
-    box-shadow: 0 4px 10px var(--shadow-hover);
-    transform: translateY(0);
-    pointer-events: none;
+    color: var(--primary-blue);
+    border-color: var(--primary-blue);
 }
 
+.tab-button.active::after {
+    transform: translateX(0%);
+}
+
+.tab-button:hover:not(.active) {
+    color: var(--primary-blue);
+}
+
+.tab-button:hover:not(.active)::after {
+    transform: translateX(0%);
+    background-color: rgba(0, 123, 255, 0.5); /* Couleur plus claire au survol */
+}
+
+/* Contenu des onglets */
 .tab-content {
     display: none;
-    padding: 25px 0;
+    padding: 10px 0;
 }
 
 .tab-content.active {
     display: block;
 }
 
-/* --- Sections de Tâches et Scores --- */
-.task-section, .scores-section, .history-section {
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    box-shadow: 0 6px 15px var(--shadow-base);
-    border: 1px solid var(--border-light);
-}
-
-.task-list, .scores-list, .history-list {
+/* Titres de section à l'intérieur des onglets */
+.tab-content h2 {
+    font-size: 1.8em;
+    color: var(--primary-blue);
     margin-top: 25px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid var(--medium-gray);
+    padding-bottom: 10px;
 }
 
-/* --- Style des cartes de tâches (Pending/Active) --- */
-.task-item {
-    border-radius: 12px;
-    padding: 18px 25px;
-    margin-bottom: 12px;
-    transition: all 0.25s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* Styles des messages d'information/erreur */
+.info-message, .error-message {
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-style: italic;
+    color: var(--dark-text);
+    background-color: var(--light-gray);
+    border: 1px solid var(--medium-gray);
+}
 
-    background: var(--card-bg); /* Fond blanc */
-    color: var(--text-color); /* Texte sombre */
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15); /* Ombre douce, légèrement bleutée */
-    border: 1px solid var(--primary-blue-light); /* Bordure très fine et claire */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Liste des tâches (générique) */
+.task-list {
+    margin-top: 20px;
+}
+
+/* Style des cartes de tâche */
+.task-item {
+    background-color: var(--light-gray);
+    border: 1px solid var(--medium-gray);
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
 }
 
-.task-item:hover:not(.completed) {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
-    background-color: var(--primary-blue-light);
+.task-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .task-item h3 {
-    margin-top: 0;
-    margin-bottom: 8px;
     color: var(--primary-blue);
-    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
     font-weight: 700;
 }
 
 .task-item p {
-    margin-bottom: 6px;
+    margin: 5px 0;
     font-size: 0.95em;
-    color: var(--light-text-color);
+    color: var(--dark-text);
 }
 
-.task-meta {
+.task-item .task-meta {
     font-weight: 600;
-    color: var(--text-color);
+    color: #6c757d;
 }
 
-.task-score {
-    font-weight: 800;
-    color: var(--secondary-green);
-    font-size: 1.1em;
-    margin-top: 5px;
+.task-item .task-score {
+    font-weight: 700;
+    color: var(--accent-color);
 }
 
-/* Style des tâches terminées (plus discrètes mais lisibles) */
+/* Styles spécifiques pour les tâches terminées */
 .task-item.completed {
-    background: var(--bg-color);
-    color: var(--light-text-color);
+    background-color: #e6ffe6; /* Fond vert très clair */
+    border-color: #c3e6cb;
     opacity: 0.8;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    cursor: default;
+}
+
+.task-item.completed:hover {
     transform: none;
-    cursor: not-allowed;
-    border: 1px solid var(--border-light);
-    padding: 15px 20px;
-    margin-bottom: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Pas de survol pour les tâches terminées */
 }
 
-.task-item.completed h3,
-.task-item.completed p,
-.task-item.completed .task-meta,
-.task-item.completed .task-score {
-    color: inherit;
-    font-size: inherit;
-}
-.task-item.completed .assign-button {
-    display: none;
+.task-item.completed h3 {
+    color: #218838; /* Vert foncé pour le titre */
 }
 
-
-/* --- Boutons Généraux (Flat Design) --- */
-.flat-button {
-    background: var(--primary-blue);
-    color: white;
-    padding: 14px 25px;
-    border: none;
-    border-radius: 8px;
+/* --- Menu déroulant pour les tâches terminées --- */
+.completed-tasks-header {
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    font-size: 1.05em;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 10px var(--shadow-base);
-    text-decoration: none;
-    display: inline-block;
+    background-color: var(--medium-gray);
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--dark-text);
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.completed-tasks-header:hover {
+    background-color: #dde0e3;
+}
+
+.completed-tasks-header h3 {
+    margin: 0; /* Supprime la marge par défaut du h3 */
+    font-size: 1.15em;
+    color: var(--dark-text); /* S'assure que le titre du header est de la couleur normale */
+    flex-grow: 1; /* Permet au titre de prendre l'espace restant */
+}
+
+.completed-tasks-header .arrow-icon {
+    margin-left: auto; /* Pousse l'icône à droite */
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    color: var(--primary-blue);
+}
+
+.completed-tasks-header.collapsed .arrow-icon {
+    transform: rotate(0deg); /* Flèche vers le bas par défaut (▼) */
+}
+
+.completed-tasks-header.expanded .arrow-icon {
+    transform: rotate(180deg); /* Flèche vers le haut quand déplié (▲) */
+}
+
+.completed-tasks-list {
+    max-height: 0; /* Initialement masqué */
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
+    padding: 0 10px; /* Légère indentation */
+}
+
+.completed-tasks-list.visible {
+    max-height: 500px; /* Hauteur suffisante pour afficher le contenu (ajuster si nécessaire) */
+    opacity: 1;
+    margin-bottom: 20px;
+}
+
+/* Styles pour le podium et les scores */
+.podium-list, .scores-full-list, .podium-history-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.podium-list li, .scores-full-list li, .podium-history-list li {
+    background-color: var(--light-gray);
+    border: 1px solid var(--medium-gray);
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* Couleurs des médailles */
+.podium-list li.gold, .podium-history-list li.gold {
+    background-color: #FFD700;
+    border-color: #CCAA00;
+    font-weight: bold;
+}
+.podium-list li.silver, .podium-history-list li.silver {
+    background-color: #C0C0C0;
+    border-color: #999999;
+    font-weight: bold;
+}
+.podium-list li.bronze, .podium-history-list li.bronze {
+    background-color: #CD7F32;
+    border-color: #A66629;
+    font-weight: bold;
+}
+
+.player-name {
+    font-size: 1.1em;
+    color: var(--dark-text);
+}
+
+.player-score {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.full-scores-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 8px;
+}
+
+/* Boutons Flat Design */
+.flat-button {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
     text-align: center;
 }
 
 .flat-button:hover {
-    background: var(--primary-blue-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px var(--shadow-hover);
+    background-color: #0056b3;
+    transform: translateY(-1px);
 }
 
 .flat-button:active {
     transform: translateY(0);
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Bouton Annuler */
-.cancel-button {
-    background: var(--light-text-color); /* Gris pour annuler */
-}
-.cancel-button:hover {
-    background: #5a6268; /* Gris plus foncé */
+.flat-button.reset-button {
+    background-color: #dc3545; /* Rouge pour le bouton de réinitialisation */
 }
 
-
-/* Bouton spécifique de réinitialisation */
-#resetScoresButton {
-    background: var(--red-alert);
-    display: block;
-    margin: 30px auto 0;
+.flat-button.reset-button:hover {
+    background-color: #c82333;
 }
 
-#resetScoresButton:hover {
-    background: var(--red-alert-dark);
+.flat-button.hidden {
+    display: none;
 }
 
-/* Classe pour cacher les éléments */
-.hidden {
-    display: none !important;
-}
-
-/* --- Champ de saisie du nom (Flat Design) --- */
-.name-input-wrapper {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1001;
-    
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 25px 30px;
-    background-color: var(--primary-blue-light);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
-    border: 1px solid var(--primary-blue);
-    width: 90%;
-    max-width: 450px;
-    
-    opacity: 0; 
-    visibility: hidden;
-    transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
-
-    align-items: center;
-    text-align: center;
-}
-
-.name-input-wrapper.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-/* Overlay pour le fond sombre derrière la pop-up */
-.name-input-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.name-input-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-
-.assignee-name-input {
-    width: 90%;
-    max-width: 300px;
-    padding: 12px 15px;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    font-size: 1em;
-    background-color: var(--card-bg);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
-    color: var(--text-color);
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    text-align: center;
-}
-
-.assignee-name-input:focus {
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-.input-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    justify-content: center;
-}
-
-.submit-assignee-name {
-    padding: 10px 20px;
-    font-size: 1em;
-    background: var(--secondary-green);
-}
-
-.submit-assignee-name:hover {
-    background: var(--secondary-green-dark);
-}
-
-/* --- Indicateur de chargement --- */
+/* --- Indicateur de chargement (Flat Design) --- */
 #loadingOverlay {
-    position: fixed;
+    position: fixed; /* Reste fixe par rapport à la fenêtre */
     top: 0;
     left: 0;
     width: 100%;
@@ -403,13 +399,12 @@ p {
     background-color: rgba(244, 246, 249, 0.95); /* Fond semi-transparent clair */
     display: flex; /* Utilise flexbox pour centrer le contenu */
     flex-direction: column; /* Contenu en colonne (spinner puis texte) */
-    justify-content: center; /* Centre verticalement */
-    align-items: center; /* Centre horizontalement */
+    justify-content: center; /* Centre verticalement les éléments enfants (spinner et texte) */
+    align-items: center; /* Centre horizontalement les éléments enfants */
     z-index: 2000; /* Assurez-vous qu'il est au-dessus de tout */
     color: var(--primary-blue);
     font-size: 1.4em;
     font-weight: 600;
-    /* transition: opacity 0.3s ease; Ajout possible pour une transition douce */
 }
 
 .spinner {
@@ -427,242 +422,97 @@ p {
     100% { transform: rotate(360deg); }
 }
 
-/* --- Styles du Podium (Flat Design) --- */
-.current-podium-section {
-    background-color: var(--card-bg);
+/* --- Pop-up de saisie du nom (Flat Design) --- */
+.name-input-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond sombre semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Moins que le spinner, plus que le reste */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.name-input-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.name-input-wrapper {
+    background-color: var(--container-bg);
     padding: 30px;
     border-radius: 12px;
-    margin-bottom: 35px;
-    box-shadow: 0 6px 15px var(--shadow-base);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     text-align: center;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--border-light);
-}
-
-.current-podium-section h2 {
-    color: var(--primary-blue);
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 2.5em;
-    font-weight: 700;
-}
-
-.podium-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.podium-list li {
-    font-size: 1.3em;
-    padding: 18px 30px;
-    border-radius: 10px;
-    width: 90%;
     max-width: 400px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    box-shadow: 0 4px 10px var(--shadow-base);
-    transition: all 0.2s ease-in-out;
-    position: relative;
-    overflow: hidden;
-    color: white;
+    width: 90%;
+    box-sizing: border-box;
+    transform: translateY(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1001; /* Au-dessus de l'overlay */
 }
 
-.podium-list li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px var(--shadow-hover);
+.name-input-wrapper.visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Styles pour les médailles avec émojis stylisés */
-.podium-list li::before {
-    font-size: 2.5em;
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-
-.podium-list li.gold {
-    background: #FFD700;
-    color: var(--text-color);
-}
-.podium-list li.gold::before { content: '🥇'; }
-
-.podium-list li.silver {
-    background: #C0C0C0;
-    color: var(--text-color);
-}
-.podium-list li.silver::before { content: '🥈'; }
-
-.podium-list li.bronze {
-    background: #CD7F32;
-    color: white;
-}
-.podium-list li.bronze::before { content: '🥉'; }
-
-.podium-list li .player-name {
-    flex-grow: 1;
-    text-align: left;
-    margin-left: 60px;
-    color: inherit;
-}
-
-.podium-list li .player-score {
-    text-align: right;
-    margin-left: 15px;
-    color: inherit;
-    font-size: 1.2em;
-    opacity: 0.9;
-}
-
-
-.full-scores-button {
-    background: var(--secondary-green);
-    margin-top: 25px;
-    padding: 14px 30px;
-    font-size: 1.1em;
-    border-radius: 10px;
-}
-
-.full-scores-button:hover {
-    background: var(--secondary-green-dark);
-}
-
-/* --- Liste complète des scores (dans l'onglet Scores) --- */
-.scores-full-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.scores-full-list li {
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    padding: 15px 25px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 8px var(--shadow-base);
-    transition: all 0.15s ease-in-out;
-    border: 1px solid var(--border-light);
-}
-
-.scores-full-list li:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 10px var(--shadow-hover);
-}
-
-.scores-full-list li strong {
-    color: var(--text-color);
-    font-weight: 600;
-    font-size: 1.05em;
-}
-.scores-full-list li span {
+.name-input-wrapper h3 {
     color: var(--primary-blue);
-    font-weight: 600;
-    font-size: 1.05em;
-}
-
-/* --- Liste historique du podium --- */
-.podium-history-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-}
-
-.history-item {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 20px 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 10px var(--shadow-base);
-    transition: all 0.2s ease-in-out;
-    border: 1px solid var(--border-light);
-}
-
-.history-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px var(--shadow-hover);
-}
-
-.history-item h3 {
-    text-align: center;
-    font-size: 1.8em;
-    color: var(--text-color);
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 1.6em;
 }
 
-.podium-history-list li {
-    font-size: 1em;
-    padding: 10px 20px;
-    margin-bottom: 8px;
+.assignee-name-input {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    margin-bottom: 25px;
+    border: 1px solid var(--medium-gray);
     border-radius: 8px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assignee-name-input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.input-buttons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 500;
-    background-color: #f8f9fa;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e0e3e6;
+    justify-content: space-around;
+    gap: 15px; /* Espacement entre les boutons */
 }
 
-.podium-history-list li::before {
-    font-size: 1.8em;
-    margin-right: 12px;
-    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);
+.input-buttons .flat-button {
+    flex-grow: 1; /* Les boutons prennent l'espace disponible */
+    max-width: 150px; /* Limite la largeur des boutons */
+    padding: 12px 20px; /* Plus grand padding */
+    font-size: 1.1em;
 }
 
-/* Couleurs spécifiques pour l'historique */
-.podium-history-list li.gold { background: rgba(255, 215, 0, 0.1); }
-.podium-history-list li.gold::before { content: '🥇'; }
-
-.podium-history-list li.silver { background: rgba(192, 192, 192, 0.1); }
-.podium-history-list li.silver::before { content: '🥈'; }
-
-.podium-history-list li.bronze { background: rgba(205, 127, 50, 0.1); }
-.podium-history-list li.bronze::before { content: '🥉'; }
-
-
-/* --- Messages d'info/erreur --- */
-.loading-message, .info-message, .error-message {
-    text-align: center;
-    padding: 18px;
-    border-radius: 10px;
-    margin-top: 25px;
-    font-weight: 600;
-    border: 1px solid var(--border-light);
-    box-shadow: 0 2px 8px var(--shadow-base);
+.input-buttons .cancel-button {
+    background-color: #6c757d; /* Gris pour le bouton annuler */
 }
 
-.loading-message {
-    color: var(--primary-blue);
-    background-color: #e6f2ff;
+.input-buttons .cancel-button:hover {
+    background-color: #5a6268;
 }
 
-.info-message {
-    color: var(--light-text-color);
-    background-color: #f8f9fa;
-}
-
-.error-message {
-    color: var(--red-alert);
-    background-color: #ffe6e6;
-    border-color: var(--red-alert);
-}
-
-/* --- Styles de la Popup de validation personnalisée --- */
-.alert-overlay {
+/* --- Pop-up d'alerte personnalisée --- */
+.custom-alert-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -672,271 +522,115 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1500;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.alert-overlay.visible {
+.custom-alert-overlay.visible {
     opacity: 1;
     visibility: visible;
 }
 
-.alert-box {
-    background-color: var(--card-bg);
+.custom-alert-box {
+    background-color: var(--container-bg);
     padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     text-align: center;
     max-width: 400px;
     width: 90%;
-    position: relative;
+    box-sizing: border-box;
     transform: translateY(20px);
     opacity: 0;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1501;
 }
 
-.alert-overlay.visible .alert-box {
+.custom-alert-overlay.visible .custom-alert-box {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
 }
 
-.close-alert {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.8em;
-    color: var(--light-text-color);
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.close-alert:hover {
-    color: var(--text-color);
-}
-
-.alert-icon {
-    font-size: 4em;
+.custom-alert-box .alert-icon {
+    font-size: 3em;
     margin-bottom: 15px;
-    line-height: 1;
-    animation: bounceIn 0.8s forwards;
+    display: block;
 }
 
-@keyframes bounceIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    50% { transform: scale(1.1); opacity: 1; }
-    70% { transform: scale(0.9); }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-
-.alert-box h3 {
+.custom-alert-box h3 {
     color: var(--primary-blue);
-    font-size: 1.8em;
+    margin-top: 0;
     margin-bottom: 10px;
+    font-size: 1.6em;
 }
 
-.alert-box p {
-    font-size: 1.1em;
-    color: var(--text-color);
+.custom-alert-box p {
     margin-bottom: 25px;
+    font-size: 1.1em;
+    color: var(--dark-text);
 }
 
-.alert-button {
-    background-color: var(--secondary-green);
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.05em;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 10px var(--shadow-base);
+.custom-alert-box .alert-button {
+    padding: 12px 30px;
+    font-size: 1.1em;
 }
 
-.alert-button:hover {
-    background-color: var(--secondary-green-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px var(--shadow-hover);
-}
-
-
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-    body {
-        padding: 15px; /* Réduire le padding du body */
-    }
+/* Media Queries pour la responsivité */
+@media (max-width: 600px) {
     .container {
-        padding: 20px; /* Réduire le padding du conteneur principal */
-        border-radius: 10px;
+        margin: 10px auto;
+        padding: 20px;
+        border-radius: 8px;
     }
-    h1 {
-        font-size: 2.2em; /* Réduire légèrement la taille du titre */
+
+    header {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-top: -20px;
+        margin-left: -20px;
+        margin-right: -20px;
     }
-    h2 {
-        font-size: 1.8em; /* Réduire la taille des sous-titres */
+
+    header h1 {
+        font-size: 2.2em;
+        gap: 10px;
     }
-    .app-logo {
-        max-width: 130px; /* Réduire la taille du logo */
+
+    header h1 .icon {
+        font-size: 1em;
     }
+
     .tabs {
         flex-wrap: wrap;
-        gap: 8px; /* Réduire l'espace entre les boutons d'onglet */
     }
-    .tab-button {
-        padding: 10px 18px; /* Réduire le padding des boutons d'onglet */
-        font-size: 0.95em; /* Réduire la taille de la police */
-        border-radius: 6px;
-    }
-    .task-item, .scores-full-list li, .history-item, .podium-list li {
-        padding: 12px 18px; /* Réduire le padding des éléments de liste */
-        border-radius: 8px;
-    }
-    .task-item h3 {
-        font-size: 1.1em; /* Réduire la taille du titre de la tâche */
-    }
-    .task-item p {
-        font-size: 0.9em; /* Réduire la taille du texte de la tâche */
-    }
-    .task-score {
-        font-size: 1em; /* Réduire la taille du score */
-    }
-    .podium-list li {
-        max-width: 98%; /* Utiliser plus de largeur disponible */
-        font-size: 1.1em; /* Réduire la taille de la police du podium */
-        padding-left: 45px; /* Ajuster le padding pour l'icône */
-    }
-    .podium-list li::before {
-        font-size: 2em; /* Réduire la taille de l'icône de médaille */
-        left: 10px; /* Ajuster la position de l'icône */
-    }
-    .podium-list li .player-name {
-        margin-left: 35px;
-    }
-    .name-input-wrapper {
-        padding: 20px 25px; /* Ajuster le padding pour le mobile */
-        max-width: 350px; /* Réduire la largeur max */
-    }
-    .assignee-name-input {
-        width: 95%; /* Utiliser plus de largeur pour l'input */
-    }
-    .alert-box {
-        padding: 20px;
-        border-radius: 10px;
-    }
-    .alert-icon {
-        font-size: 3em;
-    }
-    .alert-box h3 {
-        font-size: 1.5em;
-    }
-    .alert-box p {
-        font-size: 1em;
-    }
-}
 
-@media (max-width: 480px) {
-    body {
-        padding: 10px; /* Encore moins de padding pour les très petits écrans */
-    }
-    .container {
-        padding: 15px; /* Encore moins de padding */
-        border-radius: 8px;
-    }
-    h1 {
-        font-size: 1.8em;
-    }
-    h1::after {
-        width: 70px; /* Réduire la ligne sous le titre */
-        height: 4px;
-    }
-    h2 {
-        font-size: 1.6em;
-        margin-bottom: 20px; /* Ajuster les marges */
-    }
-    h2::after {
-        width: 40px;
-        height: 2px;
-    }
-    .app-logo {
-        max-width: 100px;
-        margin-bottom: 30px;
-    }
-    .tabs {
-        flex-direction: column; /* Les onglets en colonne */
-        gap: 8px;
-        margin-bottom: 25px;
-    }
     .tab-button {
-        width: 100%; /* Les boutons d'onglet prennent toute la largeur */
-        padding: 10px 15px;
-        font-size: 0.9em;
-    }
-    .task-item {
-        padding: 10px 15px; /* Plus compact */
-        margin-bottom: 8px;
-    }
-    .task-item h3 {
-        font-size: 1em; /* Très compact */
+        flex-grow: 1;
         margin-bottom: 5px;
     }
-    .task-item p {
-        font-size: 0.85em; /* Très compact */
-        margin-bottom: 4px;
+
+    .task-item, .podium-list li, .scores-full-list li, .history-item {
+        padding: 12px 15px;
     }
-    .task-score {
-        font-size: 0.9em;
-        margin-top: 3px;
+
+    .name-input-wrapper, .custom-alert-box {
+        padding: 20px;
     }
-    .flat-button {
-        padding: 10px 18px; /* Réduire la taille des boutons */
-        font-size: 0.95em;
-    }
-    .podium-list li {
-        font-size: 1em;
-        padding: 10px 15px;
-        padding-left: 40px;
-    }
-    .podium-list li::before {
-        font-size: 1.8em;
-        left: 8px;
-    }
-    .podium-list li .player-name {
-        margin-left: 30px;
-    }
-    .name-input-wrapper {
-        padding: 18px 20px;
-        max-width: 95%; /* Presque toute la largeur sur mobile */
-    }
+
     .assignee-name-input {
-        padding: 10px 12px;
-        font-size: 0.9em;
+        padding: 10px;
     }
-    .submit-assignee-name, .cancel-button {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
+
     .input-buttons {
-        flex-direction: column; /* Boutons en colonne sur très petit écran */
-        gap: 8px;
-        width: 100%;
-        align-items: center;
+        flex-direction: column;
+        gap: 10px;
     }
+
     .input-buttons .flat-button {
-        width: 80%; /* Occuper plus de place */
-    }
-    .alert-box {
-        padding: 15px;
-    }
-    .alert-icon {
-        font-size: 2.5em;
-    }
-    .alert-box h3 {
-        font-size: 1.2em;
-    }
-    .alert-box p {
-        font-size: 0.9em;
+        max-width: none; /* Occupe toute la largeur disponible */
     }
 }

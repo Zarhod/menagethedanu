@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    const loadingOverlay = document.getElementById('loadingOverlay'); // Référence à l'overlay de chargement
+    const loadingOverlay = document.getElementById('loadingOverlay');
     const scoresTabButton = document.querySelector('.tab-button[data-tab="scores"]');
 
     const customAlertOverlay = document.getElementById('customAlertOverlay');
@@ -29,13 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentNameInputWrapper = null;
     let currentOverlay = null;
 
-    // Nouvelle constante pour le header des tâches terminées
-    const completedTasksSection = document.getElementById('completedTasksSection');
-    const completedTasksHeader = completedTasksSection.querySelector('.completed-tasks-header');
-    const completedTasksList = document.getElementById('completedTaskList');
-
-
-    // Cache le bouton de réinitialisation par défaut (à afficher selon les conditions si besoin)
+    // Cache le bouton de réinitialisation par défaut
     resetScoresButton.classList.add('hidden');
 
     /**
@@ -77,14 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const tabId = button.dataset.tab;
 
-            // Masque tous les onglets et contenus, puis active le bon
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
 
             button.classList.add('active');
             document.getElementById(`${tabId}-tab`).classList.add('active');
 
-            // Charge les données spécifiques à l'onglet
             if (tabId === 'tasks') {
                 loadTasks();
                 loadCurrentPodiumForTasksPage();
@@ -95,21 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Logique pour le menu déroulant des tâches terminées
-    completedTasksHeader.addEventListener('click', () => {
-        const isCollapsed = completedTasksHeader.classList.contains('collapsed');
-        if (isCollapsed) {
-            completedTasksHeader.classList.remove('collapsed');
-            completedTasksHeader.classList.add('expanded');
-            completedTasksList.classList.add('visible');
-        } else {
-            completedTasksHeader.classList.remove('expanded');
-            completedTasksHeader.classList.add('collapsed');
-            completedTasksList.classList.remove('visible');
-        }
-    });
-
 
     /**
      * Charge et affiche le podium actuel dans l'onglet des tâches.
@@ -128,18 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Trie les scores par ordre décroissant
         scores.sort((a, b) => b.score - a.score);
 
         currentPodiumDiv.innerHTML = '<h2>Podium de la semaine</h2>';
         const ol = document.createElement('ol');
         ol.classList.add('podium-list');
-        const podiumClasses = ['gold', 'silver', 'bronze']; // Classes pour les médailles
+        const podiumClasses = ['gold', 'silver', 'bronze'];
 
-        // Affiche les 3 premiers du podium
         scores.slice(0, 3).forEach((player, index) => {
             const li = document.createElement('li');
-            li.className = podiumClasses[index] || ''; // Applique la classe de médaille
+            li.className = podiumClasses[index] || '';
             li.innerHTML = `
                 <span class="player-name">${player.name}</span>
                 <span class="player-score">${player.score} points</span>
@@ -148,12 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         currentPodiumDiv.appendChild(ol);
 
-        // Ajoute un bouton pour voir tous les scores
         const fullScoresButton = document.createElement('button');
         fullScoresButton.textContent = 'Voir tous les scores';
         fullScoresButton.className = 'full-scores-button flat-button';
         fullScoresButton.addEventListener('click', () => {
-            scoresTabButton.click(); // Clique sur l'onglet scores pour y naviguer
+            scoresTabButton.click();
         });
         currentPodiumDiv.appendChild(fullScoresButton);
     }
@@ -164,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function showLoading(isVisible) {
         if (isVisible) {
-            loadingOverlay.style.display = 'flex'; // Utilise flex pour le centrage CSS
+            loadingOverlay.style.display = 'flex';
         } else {
             loadingOverlay.style.display = 'none';
         }
@@ -177,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {Promise<any|null>} Les données de la réponse ou null en cas d'erreur.
      */
     async function fetchData(functionName) {
-        showLoading(true); // Affiche le spinner
+        showLoading(true);
         try {
             const response = await fetch(`${CLOUDFLARE_WORKER_URL}?function=${functionName}`);
             const data = await response.json();
@@ -188,10 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return data;
         } catch (error) {
             console.error(`Erreur lors de l'appel à ${functionName}:`, error);
-            // L'alerte est déjà affichée par showAlert
             return null;
         } finally {
-            showLoading(false); // Masque le spinner
+            showLoading(false);
         }
     }
 
@@ -203,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {Promise<any|null>} Les données de la réponse ou null en cas d'erreur.
      */
     async function postData(functionName, payload) {
-        showLoading(true); // Affiche le spinner
+        showLoading(true);
         try {
             const response = await fetch(`${CLOUDFLARE_WORKER_URL}?function=${functionName}`, {
                 method: 'POST',
@@ -220,10 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return data;
         } catch (error) {
             console.error(`Erreur lors de l'appel POST à ${functionName}:`, error);
-            // L'alerte est déjà affichée par showAlert
             return null;
         } finally {
-            showLoading(false); // Masque le spinner
+            showLoading(false);
         }
     }
 
@@ -243,14 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Vide les listes avant d'ajouter de nouvelles tâches
         completedTaskListDiv.innerHTML = '';
         pendingTaskListDiv.innerHTML = '';
 
         const completedTasks = tasks.filter(task => task.Statut === 'Terminé');
         const pendingTasks = tasks.filter(task => task.Statut !== 'Terminé');
 
-        // Affiche les tâches terminées
         if (completedTasks.length > 0) {
             completedTasks.forEach(task => {
                 const taskItem = document.createElement('div');
@@ -262,14 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 completedTaskListDiv.appendChild(taskItem);
             });
-            // Assurez-vous que le header est visible même si la liste est initialement repliée
-            completedTasksHeader.style.display = 'flex'; // Affiche l'en-tête du menu déroulant
         } else {
             completedTaskListDiv.innerHTML = '<p class="info-message">Aucune tâche terminée cette semaine.</p>';
-            completedTasksHeader.style.display = 'none'; // Masque l'en-tête si pas de tâches terminées
         }
 
-        // Affiche les tâches en attente et ajoute des écouteurs d'événements
         if (pendingTasks.length > 0) {
             pendingTasks.forEach(task => {
                 const taskItem = document.createElement('div');
@@ -285,21 +251,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelectorAll('.task-item:not(.completed)').forEach(taskCard => {
                 taskCard.addEventListener('click', async (e) => {
-                    // Empêche l'ouverture multiple de pop-ups
                     if (currentNameInputWrapper && currentNameInputWrapper.classList.contains('visible')) {
                         return;
                     }
 
-                    // La correction cruciale : 'taskId' est déclaré localement ici.
+                    // Correction du ReferenceError: taskId est défini localement
                     const taskId = taskCard.getAttribute('data-task-id'); 
 
-                    // Crée et affiche l'overlay de fond sombre
                     const overlay = document.createElement('div');
                     overlay.classList.add('name-input-overlay');
                     document.body.appendChild(overlay);
                     setTimeout(() => overlay.classList.add('visible'), 10);
 
-                    // Crée et affiche la pop-up de saisie du nom
                     const nameInputWrapper = document.createElement('div');
                     nameInputWrapper.classList.add('name-input-wrapper');
                     nameInputWrapper.innerHTML = `
@@ -313,19 +276,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.appendChild(nameInputWrapper);
                     setTimeout(() => nameInputWrapper.classList.add('visible'), 10);
 
-                    // Affecte les variables globales pour pouvoir les gérer lors des clics extérieurs/escape
                     currentNameInputWrapper = nameInputWrapper;
                     currentOverlay = overlay;
-
+                    
                     const nameInput = nameInputWrapper.querySelector('.assignee-name-input');
                     const submitButton = nameInputWrapper.querySelector('.submit-assignee-name');
                     const cancelButton = nameInputWrapper.querySelector('.cancel-button');
 
                     nameInput.focus();
 
-                    /**
-                     * Masque la pop-up et l'overlay.
-                     */
                     const hideInputWrapper = () => {
                         if (nameInputWrapper) {
                             nameInputWrapper.classList.remove('visible');
@@ -343,10 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     };
 
-                    // Gère la soumission du nom
                     submitButton.addEventListener('click', async () => {
                         const assigneeName = nameInput.value.trim();
-                        // 'taskId' est accessible ici grâce à la closure
                         if (assigneeName && taskId) {
                             const result = await postData('assignTask', { taskId: taskId, assigneeName });
                             if (result && result.success) {
@@ -362,15 +319,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
 
-                    // Gère l'annulation
                     cancelButton.addEventListener('click', hideInputWrapper);
 
-                    // Ferme la pop-up si on clique en dehors
                     if (overlay) {
                         overlay.addEventListener('click', hideInputWrapper);
                     }
 
-                    // Gère la touche Entrée et Échap
                     nameInput.addEventListener('keydown', (event) => {
                         if (event.key === 'Enter') {
                             submitButton.click();
@@ -461,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Gère le bouton de réinitialisation des scores (probablement dans l'onglet Scores)
+    // Gère le bouton de réinitialisation des scores
     resetScoresButton.addEventListener('click', async () => {
         const confirmReset = await new Promise(resolve => {
             showAlert(

@@ -33,116 +33,117 @@ body {
 .container {
     background-color: var(--bg-color);
     padding: 30px;
-    border-radius: 20px; /* Rayon plus prononcé pour l'effet neumorphique */
+    border-radius: 25px; /* Rayon plus prononcé pour l'effet neumorphique */
     box-shadow: 
-        8px 8px 15px var(--shadow-dark),
-        -8px -8px 15px var(--shadow-light); /* Ombre douce neumorphique */
+        10px 10px 20px var(--shadow-dark),
+        -10px -10px 20px var(--shadow-light); /* Ombre douce neumorphique plus prononcée */
     width: 100%;
-    max-width: 850px; /* Légèrement plus large */
+    max-width: 900px; /* Légèrement plus large */
     box-sizing: border-box;
     transition: all 0.3s ease;
 }
 
 h1, h2, h3 {
     color: var(--text-color);
-    text-align: center;
+    text-align: center; /* Centré par défaut pour tous les titres */
     margin-bottom: 20px;
     font-weight: 700; /* Plus épais */
 }
 
 h1 {
-    font-size: 2.8em;
-    padding-bottom: 10px;
+    font-size: 3em; /* Plus grand */
+    padding-bottom: 15px;
     position: relative;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px; /* Plus d'espacement */
 }
 
 /* Soulignement stylisé pour h1 */
 h1::after {
     content: '';
     display: block;
-    width: 80px;
-    height: 4px;
+    width: 100px; /* Plus large */
+    height: 5px; /* Plus épais */
     background: var(--primary-color);
-    margin: 10px auto 0;
-    border-radius: 2px;
+    margin: 15px auto 0; /* Marge plus grande */
+    border-radius: 3px;
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 2.2em; /* Plus grand */
     color: var(--primary-color);
-    margin-top: 35px;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Petite ombre textuelle */
+    margin-top: 40px; /* Plus de marge */
+    margin-bottom: 25px; /* Plus de marge */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Petite ombre textuelle */
 }
 
 p {
     margin-bottom: 10px;
     color: var(--light-text-color);
+    text-align: center; /* Centré par défaut pour les paragraphes */
 }
 
 /* --- Logo --- */
 .logo-container {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px; /* Plus d'espace */
 }
 
 .app-logo {
-    max-width: 180px; /* Taille légèrement plus grande */
+    max-width: 200px; /* Taille légèrement plus grande */
     height: auto;
     border-radius: 50%;
     box-shadow: 
-        5px 5px 10px var(--shadow-dark),
-        -5px -5px 10px var(--shadow-light); /* Effet neumorphique pour le logo */
+        8px 8px 15px var(--shadow-dark),
+        -8px -8px 15px var(--shadow-light); /* Effet neumorphique pour le logo plus prononcé */
     transition: transform 0.3s ease;
 }
 
 .app-logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.08); /* Effet de zoom plus grand */
 }
 
 /* --- Onglets --- */
 .tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
-    gap: 15px; /* Espace entre les boutons */
+    margin-bottom: 40px; /* Plus d'espace */
+    gap: 20px; /* Espace entre les boutons */
 }
 
 .tab-button {
     background-color: var(--bg-color);
     border: none;
-    padding: 14px 30px; /* Plus grand padding */
+    padding: 16px 35px; /* Plus grand padding */
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 1.2em; /* Plus grand */
     font-weight: 600; /* Plus épais */
     color: var(--light-text-color);
     transition: all 0.3s ease;
-    border-radius: 15px; /* Plus arrondi */
+    border-radius: 20px; /* Plus arrondi */
     box-shadow: 
-        5px 5px 10px var(--shadow-dark),
-        -5px -5px 10px var(--shadow-light); /* Ombre sortie par défaut */
+        6px 6px 12px var(--shadow-dark),
+        -6px -6px 12px var(--shadow-light); /* Ombre sortie par défaut */
 }
 
 .tab-button:hover {
     color: var(--primary-color);
     box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé au survol */
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé au survol */
 }
 
 .tab-button.active {
     background: var(--primary-color); /* Couleur principale quand actif */
     color: #ffffff;
     box-shadow: 
-        inset 5px 5px 10px rgba(0, 0, 0, 0.2), /* Ombre interne pour l'effet enfoncé */
-        inset -5px -5px 10px rgba(255, 255, 255, 0.3);
+        inset 6px 6px 12px rgba(0, 0, 0, 0.2), /* Ombre interne pour l'effet enfoncé plus prononcée */
+        inset -6px -6px 12px rgba(255, 255, 255, 0.3);
     pointer-events: none; /* Ne pas permettre le clic sur l'onglet actif */
 }
 
 .tab-content {
     display: none;
-    padding: 20px 0;
+    padding: 25px 0; /* Plus de padding */
 }
 
 .tab-content.active {
@@ -152,53 +153,53 @@ p {
 /* --- Sections de Tâches et Scores --- */
 .task-section, .scores-section, .history-section {
     background-color: var(--bg-color);
-    padding: 25px;
-    border-radius: 15px;
-    margin-bottom: 25px;
+    padding: 30px; /* Plus de padding */
+    border-radius: 20px; /* Plus arrondi */
+    margin-bottom: 30px; /* Plus d'espace */
     box-shadow: 
-        5px 5px 10px var(--shadow-dark),
-        -5px -5px 10px var(--shadow-light); /* Effet neumorphique de base */
+        8px 8px 15px var(--shadow-dark),
+        -8px -8px 15px var(--shadow-light); /* Effet neumorphique de base plus prononcé */
 }
 
 .task-list, .scores-list, .history-list {
-    margin-top: 20px;
+    margin-top: 25px; /* Plus de marge */
 }
 
 /* --- Style des cartes de tâches (Pending/Active) --- */
 .task-item {
     background-color: var(--bg-color);
-    border-radius: 15px;
-    padding: 18px 25px;
-    margin-bottom: 15px;
+    border-radius: 20px; /* Plus arrondi */
+    padding: 20px 30px; /* Plus de padding */
+    margin-bottom: 20px; /* Plus d'espace */
     box-shadow: 
-        5px 5px 10px var(--shadow-dark),
-        -5px -5px 10px var(--shadow-light);
+        6px 6px 12px var(--shadow-dark),
+        -6px -6px 12px var(--shadow-light);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center; /* Centrer verticalement */
+    align-items: center; /* Centrer horizontalement */
+    text-align: center; /* Centrer le texte à l'intérieur */
 }
 
 .task-item:hover:not(.completed) {
     box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light); /* Effet d'enfoncement subtil au survol */
-    transform: translateY(0); /* Annuler le transform par défaut si il y en avait un */
+        inset 4px 4px 8px var(--shadow-dark),
+        inset -4px -4px 8px var(--shadow-light); /* Effet d'enfoncement subtil au survol */
+    transform: translateY(0);
 }
 
 .task-item h3 {
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: var(--text-color);
-    font-size: 1.3em;
-    text-align: left;
+    font-size: 1.4em; /* Plus grand */
     font-weight: 600;
 }
 
 .task-item p {
-    margin-bottom: 8px;
-    font-size: 1em;
+    margin-bottom: 10px;
+    font-size: 1.05em; /* Légèrement plus grand */
     color: var(--light-text-color);
 }
 
@@ -210,16 +211,16 @@ p {
 .task-score {
     font-weight: 700;
     color: var(--secondary-color);
-    font-size: 1.1em;
+    font-size: 1.2em; /* Plus grand */
 }
 
 /* Style des tâches terminées (plus discrètes mais lisibles) */
 .task-item.completed {
     background-color: var(--bg-color);
-    opacity: 0.7;
+    opacity: 0.6; /* Plus d'opacité */
     box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light); /* Effet "enfoncé" plus prononcé */
+        inset 4px 4px 8px var(--shadow-dark),
+        inset -4px -4px 8px var(--shadow-light); /* Effet "enfoncé" plus prononcé */
     color: var(--light-text-color);
     cursor: not-allowed;
 }
@@ -235,38 +236,38 @@ p {
 button {
     background: var(--primary-color);
     color: white;
-    padding: 12px 20px;
+    padding: 14px 25px; /* Plus de padding */
     border: none;
-    border-radius: 10px;
+    border-radius: 15px; /* Plus arrondi */
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.1em; /* Plus grand */
     font-weight: 600;
     transition: all 0.3s ease;
     box-shadow: 
-        3px 3px 7px var(--shadow-dark),
-        -3px -3px 7px var(--shadow-light); /* Ombre de bouton neumorphique */
+        4px 4px 8px var(--shadow-dark),
+        -4px -4px 8px var(--shadow-light); /* Ombre de bouton neumorphique */
 }
 
 button:hover {
     background: var(--primary-color);
     box-shadow: 
-        inset 2px 2px 5px rgba(0, 0, 0, 0.2),
-        inset -2px -2px 5px rgba(255, 255, 255, 0.3); /* Effet enfoncé au survol */
-    transform: scale(0.98);
+        inset 3px 3px 7px rgba(0, 0, 0, 0.2),
+        inset -3px -3px 7px rgba(255, 255, 255, 0.3); /* Effet enfoncé au survol */
+    transform: scale(0.97); /* Plus petit au survol */
 }
 
 button:active {
     box-shadow: 
-        inset 3px 3px 7px var(--shadow-dark),
-        inset -3px -3px 7px var(--shadow-light);
-    transform: scale(0.97);
+        inset 4px 4px 8px var(--shadow-dark),
+        inset -4px -4px 8px var(--shadow-light);
+    transform: scale(0.96);
 }
 
 /* Bouton spécifique de réinitialisation */
 #resetScoresButton {
     background: #e74c3c; /* Rouge pour l'action de réinitialisation */
     display: block;
-    margin: 25px auto 0;
+    margin: 30px auto 0; /* Plus de marge */
 }
 
 #resetScoresButton:hover {
@@ -276,19 +277,20 @@ button:active {
 /* --- Champ de saisie du nom (avec animation) --- */
 .name-input-wrapper {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    padding: 15px;
+    flex-direction: column; /* Les éléments sont empilés pour un meilleur centrage */
+    gap: 12px;
+    margin-top: 20px;
+    padding: 20px;
     background-color: var(--bg-color);
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé pour l'input wrapper */
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé pour l'input wrapper */
     opacity: 1; 
-    max-height: 80px; /* Taille maximale pour la transition */
+    max-height: 120px; /* Taille maximale pour la transition */
     overflow: hidden; 
     transition: max-height 0.4s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out;
-    align-items: center;
+    align-items: center; /* Centrer les éléments */
 }
 
 .name-input-wrapper.hidden {
@@ -302,30 +304,32 @@ button:active {
 }
 
 .assignee-name-input {
-    flex-grow: 1;
-    padding: 12px;
-    border: none; /* Pas de bordure par défaut */
-    border-radius: 8px;
-    font-size: 1em;
+    width: 80%; /* Largeur définie */
+    max-width: 300px; /* Max width pour les grands écrans */
+    padding: 15px; /* Plus de padding */
+    border: none; 
+    border-radius: 10px;
+    font-size: 1.1em;
     background-color: var(--bg-color);
     box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé pour l'input */
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé pour l'input */
     color: var(--text-color);
-    outline: none; /* Pas de focus outline par défaut */
+    outline: none;
     transition: box-shadow 0.3s ease;
+    text-align: center; /* Centrer le texte de l'input */
 }
 
 .assignee-name-input:focus {
     box-shadow: 
-        inset 1px 1px 3px var(--shadow-dark),
-        inset -1px -1px 3px var(--shadow-light),
-        0 0 0 3px var(--primary-color); /* Anneau de focus élégant */
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light),
+        0 0 0 4px var(--primary-color); /* Anneau de focus élégant plus prononcé */
 }
 
 .submit-assignee-name {
-    padding: 10px 18px;
-    font-size: 1em;
+    padding: 12px 20px;
+    font-size: 1.05em;
     background: var(--secondary-color); /* Vert pour l'action de validation */
 }
 
@@ -335,38 +339,38 @@ button:active {
 
 /* --- Indicateur de chargement --- */
 #loadingOverlay {
-    background-color: rgba(224, 229, 236, 0.9); /* Utilise la couleur de fond avec transparence */
+    background-color: rgba(224, 229, 236, 0.95); /* Utilise la couleur de fond avec plus de transparence */
     color: var(--primary-color);
-    font-size: 1.3em;
-    font-weight: 600;
+    font-size: 1.4em; /* Plus grand */
+    font-weight: 700;
 }
 
 .spinner {
-    border: 5px solid rgba(0, 0, 0, 0.1);
+    border: 6px solid rgba(0, 0, 0, 0.1); /* Plus épais */
     border-left-color: var(--primary-color);
-    width: 50px;
-    height: 50px;
+    width: 60px; /* Plus grand */
+    height: 60px; /* Plus grand */
 }
 
 /* --- Styles du Podium --- */
 .current-podium-section {
     background-color: var(--bg-color);
-    padding: 25px;
-    border-radius: 15px;
-    margin-bottom: 30px;
+    padding: 30px; /* Plus de padding */
+    border-radius: 20px; /* Plus arrondi */
+    margin-bottom: 35px; /* Plus d'espace */
     box-shadow: 
-        5px 5px 10px var(--shadow-dark),
-        -5px -5px 10px var(--shadow-light);
+        8px 8px 15px var(--shadow-dark),
+        -8px -8px 15px var(--shadow-light);
     text-align: center;
     position: relative;
-    overflow: hidden; /* Pour la vague de fond */
+    overflow: hidden;
 }
 
 .current-podium-section h2 {
     color: var(--primary-color);
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 2.2em;
+    margin-bottom: 25px;
+    font-size: 2.5em; /* Plus grand */
     font-weight: 700;
 }
 
@@ -377,43 +381,43 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px; /* Espacement entre les podiums */
+    gap: 15px; /* Espacement entre les podiums */
 }
 
 .podium-list li {
-    font-size: 1.2em;
-    padding: 15px 25px;
-    border-radius: 15px;
+    font-size: 1.3em; /* Plus grand */
+    padding: 18px 30px; /* Plus de padding */
+    border-radius: 20px; /* Plus arrondi */
     width: 90%;
-    max-width: 350px;
+    max-width: 400px; /* Plus large */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Garde les éléments séparés */
     align-items: center;
     font-weight: 600;
     box-shadow: 
-        6px 6px 12px var(--shadow-dark),
-        -6px -6px 12px var(--shadow-light); /* Ombre sortie plus prononcée */
+        8px 8px 15px var(--shadow-dark),
+        -8px -8px 15px var(--shadow-light); /* Ombre sortie plus prononcée */
     transition: all 0.3s ease;
     position: relative;
-    overflow: hidden; /* Pour les arrière-plans des médailles */
+    overflow: hidden;
 }
 
 .podium-list li:hover {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-8px) scale(1.03); /* Effet de zoom et levée plus prononcé */
     box-shadow: 
-        8px 8px 15px var(--shadow-dark),
-        -8px -8px 15px var(--shadow-light);
+        10px 10px 20px var(--shadow-dark),
+        -10px -10px 20px var(--shadow-light);
 }
 
 /* Styles pour les médailles avec émojis stylisés */
 .podium-list li::before {
-    font-size: 2.2em; /* Taille plus grande pour les émojis */
+    font-size: 2.5em; /* Taille plus grande pour les émojis */
     position: absolute;
-    left: 15px;
+    left: 20px; /* Plus éloigné du bord */
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1; /* Assure que l'émoji est au-dessus du fond */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Ombre pour les médailles */
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Ombre plus prononcée pour les médailles */
 }
 
 .podium-list li.gold {
@@ -436,26 +440,26 @@ button:active {
 
 .podium-list li .player-name {
     flex-grow: 1;
-    text-align: left;
-    margin-left: 45px; /* Espace pour la médaille */
-    color: inherit; /* Inherit pour les couleurs de dégradé */
+    text-align: left; /* Garde le nom aligné à gauche pour la lisibilité avec la médaille */
+    margin-left: 60px; /* Espace pour la médaille plus grand */
+    color: inherit;
 }
 
 .podium-list li .player-score {
     text-align: right;
-    margin-left: 10px;
+    margin-left: 15px;
     color: inherit;
-    font-size: 1.1em;
+    font-size: 1.2em; /* Plus grand */
     opacity: 0.9;
 }
 
 
 .full-scores-button {
     background: var(--secondary-color);
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 1.05em;
-    border-radius: 12px;
+    margin-top: 25px;
+    padding: 14px 30px;
+    font-size: 1.1em;
+    border-radius: 15px;
 }
 
 .full-scores-button:hover {
@@ -471,109 +475,111 @@ button:active {
 
 .scores-full-list li {
     background-color: var(--bg-color);
-    border-radius: 10px;
-    padding: 12px 20px;
-    margin-bottom: 8px;
+    border-radius: 15px;
+    padding: 15px 25px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé léger */
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light); /* Effet enfoncé léger */
     transition: all 0.2s ease;
 }
 
 .scores-full-list li:hover {
     box-shadow: 
-        inset 1px 1px 3px var(--shadow-dark),
-        inset -1px -1px 3px var(--shadow-light);
-    transform: translateY(-1px);
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light);
+    transform: translateY(-2px);
 }
 
 .scores-full-list li strong {
     color: var(--text-color);
     font-weight: 600;
+    font-size: 1.1em;
 }
 .scores-full-list li span {
     color: var(--primary-color);
     font-weight: 600;
+    font-size: 1.1em;
 }
 
 /* --- Liste historique du podium --- */
 .podium-history-list {
     list-style: none;
     padding: 0;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .history-item {
     background-color: var(--bg-color);
-    border-radius: 15px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
+    border-radius: 20px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
     box-shadow: 
-        4px 4px 8px var(--shadow-dark),
-        -4px -4px 8px var(--shadow-light);
+        6px 6px 12px var(--shadow-dark),
+        -6px -6px 12px var(--shadow-light);
     transition: all 0.3s ease;
 }
 
 .history-item:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: 
-        6px 6px 12px var(--shadow-dark),
-        -6px -6px 12px var(--shadow-light);
+        8px 8px 15px var(--shadow-dark),
+        -8px -8px 15px var(--shadow-light);
 }
 
 .history-item h3 {
-    text-align: left;
-    font-size: 1.5em;
+    text-align: center; /* Centrer le titre de l'historique */
+    font-size: 1.8em; /* Plus grand */
     color: var(--primary-color);
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .podium-history-list li {
-    font-size: 1em;
-    padding: 8px 15px;
-    margin-bottom: 6px;
-    border-radius: 10px;
+    font-size: 1.05em; /* Légèrement plus grand */
+    padding: 10px 20px;
+    margin-bottom: 8px;
+    border-radius: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 500;
     background-color: var(--bg-color);
     box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light);
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light);
 }
 
 .podium-history-list li::before {
-    font-size: 1.5em;
-    margin-right: 10px;
-    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
+    font-size: 1.8em; /* Plus grand */
+    margin-right: 12px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 /* Couleurs spécifiques pour l'historique */
-.podium-history-list li.gold { background: rgba(241, 196, 15, 0.2); }
+.podium-history-list li.gold { background: rgba(241, 196, 15, 0.1); } /* Moins opaque */
 .podium-history-list li.gold::before { content: '🥇'; }
 
-.podium-history-list li.silver { background: rgba(189, 195, 199, 0.2); }
+.podium-history-list li.silver { background: rgba(189, 195, 199, 0.1); }
 .podium-history-list li.silver::before { content: '🥈'; }
 
-.podium-history-list li.bronze { background: rgba(211, 84, 0, 0.2); }
+.podium-history-list li.bronze { background: rgba(211, 84, 0, 0.1); }
 .podium-history-list li.bronze::before { content: '🥉'; }
 
 
 /* --- Messages d'info/erreur --- */
 .loading-message, .info-message, .error-message {
     text-align: center;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 20px;
+    padding: 18px; /* Plus de padding */
+    border-radius: 15px; /* Plus arrondi */
+    margin-top: 25px;
     font-weight: 600;
     box-shadow: 
-        inset 2px 2px 5px var(--shadow-dark),
-        inset -2px -2px 5px var(--shadow-light);
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light);
 }
 
 .loading-message {
@@ -595,11 +601,54 @@ button:active {
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
-        border-radius: 15px;
+        padding: 25px;
+        border-radius: 20px;
     }
     h1 {
+        font-size: 2.5em;
+    }
+    h2 {
+        font-size: 2em;
+    }
+    .app-logo {
+        max-width: 150px;
+    }
+    .tabs {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .tab-button {
+        padding: 12px 25px;
+        font-size: 1.1em;
+        border-radius: 15px;
+    }
+    .task-item, .scores-full-list li, .history-item, .podium-list li {
+        padding: 18px;
+        border-radius: 15px;
+    }
+    .podium-list li {
+        max-width: 95%;
+        font-size: 1.2em;
+        padding-left: 50px;
+    }
+    .podium-list li::before {
         font-size: 2.2em;
+        left: 15px;
+    }
+    .podium-list li .player-name {
+        margin-left: 40px;
+    }
+    .name-input-wrapper {
+        padding: 15px;
+    }
+    .assignee-name-input {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
     }
     h2 {
         font-size: 1.8em;
@@ -607,66 +656,39 @@ button:active {
     .app-logo {
         max-width: 120px;
     }
-    .tabs {
-        flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
-        gap: 10px;
-    }
     .tab-button {
+        width: 100%;
+        margin: 5px 0;
         padding: 10px 20px;
         font-size: 1em;
-        border-radius: 10px;
     }
-    .task-item, .scores-full-list li, .history-item, .podium-list li {
-        padding: 15px;
-        border-radius: 12px;
+    .task-item {
+        padding: 15px 20px;
+    }
+    .task-item h3 {
+        font-size: 1.2em;
+    }
+    .task-item p {
+        font-size: 0.95em;
     }
     .podium-list li {
-        max-width: 95%; /* Prend plus de place sur mobile */
         font-size: 1.1em;
-        padding-left: 40px;
+        padding: 15px 20px;
+        padding-left: 45px;
     }
     .podium-list li::before {
         font-size: 2em;
         left: 10px;
     }
     .podium-list li .player-name {
-        margin-left: 30px;
+        margin-left: 35px;
     }
-    .name-input-wrapper {
-        flex-direction: column;
-        padding: 10px;
-    }
-    .assignee-name-input, .submit-assignee-name {
-        width: 100%;
-        margin-top: 5px;
-        box-sizing: border-box; /* S'assure que le padding n'ajoute pas à la largeur */
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.8em;
-    }
-    h2 {
-        font-size: 1.5em;
-    }
-    .app-logo {
-        max-width: 100px;
-    }
-    .tab-button {
-        width: 100%; /* Boutons d'onglet sur toute la largeur */
-        margin: 5px 0;
-    }
-    .podium-list li {
+    .assignee-name-input {
+        padding: 12px;
         font-size: 1em;
-        padding: 12px 15px;
-        padding-left: 35px;
     }
-    .podium-list li::before {
-        font-size: 1.8em;
-        left: 8px;
-    }
-    .podium-list li .player-name {
-        margin-left: 25px;
+    .submit-assignee-name {
+        padding: 10px 15px;
+        font-size: 0.95em;
     }
 }

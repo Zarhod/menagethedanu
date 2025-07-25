@@ -305,36 +305,35 @@ p {
 
 /* --- Champ de saisie du nom (Flat Design) --- */
 .name-input-wrapper {
-    /* Nouvelle approche : la boîte de dialogue est une pop-up modal, pas un remplacement de carte */
-    position: fixed; /* Fixée à l'écran */
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centrée */
-    z-index: 1001; /* Au-dessus de tout */
+    transform: translate(-50%, -50%);
+    z-index: 1001;
     
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 25px 30px; /* Padding généreux pour une pop-up */
-    background-color: var(--primary-blue-light); /* Fond bleu clair */
-    border-radius: 15px; /* Arrondi plus prononcé */
-    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); /* Ombre plus marquée */
-    border: 1px solid var(--primary-blue); /* Bordure bleue */
-    width: 90%; /* Prend 90% de la largeur */
-    max-width: 450px; /* Limite la largeur max */
+    padding: 25px 30px;
+    background-color: var(--primary-blue-light);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+    border: 1px solid var(--primary-blue);
+    width: 90%;
+    max-width: 450px;
     
     opacity: 0; 
-    visibility: hidden; /* Cachée par défaut */
+    visibility: hidden;
     transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
 
     align-items: center;
-    text-align: center; /* Centrer le texte à l'intérieur */
+    text-align: center;
 }
 
 .name-input-wrapper.visible {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, -50%) scale(1); /* Animation d'apparition */
+    transform: translate(-50%, -50%) scale(1);
 }
 
 /* Overlay pour le fond sombre derrière la pop-up */
@@ -358,7 +357,7 @@ p {
 
 
 .assignee-name-input {
-    width: 90%; /* Plus large dans la pop-up */
+    width: 90%;
     max-width: 300px;
     padding: 12px 15px;
     border: 1px solid var(--border-light);
@@ -381,7 +380,7 @@ p {
     display: flex;
     gap: 10px;
     margin-top: 10px;
-    justify-content: center; /* Centrer les boutons */
+    justify-content: center;
 }
 
 .submit-assignee-name {
@@ -394,19 +393,38 @@ p {
     background: var(--secondary-green-dark);
 }
 
-/* --- Indicateur de chargement (Flat Design) --- */
+/* --- Indicateur de chargement --- */
 #loadingOverlay {
-    background-color: rgba(244, 246, 249, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(244, 246, 249, 0.95); /* Fond semi-transparent clair */
+    display: flex; /* Utilise flexbox pour centrer le contenu */
+    flex-direction: column; /* Contenu en colonne (spinner puis texte) */
+    justify-content: center; /* Centre verticalement */
+    align-items: center; /* Centre horizontalement */
+    z-index: 2000; /* Assurez-vous qu'il est au-dessus de tout */
     color: var(--primary-blue);
     font-size: 1.4em;
     font-weight: 600;
+    /* transition: opacity 0.3s ease; Ajout possible pour une transition douce */
 }
 
 .spinner {
-    border: 6px solid rgba(0, 123, 255, 0.2);
-    border-left-color: var(--primary-blue);
+    border: 6px solid rgba(0, 123, 255, 0.2); /* Couleur de bordure semi-transparente */
+    border-left-color: var(--primary-blue); /* Couleur de bordure du côté gauche (c'est ce qui tourne) */
+    border-radius: 50%; /* Rend le spinner rond */
     width: 60px;
     height: 60px;
+    animation: spin 1s linear infinite; /* Animation de rotation */
+    margin-bottom: 15px; /* Espace entre le spinner et le texte */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* --- Styles du Podium (Flat Design) --- */
@@ -795,7 +813,7 @@ p {
         left: 10px; /* Ajuster la position de l'icône */
     }
     .podium-list li .player-name {
-        margin-left: 35px; /* Ajuster la marge */
+        margin-left: 35px;
     }
     .name-input-wrapper {
         padding: 20px 25px; /* Ajuster le padding pour le mobile */

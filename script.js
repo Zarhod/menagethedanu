@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeAlertButton = customAlertOverlay.querySelector('.close-alert');
     const confirmAlertButton = customAlertOverlay.querySelector('.alert-button');
 
+    // Nouveaux éléments pour la pop-up de saisie du nom
+    let currentNameInputWrapper = null; // Pour stocker la référence à la boîte de dialogue active
+    let currentOverlay = null; // Pour stocker la référence à l'overlay actif
+
     resetScoresButton.classList.add('hidden');
 
     function showAlert(title, message, icon = '🎉') {
@@ -207,28 +211,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3>${task.Description_Tache}</h3>
                     <p><span class="task-meta">Catégorie:</span> ${task.Libelle}</p>
                     <p><span class="task-score">Score:</span> ${task.Score}</p>
-                    `;
+                `;
                 pendingTaskListDiv.appendChild(taskItem);
             });
 
             document.querySelectorAll('.task-item:not(.completed)').forEach(taskCard => {
                 taskCard.addEventListener('click', async (e) => {
-                    // Si la cible est un élément à l'intérieur de name-input-wrapper, ne rien faire
-                    if (e.target.closest('.name-input-wrapper')) {
+                    const taskId = taskCard.dataset.taskId;
+
+                    // Si une boîte de dialogue est déjà ouverte, ne rien faire
+                    if (currentNameInputWrapper && currentNameInputWrapper.classList.contains('visible')) {
                         return;
                     }
 
-                    const taskId = taskCard.dataset.taskId;
-
-                    // Masquer le contenu actuel de la carte
-                    taskCard.style.visibility = 'hidden';
-                    taskCard.style.height = taskCard.offsetHeight + 'px'; // Fixer la hauteur pour éviter le saut
-                    taskCard.style.overflow = 'hidden'; // Cacher le contenu qui pourrait déborder
+                    // Créer l'overlay
+                    currentOverlay = document.createElement('div');
+                    currentOverlay.classList.add('name-input-overlay');
+                    document.body.appendChild(currentOverlay);
+                    // Rendre l'overlay visible après l'avoir ajouté au DOM pour la transition
+                    setTimeout(() => currentOverlay.classList.add('visible'), 10);
 
                     // Créer la boîte de dialogue de saisie du nom
-                    const nameInputWrapper = document.createElement('div');
-                    nameInputWrapper.className = 'name-input-wrapper entering'; // Ajout de la classe entering pour l'animation
-                    nameInputWrapper.innerHTML = `
+                    currentNameInputWrapper = document.createElement('div');
+                    currentNameInputWrapper.classList.add('name-input-wrapper');
+                    currentNameInputWrapper.innerHTML = `
                         <h3>Prendre la tâche</h3>
                         <input type="text" placeholder="Entrez votre nom" class="assignee-name-input">
                         <div class="input-buttons">
@@ -236,26 +242,32 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="cancel-button flat-button">Annuler</button>
                         </div>
                     `;
+                    document.body.appendChild(currentNameInputWrapper);
+                    // Rendre la boîte de dialogue visible après l'avoir ajoutée au DOM pour la transition
+                    setTimeout(() => currentNameInputWrapper.classList.add('visible'), 10);
                     
-                    // Insérer la boîte de dialogue directement à la place de la carte
-                    taskCard.parentNode.insertBefore(nameInputWrapper, taskCard);
-                    
-                    const nameInput = nameInputWrapper.querySelector('.assignee-name-input');
-                    const submitButton = nameInputWrapper.querySelector('.submit-assignee-name');
-                    const cancelButton = nameInputWrapper.querySelector('.cancel-button');
+                    const nameInput = currentNameInputWrapper.querySelector('.assignee-name-input');
+                    const submitButton = currentNameInputWrapper.querySelector('.submit-assignee-name');
+                    const cancelButton = currentNameInputWrapper.querySelector('.cancel-button');
 
                     nameInput.focus();
 
-                    // Fonction pour masquer la boîte de dialogue et réactiver la carte
+                    // Fonction pour masquer la boîte de dialogue et l'overlay
                     const hideInputWrapper = () => {
-                        nameInputWrapper.classList.remove('entering'); // Supprimer la classe d'animation d'entrée
-                        nameInputWrapper.classList.add('hidden'); // Masquer la boîte de dialogue
-                        nameInputWrapper.addEventListener('transitionend', () => {
-                            nameInputWrapper.remove(); // Supprimer de l'arbre DOM après transition
-                            taskCard.style.visibility = 'visible'; // Rendre la carte visible à nouveau
-                            taskCard.style.height = ''; // Réinitialiser la hauteur
-                            taskCard.style.overflow = ''; // Réinitialiser l'overflow
-                        }, { once: true });
+                        if (currentNameInputWrapper) {
+                            currentNameInputWrapper.classList.remove('visible');
+                            currentNameInputWrapper.addEventListener('transitionend', () => {
+                                currentNameInputWrapper.remove();
+                                currentNameInputWrapper = null; // Réinitialiser la référence
+                            }, { once: true });
+                        }
+                        if (currentOverlay) {
+                            currentOverlay.classList.remove('visible');
+                            currentOverlay.addEventListener('transitionend', () => {
+                                currentOverlay.remove();
+                                currentOverlay = null; // Réinitialiser la référence
+                            }, { once: true });
+                        }
                     };
 
                     // Événement de validation
@@ -271,29 +283,21 @@ document.addEventListener('DOMContentLoaded', () => {
                                 loadCurrentWeeklyScores();
                             } else if (result && result.message) {
                                 // Erreur déjà gérée par postData avec showAlert
-                                hideInputWrapper(); // Masquer la boîte de dialogue même en cas d'erreur
+                                // hideInputWrapper(); // Ne pas masquer la boîte en cas d'erreur de saisie
                             }
                         } else {
                             showAlert('Champ vide', 'Veuillez entrer votre nom pour prendre la tâche.', '⚠️');
-                            // Ne pas masquer la boîte de dialogue pour laisser l'utilisateur réessayer
-                            nameInput.focus(); // Remettre le focus sur l'input
+                            nameInput.focus();
                         }
                     });
 
                     // Événement d'annulation
                     cancelButton.addEventListener('click', hideInputWrapper);
 
-                    // Gérer le clic en dehors pour annuler
-                    const handleClickOutside = (event) => {
-                        if (!nameInputWrapper.contains(event.target) && !taskCard.contains(event.target)) {
-                            hideInputWrapper();
-                            document.removeEventListener('click', handleClickOutside); // Supprimer l'écouteur
-                        }
-                    };
-                    // Ajouter l'écouteur après un petit délai pour éviter qu'il ne se déclenche sur le clic initial
-                    setTimeout(() => {
-                        document.addEventListener('click', handleClickOutside);
-                    }, 100);
+                    // Gérer le clic en dehors pour annuler (sur l'overlay)
+                    if (currentOverlay) {
+                        currentOverlay.addEventListener('click', hideInputWrapper);
+                    }
 
                     // Gérer la touche "Entrée" et "Échap"
                     nameInput.addEventListener('keydown', (event) => {

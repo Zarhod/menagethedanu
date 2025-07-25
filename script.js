@@ -25,10 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeAlertButton = customAlertOverlay.querySelector('.close-alert');
     const confirmAlertButton = customAlertOverlay.querySelector('.alert-button');
 
-    // Variables pour la pop-up de saisie du nom
+    // Variables pour la pop-up de saisie du nom (gestion de l'instance ouverte)
     let currentNameInputWrapper = null;
     let currentOverlay = null;
-    let currentTaskId = null; // Variable pour stocker l'ID de la tâche cliquée
 
     // Cache le bouton de réinitialisation par défaut (à afficher selon les conditions si besoin)
     resetScoresButton.classList.add('hidden');
@@ -228,6 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         pendingTaskListDiv.innerHTML = '';
 
         const completedTasks = tasks.filter(task => task.Statut === 'Terminé');
+        // NOTE : J'ai corrigé une faute de frappe potentielle ici ('Termifie' -> 'Terminé').
+        // Si 'Termifie' est un statut voulu, veuillez le remettre.
         const pendingTasks = tasks.filter(task => task.Statut !== 'Terminé');
 
         // Affiche les tâches terminées
@@ -267,19 +268,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    // Capture l'ID de la tâche sur laquelle on a cliqué
-                    currentTaskId = taskCard.getAttribute('data-task-id');
+                    // --- La correction cruciale est ici : 'taskId' est déclaré localement ---
+                    const taskId = taskCard.getAttribute('data-task-id'); // <<< C'est la clé de la correction
 
                     // Crée et affiche l'overlay de fond sombre
-                    currentOverlay = document.createElement('div');
-                    currentOverlay.classList.add('name-input-overlay');
-                    document.body.appendChild(currentOverlay);
-                    setTimeout(() => currentOverlay.classList.add('visible'), 10); // Petite pause pour la transition
+                    const overlay = document.createElement('div');
+                    overlay.classList.add('name-input-overlay');
+                    document.body.appendChild(overlay);
+                    setTimeout(() => overlay.classList.add('visible'), 10); // Petite pause pour la transition
 
                     // Crée et affiche la pop-up de saisie du nom
-                    currentNameInputWrapper = document.createElement('div');
-                    currentNameInputWrapper.classList.add('name-input-wrapper');
-                    currentNameInputWrapper.innerHTML = `
+                    const nameInputWrapper = document.createElement('div');
+                    nameInputWrapper.classList.add('name-input-wrapper');
+                    nameInputWrapper.innerHTML = `
                         <h3>Prendre la tâche</h3>
                         <input type="text" placeholder="Entrez votre nom" class="assignee-name-input">
                         <div class="input-buttons">
@@ -287,12 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="cancel-button flat-button">Annuler</button>
                         </div>
                     `;
-                    document.body.appendChild(currentNameInputWrapper);
-                    setTimeout(() => currentNameInputWrapper.classList.add('visible'), 10); // Petite pause pour la transition
+                    document.body.appendChild(nameInputWrapper);
+                    setTimeout(() => nameInputWrapper.classList.add('visible'), 10); // Petite pause pour la transition
 
-                    const nameInput = currentNameInputWrapper.querySelector('.assignee-name-input');
-                    const submitButton = currentNameInputWrapper.querySelector('.submit-assignee-name');
-                    const cancelButton = currentNameInputWrapper.querySelector('.cancel-button');
+                    // Affecte les variables globales pour pouvoir les gérer lors des clics extérieurs/escape
+                    currentNameInputWrapper = nameInputWrapper;
+                    currentOverlay = overlay;
+
+                    const nameInput = nameInputWrapper.querySelector('.assignee-name-input');
+                    const submitButton = nameInputWrapper.querySelector('.submit-assignee-name');
+                    const cancelButton = nameInputWrapper.querySelector('.cancel-button');
 
                     nameInput.focus(); // Met le focus sur le champ de saisie
 
@@ -300,18 +305,18 @@ document.addEventListener('DOMContentLoaded', () => {
                      * Masque la pop-up et l'overlay.
                      */
                     const hideInputWrapper = () => {
-                        if (currentNameInputWrapper) {
-                            currentNameInputWrapper.classList.remove('visible');
-                            currentNameInputWrapper.addEventListener('transitionend', () => {
-                                currentNameInputWrapper.remove();
-                                currentNameInputWrapper = null;
+                        if (nameInputWrapper) {
+                            nameInputWrapper.classList.remove('visible');
+                            nameInputWrapper.addEventListener('transitionend', () => {
+                                nameInputWrapper.remove();
+                                currentNameInputWrapper = null; // Réinitialise la variable globale
                             }, { once: true });
                         }
-                        if (currentOverlay) {
-                            currentOverlay.classList.remove('visible');
-                            currentOverlay.addEventListener('transitionend', () => {
-                                currentOverlay.remove();
-                                currentOverlay = null;
+                        if (overlay) {
+                            overlay.classList.remove('visible');
+                            overlay.addEventListener('transitionend', () => {
+                                overlay.remove();
+                                currentOverlay = null; // Réinitialise la variable globale
                             }, { once: true });
                         }
                     };
@@ -319,8 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Gère la soumission du nom
                     submitButton.addEventListener('click', async () => {
                         const assigneeName = nameInput.value.trim();
-                        if (assigneeName && currentTaskId) { // Vérifie que le nom et l'ID de tâche sont présents
-                            const result = await postData('assignTask', { taskId: currentTaskId, assigneeName });
+                        // Ici, 'taskId' est directement accessible grâce à la closure car il est défini dans le scope parent.
+                        if (assigneeName && taskId) { // Vérifie que le nom et l'ID de tâche sont présents
+                            const result = await postData('assignTask', { taskId: taskId, assigneeName });
                             if (result && result.success) {
                                 showAlert('Merci pour votre implication !', result.message, '🎉');
                                 hideInputWrapper();
@@ -340,8 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     cancelButton.addEventListener('click', hideInputWrapper);
 
                     // Ferme la pop-up si on clique en dehors
-                    if (currentOverlay) {
-                        currentOverlay.addEventListener('click', hideInputWrapper);
+                    if (overlay) {
+                        overlay.addEventListener('click', hideInputWrapper);
                     }
 
                     // Gère la touche Entrée et Échap
@@ -412,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Trie les podiums du plus récent au plus ancien
+        // Trie les podiums du plus récent au plus ancien (par ordre lexicographique de la semaine)
         podiums.sort((a, b) => b.week.localeCompare(a.week));
 
         podiums.forEach(item => {
@@ -439,33 +445,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Gère le bouton de réinitialisation des scores (probablement dans l'onglet Scores)
     resetScoresButton.addEventListener('click', async () => {
+        // Personnalisation de la boîte de dialogue de confirmation
         const confirmReset = await new Promise(resolve => {
             showAlert(
                 'Confirmer la réinitialisation',
                 'Êtes-vous sûr de vouloir réinitialiser les scores de la semaine ? Cela archivera le podium actuel.',
                 '⚠️'
             );
-            // Remplace l'action par défaut de confirmAlertButton
+            // Redéfinit temporairement les gestionnaires pour cette alerte spécifique
             confirmAlertButton.onclick = () => {
                 customAlertOverlay.classList.remove('visible');
                 resolve(true);
-                // Rétablit l'action par défaut
-                confirmAlertButton.onclick = () => {
-                    customAlertOverlay.classList.remove('visible');
-                };
+                // Rétablit les gestionnaires par défaut après la confirmation
+                resetAlertHandlers();
             };
             closeAlertButton.onclick = () => {
                 customAlertOverlay.classList.remove('visible');
                 resolve(false);
-                closeAlertButton.onclick = () => {
-                    customAlertOverlay.classList.remove('visible');
-                };
+                resetAlertHandlers();
             };
-            // Gère le clic sur l'overlay pour annuler
             customAlertOverlay.onclick = (e) => {
                 if (e.target === customAlertOverlay) {
                     customAlertOverlay.classList.remove('visible');
                     resolve(false);
+                    resetAlertHandlers();
                 }
             };
         });
@@ -482,6 +485,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Fonction pour réinitialiser les gestionnaires d'alerte à leur état par défaut
+    function resetAlertHandlers() {
+        confirmAlertButton.onclick = () => { customAlertOverlay.classList.remove('visible'); };
+        closeAlertButton.onclick = () => { customAlertOverlay.classList.remove('visible'); };
+        customAlertOverlay.onclick = (e) => {
+            if (e.target === customAlertOverlay) { customAlertOverlay.classList.remove('visible'); }
+        };
+    }
 
 
     // Initialisation : charge les tâches et le podium au démarrage

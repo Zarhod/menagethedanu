@@ -4,7 +4,7 @@
 :root {
     --bg-color: #f4f6f9; /* Arrière-plan plus clair et neutre */
     --primary-blue: #007bff; /* Bleu principal dynamique */
-    --primary-blue-light: #4da6ff; /* Bleu plus clair pour les dégradés/effets */
+    --primary-blue-light: #e6f2ff; /* Bleu très clair pour fond discret */
     --primary-blue-dark: #0056b3; /* Bleu plus foncé pour le hover */
     --secondary-green: #28a745; /* Vert vif pour le succès */
     --secondary-green-dark: #218838; /* Vert plus foncé pour le hover */
@@ -175,76 +175,76 @@ p {
 /* --- Style des cartes de tâches (Pending/Active) --- */
 .task-item {
     border-radius: 12px;
-    padding: 18px 25px; /* Réduction du padding pour moins de hauteur */
-    margin-bottom: 12px; /* Réduction de la marge entre les cartes */
+    padding: 18px 25px;
+    margin-bottom: 12px;
     transition: all 0.25s ease-in-out;
     display: flex;
-    flex-direction: column; /* Garde la colonne pour le contenu */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     position: relative;
     overflow: hidden;
 
-    background: linear-gradient(135deg, var(--primary-blue-light), var(--primary-blue));
-    color: #ffffff;
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.25);
-    border: none; /* Plus de bordure apparente */
+    /* Nouveau style pour les cartes : fond blanc avec accent bleu */
+    background: var(--card-bg); /* Fond blanc */
+    color: var(--text-color); /* Texte sombre */
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15); /* Ombre douce, légèrement bleutée */
+    border: 1px solid var(--primary-blue-light); /* Bordure très fine et claire */
+    cursor: pointer; /* Indique toujours la cliquabilité par défaut */
 }
 
 .task-item:hover:not(.completed) {
-    transform: translateY(-7px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
-    cursor: pointer;
+    transform: translateY(-5px) scale(1.01); /* Léger soulèvement et agrandissement */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25); /* Ombre plus intense au survol */
+    background-color: var(--primary-blue-light); /* Légère teinte bleue au survol */
 }
 
 .task-item h3 {
     margin-top: 0;
-    margin-bottom: 8px; /* Réduction de la marge sous le titre */
-    color: #ffffff;
-    font-size: 1.3em; /* Légèrement réduit pour compacter */
+    margin-bottom: 8px;
+    color: var(--primary-blue); /* Titre en bleu principal pour le dynamisme */
+    font-size: 1.3em;
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .task-item p {
-    margin-bottom: 6px; /* Réduction de la marge sous le paragraphe */
-    font-size: 0.95em; /* Légèrement réduit */
-    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 6px;
+    font-size: 0.95em;
+    color: var(--light-text-color); /* Texte secondaire en gris */
 }
 
 .task-meta {
     font-weight: 600;
-    color: inherit;
+    color: var(--text-color); /* Couleur du texte principal */
 }
 
 .task-score {
     font-weight: 800;
-    color: #ffe66d;
-    font-size: 1.1em; /* Légèrement réduit */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    margin-top: 5px; /* Ajout d'une petite marge au-dessus du score */
+    color: var(--secondary-green); /* Score en vert vif */
+    font-size: 1.1em;
+    margin-top: 5px;
 }
 
 /* Style des tâches terminées (plus discrètes mais lisibles) */
 .task-item.completed {
     background: var(--bg-color);
     color: var(--light-text-color);
-    opacity: 0.9;
+    opacity: 0.8; /* Légèrement plus transparent pour montrer qu'elles sont faites */
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
     transform: none;
     cursor: not-allowed;
     border: 1px solid var(--border-light);
-    padding: 15px 20px; /* Réduction du padding pour l'état terminé aussi */
-    margin-bottom: 10px; /* Réduction de la marge */
+    padding: 15px 20px;
+    margin-bottom: 10px;
 }
 
 .task-item.completed h3,
-.task-item.completed p, /* Assurer que les paragraphes héritent aussi */
+.task-item.completed p,
 .task-item.completed .task-meta,
 .task-item.completed .task-score {
     color: inherit;
-    font-size: inherit; /* Réinitialiser la taille pour ne pas être trop grand */
+    font-size: inherit;
 }
 .task-item.completed .assign-button {
     display: none;
@@ -279,6 +279,15 @@ p {
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Bouton Annuler */
+.cancel-button {
+    background: var(--light-text-color); /* Gris pour annuler */
+}
+.cancel-button:hover {
+    background: #5a6268; /* Gris plus foncé */
+}
+
+
 /* Bouton spécifique de réinitialisation */
 #resetScoresButton {
     background: var(--red-alert);
@@ -300,29 +309,42 @@ p {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: var(--border-light);
-    border-radius: 10px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 18px 25px; /* Même padding que la carte pour une taille similaire */
+    background-color: var(--primary-blue-light); /* Fond bleu clair pour la boîte de dialogue */
+    border-radius: 12px; /* Même border-radius que la carte */
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); /* Ombre cohérente */
     opacity: 1; 
-    max-height: 120px; 
-    overflow: hidden; 
-    transition: max-height 0.4s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out;
+    transition: opacity 0.3s ease-out; /* Transition douce pour l'apparition/disparition */
     align-items: center;
-    border: 1px solid #dbe0e6;
+    border: 1px solid var(--primary-blue); /* Bordure bleue plus foncée */
+    /* Ces styles seront gérés par JS pour qu'il remplace la carte */
+    position: relative; 
+    margin: 0; /* Pas de marge externe pour prendre la place de la carte */
 }
+
+/* Animateur pour la boîte de dialogue qui remplace la carte */
+.name-input-wrapper.entering {
+    animation: fadeInScaleUp 0.3s forwards;
+}
+
+@keyframes fadeInScaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 
 .name-input-wrapper.hidden {
     opacity: 0;
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    border: none;
-    box-shadow: none;
+    pointer-events: none; /* Empêche les clics fantômes */
+    /* Aucun max-height ni padding-top/bottom ici, la carte mère sera masquée */
 }
+
 
 .assignee-name-input {
     width: 80%;
@@ -342,6 +364,12 @@ p {
 .assignee-name-input:focus {
     border-color: var(--primary-blue);
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.input-buttons {
+    display: flex;
+    gap: 10px; /* Espace entre les boutons */
+    margin-top: 10px; /* Marge au-dessus des boutons */
 }
 
 .submit-assignee-name {
@@ -783,13 +811,13 @@ p {
         font-size: 0.95em;
     }
     .task-item {
-        padding: 15px 20px; /* Ajustement pour les petits écrans */
+        padding: 15px 20px;
     }
     .task-item h3 {
         font-size: 1.2em;
     }
     .task-item p {
-        font-size: 0.9em; /* Encore plus petit sur mobile */
+        font-size: 0.9em;
     }
     .podium-list li {
         font-size: 1.1em;

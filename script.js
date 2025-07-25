@@ -1,7 +1,7 @@
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 // Remplacez cette URL par l'URL de votre Cloudflare Worker déployé.
 // Exemple : const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev';
-const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev/';
+const CLOUDFLARE_WORKER_URL = 'VOTRE_URL_CLOUDFLARE_WORKER';
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    const loadingOverlay = document.getElementById('loadingOverlay');
+    const loadingOverlay = document.getElementById('loadingOverlay'); // Référence à l'overlay de chargement
     const scoresTabButton = document.querySelector('.tab-button[data-tab="scores"]');
 
     const customAlertOverlay = document.getElementById('customAlertOverlay');
@@ -25,11 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeAlertButton = customAlertOverlay.querySelector('.close-alert');
     const confirmAlertButton = customAlertOverlay.querySelector('.alert-button');
 
-    // Variables pour la pop-up de saisie du nom (gestion de l'instance ouverte)
+    // Variables pour la pop-up de saisie du nom
     let currentNameInputWrapper = null;
     let currentOverlay = null;
+    let currentTaskId = null; // Variable pour stocker l'ID de la tâche cliquée
 
-    // Cache le bouton de réinitialisation par défaut
+    // Cache le bouton de réinitialisation par défaut (à afficher selon les conditions si besoin)
     resetScoresButton.classList.add('hidden');
 
     /**
@@ -71,12 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const tabId = button.dataset.tab;
 
+            // Masque tous les onglets et contenus, puis active le bon
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
 
             button.classList.add('active');
             document.getElementById(`${tabId}-tab`).classList.add('active');
 
+            // Charge les données spécifiques à l'onglet
             if (tabId === 'tasks') {
                 loadTasks();
                 loadCurrentPodiumForTasksPage();
@@ -105,16 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Trie les scores par ordre décroissant
         scores.sort((a, b) => b.score - a.score);
 
         currentPodiumDiv.innerHTML = '<h2>Podium de la semaine</h2>';
         const ol = document.createElement('ol');
         ol.classList.add('podium-list');
-        const podiumClasses = ['gold', 'silver', 'bronze'];
+        const podiumClasses = ['gold', 'silver', 'bronze']; // Classes pour les médailles
 
+        // Affiche les 3 premiers du podium
         scores.slice(0, 3).forEach((player, index) => {
             const li = document.createElement('li');
-            li.className = podiumClasses[index] || '';
+            li.className = podiumClasses[index] || ''; // Applique la classe de médaille
             li.innerHTML = `
                 <span class="player-name">${player.name}</span>
                 <span class="player-score">${player.score} points</span>
@@ -123,11 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         currentPodiumDiv.appendChild(ol);
 
+        // Ajoute un bouton pour voir tous les scores
         const fullScoresButton = document.createElement('button');
         fullScoresButton.textContent = 'Voir tous les scores';
         fullScoresButton.className = 'full-scores-button flat-button';
         fullScoresButton.addEventListener('click', () => {
-            scoresTabButton.click();
+            scoresTabButton.click(); // Clique sur l'onglet scores pour y naviguer
         });
         currentPodiumDiv.appendChild(fullScoresButton);
     }
@@ -138,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function showLoading(isVisible) {
         if (isVisible) {
-            loadingOverlay.style.display = 'flex';
+            loadingOverlay.style.display = 'flex'; // Utilise flex pour le centrage CSS
         } else {
             loadingOverlay.style.display = 'none';
         }
@@ -151,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {Promise<any|null>} Les données de la réponse ou null en cas d'erreur.
      */
     async function fetchData(functionName) {
-        showLoading(true);
+        showLoading(true); // Affiche le spinner
         try {
             const response = await fetch(`${CLOUDFLARE_WORKER_URL}?function=${functionName}`);
             const data = await response.json();
@@ -162,9 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return data;
         } catch (error) {
             console.error(`Erreur lors de l'appel à ${functionName}:`, error);
+            // L'alerte est déjà affichée par showAlert
             return null;
         } finally {
-            showLoading(false);
+            showLoading(false); // Masque le spinner
         }
     }
 
@@ -176,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {Promise<any|null>} Les données de la réponse ou null en cas d'erreur.
      */
     async function postData(functionName, payload) {
-        showLoading(true);
+        showLoading(true); // Affiche le spinner
         try {
             const response = await fetch(`${CLOUDFLARE_WORKER_URL}?function=${functionName}`, {
                 method: 'POST',
@@ -193,9 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return data;
         } catch (error) {
             console.error(`Erreur lors de l'appel POST à ${functionName}:`, error);
+            // L'alerte est déjà affichée par showAlert
             return null;
         } finally {
-            showLoading(false);
+            showLoading(false); // Masque le spinner
         }
     }
 
@@ -215,12 +223,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Vide les listes avant d'ajouter de nouvelles tâches
         completedTaskListDiv.innerHTML = '';
         pendingTaskListDiv.innerHTML = '';
 
         const completedTasks = tasks.filter(task => task.Statut === 'Terminé');
         const pendingTasks = tasks.filter(task => task.Statut !== 'Terminé');
 
+        // Affiche les tâches terminées
         if (completedTasks.length > 0) {
             completedTasks.forEach(task => {
                 const taskItem = document.createElement('div');
@@ -236,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
             completedTaskListDiv.innerHTML = '<p class="info-message">Aucune tâche terminée cette semaine.</p>';
         }
 
+        // Affiche les tâches en attente et ajoute des écouteurs d'événements
         if (pendingTasks.length > 0) {
             pendingTasks.forEach(task => {
                 const taskItem = document.createElement('div');
@@ -251,21 +262,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelectorAll('.task-item:not(.completed)').forEach(taskCard => {
                 taskCard.addEventListener('click', async (e) => {
+                    // Empêche l'ouverture multiple de pop-ups
                     if (currentNameInputWrapper && currentNameInputWrapper.classList.contains('visible')) {
                         return;
                     }
 
-                    // Correction du ReferenceError: taskId est défini localement
-                    const taskId = taskCard.getAttribute('data-task-id'); 
+                    // Capture l'ID de la tâche sur laquelle on a cliqué
+                    currentTaskId = taskCard.getAttribute('data-task-id');
 
-                    const overlay = document.createElement('div');
-                    overlay.classList.add('name-input-overlay');
-                    document.body.appendChild(overlay);
-                    setTimeout(() => overlay.classList.add('visible'), 10);
+                    // Crée et affiche l'overlay de fond sombre
+                    currentOverlay = document.createElement('div');
+                    currentOverlay.classList.add('name-input-overlay');
+                    document.body.appendChild(currentOverlay);
+                    setTimeout(() => currentOverlay.classList.add('visible'), 10); // Petite pause pour la transition
 
-                    const nameInputWrapper = document.createElement('div');
-                    nameInputWrapper.classList.add('name-input-wrapper');
-                    nameInputWrapper.innerHTML = `
+                    // Crée et affiche la pop-up de saisie du nom
+                    currentNameInputWrapper = document.createElement('div');
+                    currentNameInputWrapper.classList.add('name-input-wrapper');
+                    currentNameInputWrapper.innerHTML = `
                         <h3>Prendre la tâche</h3>
                         <input type="text" placeholder="Entrez votre nom" class="assignee-name-input">
                         <div class="input-buttons">
@@ -273,58 +287,64 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="cancel-button flat-button">Annuler</button>
                         </div>
                     `;
-                    document.body.appendChild(nameInputWrapper);
-                    setTimeout(() => nameInputWrapper.classList.add('visible'), 10);
+                    document.body.appendChild(currentNameInputWrapper);
+                    setTimeout(() => currentNameInputWrapper.classList.add('visible'), 10); // Petite pause pour la transition
 
-                    currentNameInputWrapper = nameInputWrapper;
-                    currentOverlay = overlay;
-                    
-                    const nameInput = nameInputWrapper.querySelector('.assignee-name-input');
-                    const submitButton = nameInputWrapper.querySelector('.submit-assignee-name');
-                    const cancelButton = nameInputWrapper.querySelector('.cancel-button');
+                    const nameInput = currentNameInputWrapper.querySelector('.assignee-name-input');
+                    const submitButton = currentNameInputWrapper.querySelector('.submit-assignee-name');
+                    const cancelButton = currentNameInputWrapper.querySelector('.cancel-button');
 
-                    nameInput.focus();
+                    nameInput.focus(); // Met le focus sur le champ de saisie
 
+                    /**
+                     * Masque la pop-up et l'overlay.
+                     */
                     const hideInputWrapper = () => {
-                        if (nameInputWrapper) {
-                            nameInputWrapper.classList.remove('visible');
-                            nameInputWrapper.addEventListener('transitionend', () => {
-                                nameInputWrapper.remove();
+                        if (currentNameInputWrapper) {
+                            currentNameInputWrapper.classList.remove('visible');
+                            currentNameInputWrapper.addEventListener('transitionend', () => {
+                                currentNameInputWrapper.remove();
                                 currentNameInputWrapper = null;
                             }, { once: true });
                         }
-                        if (overlay) {
-                            overlay.classList.remove('visible');
-                            overlay.addEventListener('transitionend', () => {
-                                overlay.remove();
+                        if (currentOverlay) {
+                            currentOverlay.classList.remove('visible');
+                            currentOverlay.addEventListener('transitionend', () => {
+                                currentOverlay.remove();
                                 currentOverlay = null;
                             }, { once: true });
                         }
                     };
 
+                    // Gère la soumission du nom
                     submitButton.addEventListener('click', async () => {
                         const assigneeName = nameInput.value.trim();
-                        if (assigneeName && taskId) {
-                            const result = await postData('assignTask', { taskId: taskId, assigneeName });
+                        if (assigneeName && currentTaskId) { // Vérifie que le nom et l'ID de tâche sont présents
+                            const result = await postData('assignTask', { taskId: currentTaskId, assigneeName });
                             if (result && result.success) {
                                 showAlert('Merci pour votre implication !', result.message, '🎉');
                                 hideInputWrapper();
+                                // Recharge les données après une modification réussie
                                 loadTasks();
                                 loadCurrentPodiumForTasksPage();
                                 loadCurrentWeeklyScores();
                             }
+                            // Si 'result' n'est pas successful, postData affiche déjà une alerte
                         } else {
                             showAlert('Champ vide ou tâche non sélectionnée', 'Veuillez entrer votre nom pour prendre la tâche.', '⚠️');
                             nameInput.focus();
                         }
                     });
 
+                    // Gère l'annulation
                     cancelButton.addEventListener('click', hideInputWrapper);
 
-                    if (overlay) {
-                        overlay.addEventListener('click', hideInputWrapper);
+                    // Ferme la pop-up si on clique en dehors
+                    if (currentOverlay) {
+                        currentOverlay.addEventListener('click', hideInputWrapper);
                     }
 
+                    // Gère la touche Entrée et Échap
                     nameInput.addEventListener('keydown', (event) => {
                         if (event.key === 'Enter') {
                             submitButton.click();
@@ -362,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const ul = document.createElement('ul');
         ul.classList.add('scores-full-list');
+        // Trie les scores par ordre décroissant
         scores.sort((a, b) => b.score - a.score);
 
         scores.forEach(score => {
@@ -391,6 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Trie les podiums du plus récent au plus ancien
         podiums.sort((a, b) => b.week.localeCompare(a.week));
 
         podiums.forEach(item => {
@@ -415,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Gère le bouton de réinitialisation des scores
+    // Gère le bouton de réinitialisation des scores (probablement dans l'onglet Scores)
     resetScoresButton.addEventListener('click', async () => {
         const confirmReset = await new Promise(resolve => {
             showAlert(
@@ -423,21 +445,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Êtes-vous sûr de vouloir réinitialiser les scores de la semaine ? Cela archivera le podium actuel.',
                 '⚠️'
             );
+            // Remplace l'action par défaut de confirmAlertButton
             confirmAlertButton.onclick = () => {
                 customAlertOverlay.classList.remove('visible');
                 resolve(true);
-                resetAlertHandlers();
+                // Rétablit l'action par défaut
+                confirmAlertButton.onclick = () => {
+                    customAlertOverlay.classList.remove('visible');
+                };
             };
             closeAlertButton.onclick = () => {
                 customAlertOverlay.classList.remove('visible');
                 resolve(false);
-                resetAlertHandlers();
+                closeAlertButton.onclick = () => {
+                    customAlertOverlay.classList.remove('visible');
+                };
             };
+            // Gère le clic sur l'overlay pour annuler
             customAlertOverlay.onclick = (e) => {
                 if (e.target === customAlertOverlay) {
                     customAlertOverlay.classList.remove('visible');
                     resolve(false);
-                    resetAlertHandlers();
                 }
             };
         });
@@ -446,22 +474,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await postData('resetWeeklyScores', {});
             if (result && result.success) {
                 showAlert('Réinitialisation réussie', result.message, '✅');
+                // Recharge toutes les données pertinentes après la réinitialisation
                 loadTasks();
                 loadCurrentPodiumForTasksPage();
                 loadCurrentWeeklyScores();
-                loadWeeklyPodiums();
+                loadWeeklyPodiums(); // Met à jour l'historique
             }
         }
     });
 
-    // Fonction pour réinitialiser les gestionnaires d'alerte à leur état par défaut
-    function resetAlertHandlers() {
-        confirmAlertButton.onclick = () => { customAlertOverlay.classList.remove('visible'); };
-        closeAlertButton.onclick = () => { customAlertOverlay.classList.remove('visible'); };
-        customAlertOverlay.onclick = (e) => {
-            if (e.target === customAlertOverlay) { customAlertOverlay.classList.remove('visible'); }
-        };
-    }
 
     // Initialisation : charge les tâches et le podium au démarrage
     document.querySelector('.tab-button[data-tab="tasks"]').click();

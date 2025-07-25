@@ -49,7 +49,7 @@
                 <h2>Scores de la semaine</h2>
                 <div id="scoresList" class="scores-list">
                     </div>
-                <button id="resetScoresButton" class="neumorphic-button">Réinitialiser les scores & Enregistrer le podium</button>
+                <button id="resetScoresButton" class="flat-button hidden">Réinitialiser les scores & Enregistrer le podium</button>
             </section>
         </div>
 
@@ -59,6 +59,15 @@
                 <div id="historyList" class="history-list">
                     </div>
             </section>
+        </div>
+    </div>
+
+    <div id="customAlertOverlay" class="alert-overlay">
+        <div class="alert-box">
+            <span class="close-alert">&times;</span>
+            <div class="alert-icon">🎉</div> <h3 id="alertTitle">Merci pour votre implication !</h3>
+            <p id="alertMessage">Votre action a été enregistrée avec succès.</p>
+            <button class="alert-button flat-button">Super !</button>
         </div>
     </div>
 

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoresListDiv = document.getElementById('scoresList');
     const currentPodiumDiv = document.getElementById('currentPodium'); 
     const historyListDiv = document.getElementById('historyList');
-    const resetScoresButton = document.getElementById('resetScoresButton'); // Garde la référence
+    const resetScoresButton = document.getElementById('resetScoresButton'); 
 
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -18,25 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.getElementById('loadingOverlay');
     const scoresTabButton = document.querySelector('.tab-button[data-tab="scores"]');
 
-    // Nouveaux éléments pour la popup personnalisée
     const customAlertOverlay = document.getElementById('customAlertOverlay');
     const alertTitle = document.getElementById('alertTitle');
     const alertMessage = document.getElementById('alertMessage');
     const closeAlertButton = customAlertOverlay.querySelector('.close-alert');
     const confirmAlertButton = customAlertOverlay.querySelector('.alert-button');
 
-    // Cacher le bouton de réinitialisation au chargement
     resetScoresButton.classList.add('hidden');
 
-    // Fonction pour afficher la popup personnalisée
     function showAlert(title, message, icon = '🎉') {
         alertTitle.textContent = title;
         alertMessage.textContent = message;
-        customAlertOverlay.querySelector('.alert-icon').textContent = icon; // Met à jour l'icône
+        customAlertOverlay.querySelector('.alert-icon').textContent = icon;
         customAlertOverlay.classList.add('visible');
     }
 
-    // Gestion de la fermeture de la popup
     closeAlertButton.addEventListener('click', () => {
         customAlertOverlay.classList.remove('visible');
     });
@@ -45,33 +41,27 @@ document.addEventListener('DOMContentLoaded', () => {
         customAlertOverlay.classList.remove('visible');
     });
 
-    // Optionnel: Fermer la popup en cliquant en dehors
     customAlertOverlay.addEventListener('click', (e) => {
         if (e.target === customAlertOverlay) {
             customAlertOverlay.classList.remove('visible');
         }
     });
-    // Optionnel: Fermer la popup avec la touche Échap
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && customAlertOverlay.classList.contains('visible')) {
             customAlertOverlay.classList.remove('visible');
         }
     });
 
-    // --- Fonctions de gestion des onglets ---
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const tabId = button.dataset.tab;
 
-            // Désactiver tous les boutons et contenus
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
 
-            // Activer le bouton et le contenu cliqué
             button.classList.add('active');
             document.getElementById(`${tabId}-tab`).classList.add('active');
 
-            // Charger les données spécifiques à l'onglet
             if (tabId === 'tasks') {
                 loadTasks();
                 loadCurrentPodiumForTasksPage(); 
@@ -83,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Nouvelle fonction pour charger et afficher le podium sur la page des tâches
     async function loadCurrentPodiumForTasksPage() {
         currentPodiumDiv.innerHTML = '<p class="info-message">Chargement du podium...</p>';
         const scores = await fetchData('getCurrentWeeklyScores');
@@ -118,14 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const fullScoresButton = document.createElement('button');
         fullScoresButton.textContent = 'Voir tous les scores';
-        fullScoresButton.className = 'full-scores-button flat-button'; // Nouvelle classe
+        fullScoresButton.className = 'full-scores-button flat-button';
         fullScoresButton.addEventListener('click', () => {
             scoresTabButton.click();
         });
         currentPodiumDiv.appendChild(fullScoresButton);
     }
-
-    // --- Fonctions d'appel API ---
 
     function showLoading(isVisible) {
         if (isVisible) {
@@ -141,14 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${CLOUDFLARE_WORKER_URL}?function=${functionName}`);
             const data = await response.json();
             if (!response.ok) {
-                // Utilise la nouvelle popup pour les erreurs API
                 showAlert('Erreur de chargement', data.error || `Erreur HTTP: ${response.status} pour ${functionName}`, '❌');
                 throw new Error(data.error || `Erreur HTTP: ${response.status} pour ${functionName}`);
             }
             return data;
         } catch (error) {
             console.error(`Erreur lors de l'appel à ${functionName}:`, error);
-            // Alert déjà géré par showAlert dans le bloc try
             return null;
         } finally {
             showLoading(false);
@@ -167,21 +152,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await response.json();
             if (!response.ok) {
-                // Utilise la nouvelle popup pour les erreurs API
                 showAlert('Erreur lors de l\'opération', data.error || `Erreur HTTP: ${response.status} pour ${functionName}`, '❌');
                 throw new Error(data.error || `Erreur HTTP: ${response.status} pour ${functionName}`);
             }
             return data;
         } catch (error) {
             console.error(`Erreur lors de l'appel POST à ${functionName}:`, error);
-            // Alert déjà géré par showAlert dans le bloc try
             return null;
         } finally {
             showLoading(false);
         }
     }
-
-    // --- Fonctions de chargement et d'affichage des données ---
 
     async function loadTasks() {
         completedTaskListDiv.innerHTML = '<p class="info-message">Chargement des tâches terminées...</p>';
@@ -202,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const completedTasks = tasks.filter(task => task.Statut === 'Terminé');
         const pendingTasks = tasks.filter(task => task.Statut !== 'Terminé');
 
-        // Afficher les tâches terminées
         if (completedTasks.length > 0) {
             completedTasks.forEach(task => {
                 const taskItem = document.createElement('div');
@@ -218,98 +198,109 @@ document.addEventListener('DOMContentLoaded', () => {
             completedTaskListDiv.innerHTML = '<p class="info-message">Aucune tâche terminée cette semaine.</p>';
         }
 
-        // Afficher les tâches à faire
         if (pendingTasks.length > 0) {
             pendingTasks.forEach(task => {
                 const taskItem = document.createElement('div');
-                taskItem.className = `task-item`;
+                taskItem.className = `task-item`; // Garde la classe de base
+                taskItem.setAttribute('data-task-id', task.ID_Tache); // Stocke l'ID sur la carte
                 taskItem.innerHTML = `
                     <h3>${task.Description_Tache}</h3>
                     <p><span class="task-meta">Catégorie:</span> ${task.Libelle}</p>
                     <p><span class="task-score">Score:</span> ${task.Score}</p>
-                    <button class="assign-button flat-button" data-task-id="${task.ID_Tache}">Prendre cette tâche</button>
-                `;
+                    `;
                 pendingTaskListDiv.appendChild(taskItem);
             });
 
-            document.querySelectorAll('.assign-button').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    const taskId = e.target.dataset.taskId;
-                    const buttonElement = e.target; 
-                    
-                    if (buttonElement.dataset.promptOpen === 'true') {
-                        return; 
+            document.querySelectorAll('.task-item:not(.completed)').forEach(taskCard => {
+                taskCard.addEventListener('click', async (e) => {
+                    // Si la cible est un élément à l'intérieur de name-input-wrapper, ne rien faire
+                    if (e.target.closest('.name-input-wrapper')) {
+                        return;
                     }
-                    buttonElement.dataset.promptOpen = 'true';
 
+                    const taskId = taskCard.dataset.taskId;
+
+                    // Masquer le contenu actuel de la carte
+                    taskCard.style.visibility = 'hidden';
+                    taskCard.style.height = taskCard.offsetHeight + 'px'; // Fixer la hauteur pour éviter le saut
+                    taskCard.style.overflow = 'hidden'; // Cacher le contenu qui pourrait déborder
+
+                    // Créer la boîte de dialogue de saisie du nom
                     const nameInputWrapper = document.createElement('div');
-                    nameInputWrapper.className = 'name-input-wrapper hidden';
+                    nameInputWrapper.className = 'name-input-wrapper entering'; // Ajout de la classe entering pour l'animation
                     nameInputWrapper.innerHTML = `
+                        <h3>Prendre la tâche</h3>
                         <input type="text" placeholder="Entrez votre nom" class="assignee-name-input">
-                        <button class="submit-assignee-name flat-button">Valider</button>
+                        <div class="input-buttons">
+                            <button class="submit-assignee-name flat-button">Valider</button>
+                            <button class="cancel-button flat-button">Annuler</button>
+                        </div>
                     `;
                     
-                    buttonElement.parentNode.insertBefore(nameInputWrapper, buttonElement.nextSibling);
-                    buttonElement.style.display = 'none'; 
+                    // Insérer la boîte de dialogue directement à la place de la carte
+                    taskCard.parentNode.insertBefore(nameInputWrapper, taskCard);
                     
-                    setTimeout(() => {
-                        nameInputWrapper.classList.remove('hidden');
-                        const nameInput = nameInputWrapper.querySelector('.assignee-name-input');
-                        nameInput.focus();
-                    }, 10);
-
                     const nameInput = nameInputWrapper.querySelector('.assignee-name-input');
                     const submitButton = nameInputWrapper.querySelector('.submit-assignee-name');
+                    const cancelButton = nameInputWrapper.querySelector('.cancel-button');
 
+                    nameInput.focus();
+
+                    // Fonction pour masquer la boîte de dialogue et réactiver la carte
+                    const hideInputWrapper = () => {
+                        nameInputWrapper.classList.remove('entering'); // Supprimer la classe d'animation d'entrée
+                        nameInputWrapper.classList.add('hidden'); // Masquer la boîte de dialogue
+                        nameInputWrapper.addEventListener('transitionend', () => {
+                            nameInputWrapper.remove(); // Supprimer de l'arbre DOM après transition
+                            taskCard.style.visibility = 'visible'; // Rendre la carte visible à nouveau
+                            taskCard.style.height = ''; // Réinitialiser la hauteur
+                            taskCard.style.overflow = ''; // Réinitialiser l'overflow
+                        }, { once: true });
+                    };
+
+                    // Événement de validation
                     submitButton.addEventListener('click', async () => {
                         const assigneeName = nameInput.value.trim();
                         if (assigneeName) {
                             const result = await postData('assignTask', { taskId, assigneeName });
                             if (result && result.success) {
-                                showAlert('Merci pour votre implication !', result.message, '🎉'); // Nouvelle popup
-                                loadTasks();
+                                showAlert('Merci pour votre implication !', result.message, '🎉');
+                                hideInputWrapper(); // Masquer la boîte de dialogue
+                                loadTasks(); // Recharger les tâches
                                 loadCurrentPodiumForTasksPage(); 
                                 loadCurrentWeeklyScores();
                             } else if (result && result.message) {
                                 // Erreur déjà gérée par postData avec showAlert
+                                hideInputWrapper(); // Masquer la boîte de dialogue même en cas d'erreur
                             }
                         } else {
-                            showAlert('Champ vide', 'Veuillez entrer votre nom pour prendre la tâche.', '⚠️'); // Nouvelle popup pour validation
+                            showAlert('Champ vide', 'Veuillez entrer votre nom pour prendre la tâche.', '⚠️');
+                            // Ne pas masquer la boîte de dialogue pour laisser l'utilisateur réessayer
+                            nameInput.focus(); // Remettre le focus sur l'input
                         }
-                        // Masquer et supprimer l'input wrapper après l'opération
-                        nameInputWrapper.classList.add('hidden');
-                        nameInputWrapper.addEventListener('transitionend', () => {
-                            nameInputWrapper.remove();
-                            buttonElement.style.display = 'block';
-                            delete buttonElement.dataset.promptOpen;
-                        }, { once: true });
                     });
 
-                    const cancelInput = (event) => {
-                        if (!nameInputWrapper.contains(event.target) && event.target !== buttonElement) {
-                            nameInputWrapper.classList.add('hidden');
-                            nameInputWrapper.addEventListener('transitionend', () => {
-                                nameInputWrapper.remove();
-                                buttonElement.style.display = 'block';
-                                delete buttonElement.dataset.promptOpen;
-                            }, { once: true });
-                            document.removeEventListener('click', cancelInput);
+                    // Événement d'annulation
+                    cancelButton.addEventListener('click', hideInputWrapper);
+
+                    // Gérer le clic en dehors pour annuler
+                    const handleClickOutside = (event) => {
+                        if (!nameInputWrapper.contains(event.target) && !taskCard.contains(event.target)) {
+                            hideInputWrapper();
+                            document.removeEventListener('click', handleClickOutside); // Supprimer l'écouteur
                         }
                     };
+                    // Ajouter l'écouteur après un petit délai pour éviter qu'il ne se déclenche sur le clic initial
                     setTimeout(() => {
-                        document.addEventListener('click', cancelInput);
+                        document.addEventListener('click', handleClickOutside);
                     }, 100);
 
+                    // Gérer la touche "Entrée" et "Échap"
                     nameInput.addEventListener('keydown', (event) => {
                         if (event.key === 'Enter') {
                             submitButton.click();
                         } else if (event.key === 'Escape') {
-                            nameInputWrapper.classList.add('hidden');
-                            nameInputWrapper.addEventListener('transitionend', () => {
-                                nameInputWrapper.remove();
-                                buttonElement.style.display = 'block';
-                                delete buttonElement.dataset.promptOpen;
-                            }, { once: true });
+                            hideInputWrapper();
                         }
                     });
                 });
@@ -387,9 +378,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Le bouton de réinitialisation n'est plus écouté ici, car il est géré via le sheet.
-    // L'ancienne fonction resetScoresButton.addEventListener('click', ...) est supprimée.
-
-    // Charger les données initiales au démarrage
     document.querySelector('.tab-button[data-tab="tasks"]').click();
 });

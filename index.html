@@ -3,53 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord Tâches Ménagères</title>
+    <title>Ménage The Danu</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="main-wrapper"> 
-        <header class="app-header">
-            <img src="logo.png" alt="Logo de l'application" class="app-logo">
-            <h1>Tableau de Bord Tâches Ménagères</h1>
-        </header>
+    <div class="container">
+        <h1>Ménage The Danu</h1>
 
-        <div class="container">
-            <div class="tabs">
-                <button class="tab-button active" data-tab="tasks">Tâches</button>
-                <button class="tab-button" data-tab="scores">Scores</button>
-                <button class="tab-button" data-tab="history">Historique Podiums</button>
-            </div>
+        <div class="tabs">
+            <button class="tab-button active" data-tab="tasks">Tâches</button>
+            <button class="tab-button" data-tab="scores">Scores</button>
+            <button class="tab-button" data-tab="history">Historique</button>
+        </div>
 
-            <div id="tasks-tab" class="tab-content active">
-                <h2>Tâches Terminées cette Semaine</h2>
-                <div class="task-list" id="completedTaskList">
-                    <p class="task-meta">Chargement des tâches terminées...</p>
-                </div>
-                <h2>Tâches à Faire</h2>
-                <div class="task-list" id="pendingTaskList">
-                    <p>Chargement des tâches à faire...</p>
-                </div>
-            </div>
+        <div id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>Validation en cours...</p>
+        </div>
 
-            <div id="scores-tab" class="tab-content">
-                <h2>Scores Hebdomadaires Actuels</h2>
-                <div class="scores-list" id="scoresList">
-                    <p>Chargement des scores...</p>
+        <div id="tasks-tab" class="tab-content active">
+            <div id="currentPodium" class="current-podium-section">
                 </div>
-                <h2>Podium de la Semaine</h2>
-                <div class="podium-list" id="currentPodium">
-                    <p>Calcul du podium...</p>
-                </div>
-                <button id="resetScoresButton" class="action-button">Réinitialiser les scores et enregistrer le podium</button>
-            </div>
 
-            <div id="history-tab" class="tab-content">
-                <h2>Historique des Podiums Passés</h2>
-                <div class="history-list" id="historyList">
-                    <p>Chargement de l'historique...</p>
-                </div>
-            </div>
+            <section class="task-section">
+                <h2>Tâches à faire</h2>
+                <div id="pendingTaskList" class="task-list">
+                    </div>
+            </section>
+
+            <section class="task-section">
+                <h2>Tâches terminées</h2>
+                <div id="completedTaskList" class="task-list">
+                    </div>
+            </section>
+        </div>
+
+        <div id="scores-tab" class="tab-content">
+            <section class="scores-section">
+                <h2>Scores de la semaine</h2>
+                <div id="scoresList" class="scores-list">
+                    </div>
+                <button id="resetScoresButton">Réinitialiser les scores & Enregistrer le podium</button>
+            </section>
+        </div>
+
+        <div id="history-tab" class="tab-content">
+            <section class="history-section">
+                <h2>Historique des podiums</h2>
+                <div id="historyList" class="history-list">
+                    </div>
+            </section>
         </div>
     </div>
 

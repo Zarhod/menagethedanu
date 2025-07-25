@@ -1,40 +1,15 @@
+/* --- Styles Généraux --- */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
     margin: 0;
     padding: 20px;
-    background-color: #38309a; /* Couleur de fond foncée */
-    color: #333;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Aligne le contenu en haut */
+    align-items: flex-start; /* Aligner en haut */
     min-height: 100vh;
-}
-
-.main-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centrer le contenu du wrapper (logo, titre, container) */
-    width: 100%;
-    max-width: 800px; /* Limite la largeur générale */
-}
-
-.app-header {
-    text-align: center;
-    margin-bottom: 30px;
-    color: white; /* Texte blanc pour le header sur fond foncé */
-}
-
-.app-logo {
-    width: 120px; /* Taille du logo */
-    height: 120px;
-    object-fit: contain; /* Assure que le logo entier est visible */
-    margin-bottom: 15px;
-}
-
-h1 {
-    margin: 0;
-    font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Ombre pour le titre */
 }
 
 .container {
@@ -43,23 +18,39 @@ h1 {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
+    max-width: 800px;
     box-sizing: border-box;
 }
 
-h2 {
-    color: #34495e;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
-    margin-top: 25px;
+h1, h2, h3 {
+    color: #2c3e50;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-/* Tabs */
+h1 {
+    font-size: 2.5em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+/* --- Onglets --- */
 .tabs {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #ddd;
 }
 
 .tab-button {
@@ -67,279 +58,376 @@ h2 {
     border: none;
     padding: 12px 25px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1em;
     font-weight: bold;
-    color: #7f8c8d;
+    color: #34495e;
     transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 5px 5px 0 0;
-    margin: 0 2px;
+    border-radius: 8px 8px 0 0;
+    margin: 0 5px;
 }
 
 .tab-button:hover {
-    background-color: #dbe4e6;
+    background-color: #dde1e2;
 }
 
 .tab-button.active {
     background-color: #3498db;
-    color: white;
-    border-bottom: 3px solid #2980b9;
+    color: #ffffff;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
 .tab-content {
     display: none;
-    padding-top: 20px;
+    padding: 20px 0;
 }
 
 .tab-content.active {
     display: block;
 }
 
-/* Task List */
+/* --- Sections de Tâches et Scores --- */
+.task-section, .scores-section, .history-section {
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.task-list, .scores-list, .history-list {
+    margin-top: 15px;
+}
+
+/* --- Style des cartes de tâches --- */
 .task-item {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .task-item h3 {
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 8px;
     color: #2c3e50;
     font-size: 1.2em;
+    text-align: left;
 }
 
 .task-item p {
-    margin: 0;
-    color: #555;
+    margin-bottom: 5px;
     font-size: 0.95em;
+    color: #555;
 }
 
-.task-item .task-meta {
-    font-size: 0.85em;
-    color: #777;
-}
-
-.task-item .task-score {
+.task-meta {
     font-weight: bold;
-    color: #27ae60; /* Vert pour les scores */
+    color: #666;
 }
 
-.task-item button {
+.task-score {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.task-item.completed {
+    background-color: #e8f8f5; /* Vert très clair */
+    border-color: #a3e4d7;
+    opacity: 0.9;
+}
+
+/* --- Boutons --- */
+button {
     background-color: #3498db;
     color: white;
-    border: none;
     padding: 10px 15px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s ease;
-    align-self: flex-end; /* Aligner le bouton à droite */
-}
-
-.task-item button:hover {
-    background-color: #2980b9;
-}
-
-/* Règles pour les tâches terminées (plus petites, en haut) */
-.task-item.completed {
-    background-color: #e8f5e9; /* Vert très clair pour les tâches terminées */
-    border-color: #a5d6a7;
-    opacity: 0.8;
-    padding: 10px 15px; /* Rendre la carte plus petite */
-    font-size: 0.9em;
-    order: -1; /* Permet de les trier au début dans un flex container */
-}
-
-.task-item.completed h3 {
-    font-size: 1em; /* Réduire la taille du titre */
-}
-
-.task-item.completed p {
-    font-size: 0.85em;
-}
-
-.task-item.completed .task-score,
-.task-item.completed .task-meta {
-    font-size: 0.75em;
-}
-
-.task-item.completed button {
-    display: none; /* Masquer le bouton "Prendre" pour les tâches terminées */
-}
-
-/* Input de nom stylé */
-.name-input-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     margin-top: 10px;
 }
 
-.name-input-wrapper input[type="text"] {
+button:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#resetScoresButton {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    background-color: #e74c3c;
+}
+
+#resetScoresButton:hover {
+    background-color: #c0392b;
+}
+
+/* --- Champ de saisie du nom (avec animation) --- */
+.name-input-wrapper {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f0f8ff; /* Bleu très clair */
+    border: 1px solid #cceeff;
+    border-radius: 5px;
+    opacity: 1; /* Par défaut visible, géré par JS/CSS */
+    max-height: 50px; /* Taille maximale pour la transition */
+    overflow: hidden; /* Masque le débordement pendant la transition */
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.name-input-wrapper.hidden {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: none; /* Cache la bordure quand masqué */
+}
+
+.assignee-name-input {
+    flex-grow: 1;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 0.9em;
 }
 
-.name-input-wrapper button {
-    background-color: #27ae60; /* Vert pour le bouton de soumission du nom */
-    color: white;
-    border: none;
+.submit-assignee-name {
     padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s ease;
+    background-color: #2ecc71; /* Vert */
 }
 
-.name-input-wrapper button:hover {
-    background-color: #229954;
+.submit-assignee-name:hover {
+    background-color: #27ae60;
 }
 
-
-/* Scores List */
-.scores-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.scores-list li {
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 12px 15px;
-    margin-bottom: 10px;
+/* --- Indicateur de chargement --- */
+#loadingOverlay {
+    position: fixed; /* Fixé par rapport à la fenêtre de visualisation */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent */
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    font-size: 1.1em;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    z-index: 1000; /* Assure qu'il est au-dessus de tout */
+    color: #34495e;
+    font-size: 1.2em;
+    display: none; /* Caché par défaut, contrôlé par JS */
 }
 
-.scores-list li strong {
-    color: #2c3e50;
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #3498db; /* Couleur du spinner */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite; /* Animation de rotation */
+    margin-bottom: 10px;
 }
 
-.scores-list li span {
-    font-weight: bold;
-    color: #27ae60;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-/* Podium de la Semaine */
-.podium-list {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #ecf0f1;
+/* --- Styles du Podium --- */
+.current-podium-section {
+    background-color: #ffffff;
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid #3498db; /* Bordure pour le distinguer */
 }
 
-.podium-list ol {
+.current-podium-section h2 {
+    color: #3498db;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.podium-list {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .podium-list li {
-    font-size: 1.2em;
-    padding: 8px 0;
-    border-bottom: 1px dashed #dbe4e6;
+    font-size: 1.1em;
+    padding: 8px 15px;
+    margin-bottom: 8px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 300px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.podium-list li:last-child {
-    border-bottom: none;
-}
-
-.podium-list li.gold {
-    color: #d4af37; /* Or */
     font-weight: bold;
-}
-.podium-list li.silver {
-    color: #c0c0c0; /* Argent */
-    font-weight: bold;
-}
-.podium-list li.bronze {
-    color: #cd7f32; /* Bronze */
-    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-/* Bouton d'action */
-.action-button {
-    display: block;
-    width: fit-content;
-    margin: 20px auto 0;
-    background-color: #e74c3c; /* Rouge pour l'action de réinitialisation */
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.action-button:hover {
-    background-color: #c0392b;
-}
-
-/* History List (Podiums) */
-.history-item {
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.history-item h3 {
-    margin-top: 0;
-    color: #34495e;
-    font-size: 1.1em;
-    border-bottom: 1px dashed #ccc;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-.history-item ol {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.history-item li {
-    margin-bottom: 5px;
-    font-size: 0.95em;
-    color: #555;
-}
-
-.history-item li strong {
+.podium-list li .rank {
+    font-size: 1.2em;
+    margin-right: 10px;
     color: #2c3e50;
 }
 
-.history-item li span {
-    font-weight: bold;
-    color: #27ae60;
+.podium-list li .player-name {
+    flex-grow: 1;
+    text-align: left;
 }
 
-/* Responsive adjustments */
+.podium-list li .player-score {
+    text-align: right;
+    margin-left: 10px;
+}
+
+.podium-list li.gold {
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    color: #ffffff;
+    border: 2px solid #e67e22;
+    transform: scale(1.05); /* Pour faire ressortir le premier */
+}
+
+.podium-list li.silver {
+    background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+    color: #ffffff;
+    border: 2px solid #7f8c8d;
+}
+
+.podium-list li.bronze {
+    background: linear-gradient(135deg, #d35400, #e67e22);
+    color: #ffffff;
+    border: 2px solid #ba4a00;
+}
+
+.full-scores-button {
+    background-color: #2ecc71; /* Vert */
+    margin-top: 15px;
+    font-size: 1em;
+    padding: 10px 20px;
+}
+
+.full-scores-button:hover {
+    background-color: #27ae60;
+}
+
+/* --- Liste complète des scores (dans l'onglet Scores) --- */
+.scores-full-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.scores-full-list li {
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.scores-full-list li:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+.scores-full-list li strong {
+    color: #34495e;
+}
+
+/* --- Liste historique du podium --- */
+.podium-history-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.podium-history-list li {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    margin-bottom: 3px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal;
+    background-color: #fefefe;
+    border: 1px solid #eee;
+}
+
+/* --- Messages d'info/erreur --- */
+.loading-message, .info-message, .error-message {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.loading-message {
+    color: #3498db;
+    background-color: #eaf6fc;
+}
+
+.info-message {
+    color: #34495e;
+    background-color: #f0f4f7;
+}
+
+.error-message {
+    color: #e74c3c;
+    background-color: #fde8e8;
+    border: 1px solid #e74c3c;
+}
+
+/* --- Responsive Design --- */
 @media (max-width: 600px) {
     .container {
-        padding: 20px;
+        padding: 15px;
+    }
+    h1 {
+        font-size: 2em;
     }
     .tab-button {
         padding: 10px 15px;
-        font-size: 14px;
+        font-size: 0.9em;
     }
-    .task-item button {
-        align-self: stretch; /* Bouton prend toute la largeur sur mobile */
+    .name-input-wrapper {
+        flex-direction: column;
+    }
+    .podium-list li {
+        width: 100%;
     }
 }

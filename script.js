@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    const loadingOverlay = document.getElementById('loadingOverlay');
+    const loadingOverlay = document.getElementById('loadingOverlay'); // Référence à l'overlay de chargement
     const scoresTabButton = document.querySelector('.tab-button[data-tab="scores"]');
 
     const customAlertOverlay = document.getElementById('customAlertOverlay');
@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmAlertButton = customAlertOverlay.querySelector('.alert-button');
 
     // Nouveaux éléments pour la pop-up de saisie du nom
-    let currentNameInputWrapper = null; // Pour stocker la référence à la boîte de dialogue active
-    let currentOverlay = null; // Pour stocker la référence à l'overlay actif
+    let currentNameInputWrapper = null; 
+    let currentOverlay = null; 
 
     resetScoresButton.classList.add('hidden');
 
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchData(functionName) {
-        showLoading(true);
+        showLoading(true); // Affiche le spinner
         try {
             const response = await fetch(`${CLOUDFLARE_WORKER_URL}?function=${functionName}`);
             const data = await response.json();
@@ -140,12 +140,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Erreur lors de l'appel à ${functionName}:`, error);
             return null;
         } finally {
-            showLoading(false);
+            showLoading(false); // Masque le spinner
         }
     }
 
     async function postData(functionName, payload) {
-        showLoading(true);
+        showLoading(true); // Affiche le spinner
         try {
             const response = await fetch(`${CLOUDFLARE_WORKER_URL}?function=${functionName}`, {
                 method: 'POST',
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Erreur lors de l'appel POST à ${functionName}:`, error);
             return null;
         } finally {
-            showLoading(false);
+            showLoading(false); // Masque le spinner
         }
     }
 
@@ -205,8 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pendingTasks.length > 0) {
             pendingTasks.forEach(task => {
                 const taskItem = document.createElement('div');
-                taskItem.className = `task-item`; // Garde la classe de base
-                taskItem.setAttribute('data-task-id', task.ID_Tache); // Stocke l'ID sur la carte
+                taskItem.className = `task-item`; 
+                taskItem.setAttribute('data-task-id', task.ID_Tache); 
                 taskItem.innerHTML = `
                     <h3>${task.Description_Tache}</h3>
                     <p><span class="task-meta">Catégorie:</span> ${task.Libelle}</p>
@@ -217,21 +217,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelectorAll('.task-item:not(.completed)').forEach(taskCard => {
                 taskCard.addEventListener('click', async (e) => {
-                    const taskId = taskCard.dataset.taskId;
-
-                    // Si une boîte de dialogue est déjà ouverte, ne rien faire
                     if (currentNameInputWrapper && currentNameInputWrapper.classList.contains('visible')) {
                         return;
                     }
 
-                    // Créer l'overlay
                     currentOverlay = document.createElement('div');
                     currentOverlay.classList.add('name-input-overlay');
                     document.body.appendChild(currentOverlay);
-                    // Rendre l'overlay visible après l'avoir ajouté au DOM pour la transition
                     setTimeout(() => currentOverlay.classList.add('visible'), 10);
 
-                    // Créer la boîte de dialogue de saisie du nom
                     currentNameInputWrapper = document.createElement('div');
                     currentNameInputWrapper.classList.add('name-input-wrapper');
                     currentNameInputWrapper.innerHTML = `
@@ -243,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                     document.body.appendChild(currentNameInputWrapper);
-                    // Rendre la boîte de dialogue visible après l'avoir ajoutée au DOM pour la transition
                     setTimeout(() => currentNameInputWrapper.classList.add('visible'), 10);
                     
                     const nameInput = currentNameInputWrapper.querySelector('.assignee-name-input');
@@ -252,38 +245,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     nameInput.focus();
 
-                    // Fonction pour masquer la boîte de dialogue et l'overlay
                     const hideInputWrapper = () => {
                         if (currentNameInputWrapper) {
                             currentNameInputWrapper.classList.remove('visible');
                             currentNameInputWrapper.addEventListener('transitionend', () => {
                                 currentNameInputWrapper.remove();
-                                currentNameInputWrapper = null; // Réinitialiser la référence
+                                currentNameInputWrapper = null; 
                             }, { once: true });
                         }
                         if (currentOverlay) {
                             currentOverlay.classList.remove('visible');
                             currentOverlay.addEventListener('transitionend', () => {
                                 currentOverlay.remove();
-                                currentOverlay = null; // Réinitialiser la référence
+                                currentOverlay = null; 
                             }, { once: true });
                         }
                     };
 
-                    // Événement de validation
                     submitButton.addEventListener('click', async () => {
                         const assigneeName = nameInput.value.trim();
                         if (assigneeName) {
                             const result = await postData('assignTask', { taskId, assigneeName });
                             if (result && result.success) {
                                 showAlert('Merci pour votre implication !', result.message, '🎉');
-                                hideInputWrapper(); // Masquer la boîte de dialogue
-                                loadTasks(); // Recharger les tâches
+                                hideInputWrapper(); 
+                                loadTasks(); 
                                 loadCurrentPodiumForTasksPage(); 
                                 loadCurrentWeeklyScores();
                             } else if (result && result.message) {
                                 // Erreur déjà gérée par postData avec showAlert
-                                // hideInputWrapper(); // Ne pas masquer la boîte en cas d'erreur de saisie
                             }
                         } else {
                             showAlert('Champ vide', 'Veuillez entrer votre nom pour prendre la tâche.', '⚠️');
@@ -291,15 +281,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
 
-                    // Événement d'annulation
                     cancelButton.addEventListener('click', hideInputWrapper);
 
-                    // Gérer le clic en dehors pour annuler (sur l'overlay)
                     if (currentOverlay) {
                         currentOverlay.addEventListener('click', hideInputWrapper);
                     }
 
-                    // Gérer la touche "Entrée" et "Échap"
                     nameInput.addEventListener('keydown', (event) => {
                         if (event.key === 'Enter') {
                             submitButton.click();

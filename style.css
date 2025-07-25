@@ -186,24 +186,23 @@ p {
     position: relative;
     overflow: hidden;
 
-    /* Nouveau style pour les cartes : fond blanc avec accent bleu */
     background: var(--card-bg); /* Fond blanc */
     color: var(--text-color); /* Texte sombre */
     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15); /* Ombre douce, légèrement bleutée */
     border: 1px solid var(--primary-blue-light); /* Bordure très fine et claire */
-    cursor: pointer; /* Indique toujours la cliquabilité par défaut */
+    cursor: pointer;
 }
 
 .task-item:hover:not(.completed) {
-    transform: translateY(-5px) scale(1.01); /* Léger soulèvement et agrandissement */
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25); /* Ombre plus intense au survol */
-    background-color: var(--primary-blue-light); /* Légère teinte bleue au survol */
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
+    background-color: var(--primary-blue-light);
 }
 
 .task-item h3 {
     margin-top: 0;
     margin-bottom: 8px;
-    color: var(--primary-blue); /* Titre en bleu principal pour le dynamisme */
+    color: var(--primary-blue);
     font-size: 1.3em;
     font-weight: 700;
 }
@@ -211,17 +210,17 @@ p {
 .task-item p {
     margin-bottom: 6px;
     font-size: 0.95em;
-    color: var(--light-text-color); /* Texte secondaire en gris */
+    color: var(--light-text-color);
 }
 
 .task-meta {
     font-weight: 600;
-    color: var(--text-color); /* Couleur du texte principal */
+    color: var(--text-color);
 }
 
 .task-score {
     font-weight: 800;
-    color: var(--secondary-green); /* Score en vert vif */
+    color: var(--secondary-green);
     font-size: 1.1em;
     margin-top: 5px;
 }
@@ -230,7 +229,7 @@ p {
 .task-item.completed {
     background: var(--bg-color);
     color: var(--light-text-color);
-    opacity: 0.8; /* Légèrement plus transparent pour montrer qu'elles sont faites */
+    opacity: 0.8;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
     transform: none;
     cursor: not-allowed;
@@ -306,48 +305,60 @@ p {
 
 /* --- Champ de saisie du nom (Flat Design) --- */
 .name-input-wrapper {
+    /* Nouvelle approche : la boîte de dialogue est une pop-up modal, pas un remplacement de carte */
+    position: fixed; /* Fixée à l'écran */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrée */
+    z-index: 1001; /* Au-dessus de tout */
+    
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 18px 25px; /* Même padding que la carte pour une taille similaire */
-    background-color: var(--primary-blue-light); /* Fond bleu clair pour la boîte de dialogue */
-    border-radius: 12px; /* Même border-radius que la carte */
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); /* Ombre cohérente */
-    opacity: 1; 
-    transition: opacity 0.3s ease-out; /* Transition douce pour l'apparition/disparition */
+    padding: 25px 30px; /* Padding généreux pour une pop-up */
+    background-color: var(--primary-blue-light); /* Fond bleu clair */
+    border-radius: 15px; /* Arrondi plus prononcé */
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); /* Ombre plus marquée */
+    border: 1px solid var(--primary-blue); /* Bordure bleue */
+    width: 90%; /* Prend 90% de la largeur */
+    max-width: 450px; /* Limite la largeur max */
+    
+    opacity: 0; 
+    visibility: hidden; /* Cachée par défaut */
+    transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
+
     align-items: center;
-    border: 1px solid var(--primary-blue); /* Bordure bleue plus foncée */
-    /* Ces styles seront gérés par JS pour qu'il remplace la carte */
-    position: relative; 
-    margin: 0; /* Pas de marge externe pour prendre la place de la carte */
+    text-align: center; /* Centrer le texte à l'intérieur */
 }
 
-/* Animateur pour la boîte de dialogue qui remplace la carte */
-.name-input-wrapper.entering {
-    animation: fadeInScaleUp 0.3s forwards;
+.name-input-wrapper.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1); /* Animation d'apparition */
 }
 
-@keyframes fadeInScaleUp {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-
-.name-input-wrapper.hidden {
+/* Overlay pour le fond sombre derrière la pop-up */
+.name-input-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
     opacity: 0;
-    pointer-events: none; /* Empêche les clics fantômes */
-    /* Aucun max-height ni padding-top/bottom ici, la carte mère sera masquée */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.name-input-overlay.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 
 .assignee-name-input {
-    width: 80%;
+    width: 90%; /* Plus large dans la pop-up */
     max-width: 300px;
     padding: 12px 15px;
     border: 1px solid var(--border-light);
@@ -368,8 +379,9 @@ p {
 
 .input-buttons {
     display: flex;
-    gap: 10px; /* Espace entre les boutons */
-    margin-top: 10px; /* Marge au-dessus des boutons */
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center; /* Centrer les boutons */
 }
 
 .submit-assignee-name {
@@ -735,49 +747,62 @@ p {
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
+    body {
+        padding: 15px; /* Réduire le padding du body */
+    }
     .container {
-        padding: 25px;
+        padding: 20px; /* Réduire le padding du conteneur principal */
         border-radius: 10px;
     }
     h1 {
-        font-size: 2.5em;
+        font-size: 2.2em; /* Réduire légèrement la taille du titre */
     }
     h2 {
-        font-size: 2em;
+        font-size: 1.8em; /* Réduire la taille des sous-titres */
     }
     .app-logo {
-        max-width: 150px;
+        max-width: 130px; /* Réduire la taille du logo */
     }
     .tabs {
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 8px; /* Réduire l'espace entre les boutons d'onglet */
     }
     .tab-button {
-        padding: 12px 20px;
-        font-size: 1em;
+        padding: 10px 18px; /* Réduire le padding des boutons d'onglet */
+        font-size: 0.95em; /* Réduire la taille de la police */
         border-radius: 6px;
     }
     .task-item, .scores-full-list li, .history-item, .podium-list li {
-        padding: 15px;
+        padding: 12px 18px; /* Réduire le padding des éléments de liste */
         border-radius: 8px;
     }
+    .task-item h3 {
+        font-size: 1.1em; /* Réduire la taille du titre de la tâche */
+    }
+    .task-item p {
+        font-size: 0.9em; /* Réduire la taille du texte de la tâche */
+    }
+    .task-score {
+        font-size: 1em; /* Réduire la taille du score */
+    }
     .podium-list li {
-        max-width: 95%;
-        font-size: 1.2em;
-        padding-left: 50px;
+        max-width: 98%; /* Utiliser plus de largeur disponible */
+        font-size: 1.1em; /* Réduire la taille de la police du podium */
+        padding-left: 45px; /* Ajuster le padding pour l'icône */
     }
     .podium-list li::before {
-        font-size: 2.2em;
-        left: 15px;
+        font-size: 2em; /* Réduire la taille de l'icône de médaille */
+        left: 10px; /* Ajuster la position de l'icône */
     }
     .podium-list li .player-name {
-        margin-left: 40px;
+        margin-left: 35px; /* Ajuster la marge */
     }
     .name-input-wrapper {
-        padding: 15px;
+        padding: 20px 25px; /* Ajuster le padding pour le mobile */
+        max-width: 350px; /* Réduire la largeur max */
     }
     .assignee-name-input {
-        width: 90%;
+        width: 95%; /* Utiliser plus de largeur pour l'input */
     }
     .alert-box {
         padding: 20px;
@@ -795,48 +820,105 @@ p {
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 2em;
+    body {
+        padding: 10px; /* Encore moins de padding pour les très petits écrans */
     }
-    h2 {
+    .container {
+        padding: 15px; /* Encore moins de padding */
+        border-radius: 8px;
+    }
+    h1 {
         font-size: 1.8em;
     }
+    h1::after {
+        width: 70px; /* Réduire la ligne sous le titre */
+        height: 4px;
+    }
+    h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px; /* Ajuster les marges */
+    }
+    h2::after {
+        width: 40px;
+        height: 2px;
+    }
     .app-logo {
-        max-width: 120px;
+        max-width: 100px;
+        margin-bottom: 30px;
+    }
+    .tabs {
+        flex-direction: column; /* Les onglets en colonne */
+        gap: 8px;
+        margin-bottom: 25px;
     }
     .tab-button {
-        width: 100%;
-        margin: 5px 0;
+        width: 100%; /* Les boutons d'onglet prennent toute la largeur */
         padding: 10px 15px;
-        font-size: 0.95em;
-    }
-    .task-item {
-        padding: 15px 20px;
-    }
-    .task-item h3 {
-        font-size: 1.2em;
-    }
-    .task-item p {
         font-size: 0.9em;
     }
-    .podium-list li {
-        font-size: 1.1em;
-        padding: 12px 15px;
-        padding-left: 45px;
+    .task-item {
+        padding: 10px 15px; /* Plus compact */
+        margin-bottom: 8px;
     }
-    .podium-list li::before {
-        font-size: 2em;
-        left: 10px;
+    .task-item h3 {
+        font-size: 1em; /* Très compact */
+        margin-bottom: 5px;
     }
-    .podium-list li .player-name {
-        margin-left: 35px;
+    .task-item p {
+        font-size: 0.85em; /* Très compact */
+        margin-bottom: 4px;
     }
-    .assignee-name-input {
-        padding: 10px;
+    .task-score {
+        font-size: 0.9em;
+        margin-top: 3px;
+    }
+    .flat-button {
+        padding: 10px 18px; /* Réduire la taille des boutons */
         font-size: 0.95em;
     }
-    .submit-assignee-name {
-        padding: 8px 12px;
+    .podium-list li {
+        font-size: 1em;
+        padding: 10px 15px;
+        padding-left: 40px;
+    }
+    .podium-list li::before {
+        font-size: 1.8em;
+        left: 8px;
+    }
+    .podium-list li .player-name {
+        margin-left: 30px;
+    }
+    .name-input-wrapper {
+        padding: 18px 20px;
+        max-width: 95%; /* Presque toute la largeur sur mobile */
+    }
+    .assignee-name-input {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    .submit-assignee-name, .cancel-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    .input-buttons {
+        flex-direction: column; /* Boutons en colonne sur très petit écran */
+        gap: 8px;
+        width: 100%;
+        align-items: center;
+    }
+    .input-buttons .flat-button {
+        width: 80%; /* Occuper plus de place */
+    }
+    .alert-box {
+        padding: 15px;
+    }
+    .alert-icon {
+        font-size: 2.5em;
+    }
+    .alert-box h3 {
+        font-size: 1.2em;
+    }
+    .alert-box p {
         font-size: 0.9em;
     }
 }

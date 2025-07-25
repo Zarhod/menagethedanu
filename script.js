@@ -1,7 +1,7 @@
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 // Remplacez cette URL par l'URL de votre Cloudflare Worker déployé.
 // Exemple : const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev';
-const CLOUDFLARE_WORKER_URL = 'https://script.google.com/macros/s/AKfycbxvBqovOkC5-6-IwBl8OJf8-3keOYD5SL6hAqvAjXli522G3yHBEI3o8FXz0st6zQvM/exec';
+const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev';
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 
 document.addEventListener('DOMContentLoaded', () => {

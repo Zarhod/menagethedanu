@@ -1,0 +1,345 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #38309a; /* Couleur de fond foncée */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligne le contenu en haut */
+    min-height: 100vh;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrer le contenu du wrapper (logo, titre, container) */
+    width: 100%;
+    max-width: 800px; /* Limite la largeur générale */
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white; /* Texte blanc pour le header sur fond foncé */
+}
+
+.app-logo {
+    width: 120px; /* Taille du logo */
+    height: 120px;
+    object-fit: contain; /* Assure que le logo entier est visible */
+    margin-bottom: 15px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Ombre pour le titre */
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #34495e;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-button {
+    background-color: #ecf0f1;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #7f8c8d;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px 5px 0 0;
+    margin: 0 2px;
+}
+
+.tab-button:hover {
+    background-color: #dbe4e6;
+}
+
+.tab-button.active {
+    background-color: #3498db;
+    color: white;
+    border-bottom: 3px solid #2980b9;
+}
+
+.tab-content {
+    display: none;
+    padding-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Task List */
+.task-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.task-item h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.2em;
+}
+
+.task-item p {
+    margin: 0;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.task-item .task-meta {
+    font-size: 0.85em;
+    color: #777;
+}
+
+.task-item .task-score {
+    font-weight: bold;
+    color: #27ae60; /* Vert pour les scores */
+}
+
+.task-item button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Aligner le bouton à droite */
+}
+
+.task-item button:hover {
+    background-color: #2980b9;
+}
+
+/* Règles pour les tâches terminées (plus petites, en haut) */
+.task-item.completed {
+    background-color: #e8f5e9; /* Vert très clair pour les tâches terminées */
+    border-color: #a5d6a7;
+    opacity: 0.8;
+    padding: 10px 15px; /* Rendre la carte plus petite */
+    font-size: 0.9em;
+    order: -1; /* Permet de les trier au début dans un flex container */
+}
+
+.task-item.completed h3 {
+    font-size: 1em; /* Réduire la taille du titre */
+}
+
+.task-item.completed p {
+    font-size: 0.85em;
+}
+
+.task-item.completed .task-score,
+.task-item.completed .task-meta {
+    font-size: 0.75em;
+}
+
+.task-item.completed button {
+    display: none; /* Masquer le bouton "Prendre" pour les tâches terminées */
+}
+
+/* Input de nom stylé */
+.name-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.name-input-wrapper input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.name-input-wrapper button {
+    background-color: #27ae60; /* Vert pour le bouton de soumission du nom */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.name-input-wrapper button:hover {
+    background-color: #229954;
+}
+
+
+/* Scores List */
+.scores-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.scores-list li {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.scores-list li strong {
+    color: #2c3e50;
+}
+
+.scores-list li span {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+/* Podium de la Semaine */
+.podium-list {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.podium-list ol {
+    list-style: none;
+    padding: 0;
+}
+
+.podium-list li {
+    font-size: 1.2em;
+    padding: 8px 0;
+    border-bottom: 1px dashed #dbe4e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.podium-list li:last-child {
+    border-bottom: none;
+}
+
+.podium-list li.gold {
+    color: #d4af37; /* Or */
+    font-weight: bold;
+}
+.podium-list li.silver {
+    color: #c0c0c0; /* Argent */
+    font-weight: bold;
+}
+.podium-list li.bronze {
+    color: #cd7f32; /* Bronze */
+    font-weight: bold;
+}
+
+/* Bouton d'action */
+.action-button {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    background-color: #e74c3c; /* Rouge pour l'action de réinitialisation */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: #c0392b;
+}
+
+/* History List (Podiums) */
+.history-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.history-item h3 {
+    margin-top: 0;
+    color: #34495e;
+    font-size: 1.1em;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.history-item ol {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.history-item li {
+    margin-bottom: 5px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.history-item li strong {
+    color: #2c3e50;
+}
+
+.history-item li span {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    .tab-button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .task-item button {
+        align-self: stretch; /* Bouton prend toute la largeur sur mobile */
+    }
+}

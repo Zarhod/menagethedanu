@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Tâches Ménagères</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-wrapper"> 
+        <header class="app-header">
+            <img src="logo.png" alt="Logo de l'application" class="app-logo">
+            <h1>Tableau de Bord Tâches Ménagères</h1>
+        </header>
+
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="tasks">Tâches</button>
+                <button class="tab-button" data-tab="scores">Scores</button>
+                <button class="tab-button" data-tab="history">Historique Podiums</button>
+            </div>
+
+            <div id="tasks-tab" class="tab-content active">
+                <h2>Tâches Terminées cette Semaine</h2>
+                <div class="task-list" id="completedTaskList">
+                    <p class="task-meta">Chargement des tâches terminées...</p>
+                </div>
+                <h2>Tâches à Faire</h2>
+                <div class="task-list" id="pendingTaskList">
+                    <p>Chargement des tâches à faire...</p>
+                </div>
+            </div>
+
+            <div id="scores-tab" class="tab-content">
+                <h2>Scores Hebdomadaires Actuels</h2>
+                <div class="scores-list" id="scoresList">
+                    <p>Chargement des scores...</p>
+                </div>
+                <h2>Podium de la Semaine</h2>
+                <div class="podium-list" id="currentPodium">
+                    <p>Calcul du podium...</p>
+                </div>
+                <button id="resetScoresButton" class="action-button">Réinitialiser les scores et enregistrer le podium</button>
+            </div>
+
+            <div id="history-tab" class="tab-content">
+                <h2>Historique des Podiums Passés</h2>
+                <div class="history-list" id="historyList">
+                    <p>Chargement de l'historique...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

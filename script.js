@@ -1,7 +1,7 @@
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 // Remplacez cette URL par l'URL de votre Cloudflare Worker déployé.
 // Exemple : const CLOUDFLARE_WORKER_URL = 'https://apps-script-proxy.votre-nom-utilisateur.workers.dev';
-const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev'; 
+const CLOUDFLARE_WORKER_URL = 'https://menagetd.jassairbus.workers.dev/'; 
 // <<<<<<<<<<<<<<<<<<<<< TRÈS IMPORTANT >>>>>>>>>>>>>>>>>>>>>>>
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const tasks = await fetchData('getTasks');
         
-        // VÉRIFICATION AJOUTÉE ICI
+        // VÉRIFICATION CRUCIALE AJOUTÉE ICI
         if (!Array.isArray(tasks)) {
             console.error("Les données reçues de 'getTasks' ne sont pas un tableau:", tasks);
             completedTaskListDiv.innerHTML = '<p class="task-meta error">Erreur: Impossible de charger les tâches. La réponse de l\'API est invalide.</p>';
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPodiumDiv.innerHTML = '<p>Calcul du podium...</p>';
 
         const scores = await fetchData('getCurrentWeeklyScores');
-        // VÉRIFICATION AJOUTÉE ICI
+        // VÉRIFICATION CRUCIALE AJOUTÉE ICI
         if (!Array.isArray(scores)) {
             console.error("Les données reçues de 'getCurrentWeeklyScores' ne sont pas un tableau:", scores);
             scoresListDiv.innerHTML = '<p class="error">Erreur: Impossible de charger les scores. La réponse de l\'API est invalide.</p>';
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         historyListDiv.innerHTML = '<p>Chargement de l\'historique...</p>';
         const podiums = await fetchData('getWeeklyPodiums');
         
-        // VÉRIFICATION AJOUTÉE ICI
+        // VÉRIFICATION CRUCIALE AJOUTÉE ICI
         if (!Array.isArray(podiums)) {
             console.error("Les données reçues de 'getWeeklyPodiums' ne sont pas un tableau:", podiums);
             historyListDiv.innerHTML = '<p class="error">Erreur: Impossible de charger l\'historique des podiums. La réponse de l\'API est invalide.</p>';

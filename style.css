@@ -1,3 +1,5 @@
+/* public/style.css */
+
 /* --- Styles Généraux --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,6 +23,20 @@ body {
     max-width: 800px;
     box-sizing: border-box;
 }
+
+/* --- Logo --- */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.app-logo {
+    max-width: 150px; /* Ajustez la taille selon votre logo */
+    height: auto;
+    border-radius: 50%; /* Si vous voulez un effet rond */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 
 h1, h2, h3 {
     color: #2c3e50;
@@ -140,11 +156,23 @@ p {
     color: #27ae60;
 }
 
+/* Nouvelle style pour les tâches terminées */
 .task-item.completed {
-    background-color: #e8f8f5; /* Vert très clair */
-    border-color: #a3e4d7;
-    opacity: 0.9;
+    background-color: #f0f0f0; /* Gris clair */
+    border-color: #ccc;
+    opacity: 0.8;
+    color: #666; /* Texte plus sombre pour la lisibilité sur fond gris */
 }
+
+.task-item.completed h3 {
+    color: #555; /* Titre légèrement plus foncé */
+}
+
+.task-item.completed .task-meta, 
+.task-item.completed .task-score {
+    color: #777; /* Meta et score également ajustés */
+}
+
 
 /* --- Boutons --- */
 button {
@@ -293,12 +321,36 @@ button:active {
     font-weight: bold;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    position: relative; /* Pour positionner les médailles */
+    padding-left: 40px; /* Espace pour la médaille */
 }
 
+/* Styles pour les médailles */
+.podium-list li::before {
+    content: ''; /* Contenu vide, l'icône viendra du background ou émoji */
+    position: absolute;
+    left: 10px;
+    font-size: 1.5em; /* Taille de l'émoji/icône */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.podium-list li.gold::before {
+    content: '🥇'; /* Émoji médaille d'or */
+}
+
+.podium-list li.silver::before {
+    content: '🥈'; /* Émoji médaille d'argent */
+}
+
+.podium-list li.bronze::before {
+    content: '🥉'; /* Émoji médaille de bronze */
+}
+
+
 .podium-list li .rank {
-    font-size: 1.2em;
-    margin-right: 10px;
-    color: #2c3e50;
+    /* Supprimé car remplacé par les médailles emoji */
+    display: none; 
 }
 
 .podium-list li .player-name {
@@ -388,6 +440,27 @@ button:active {
     border: 1px solid #eee;
 }
 
+/* Ajout des médailles pour l'historique aussi */
+.podium-history-list li::before {
+    content: ''; 
+    position: relative; /* Relative pour l'historique car pas besoin de décalage parfait */
+    margin-right: 8px; /* Espacement après l'émoji */
+    font-size: 1.2em;
+    display: inline-block; /* Pour que margin-right fonctionne */
+}
+
+.podium-history-list li.gold::before {
+    content: '🥇';
+}
+
+.podium-history-list li.silver::before {
+    content: '🥈';
+}
+
+.podium-history-list li.bronze::before {
+    content: '🥉';
+}
+
 /* --- Messages d'info/erreur --- */
 .loading-message, .info-message, .error-message {
     text-align: center;
@@ -429,5 +502,10 @@ button:active {
     }
     .podium-list li {
         width: 100%;
+        padding-left: 35px; /* Ajuster pour les petits écrans */
+    }
+    .podium-list li::before {
+        font-size: 1.3em;
+        left: 5px;
     }
 }

@@ -3,71 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean'App Challenge</title>
+    <title>CleanApp Score Tracker</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <img src="logo.png" alt="Clean'App Logo" class="app-logo">
-        </div>
-        <h1>Clean'App Challenge</h1>
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Chargement en cours...</p>
+    </div>
 
-        <div class="tabs">
+    <div class="container">
+        <header>
+            <h1><span class="icon">✨</span> CleanApp Score Tracker</h1>
+        </header>
+
+        <nav class="tabs">
             <button class="tab-button active" data-tab="tasks">Tâches</button>
             <button class="tab-button" data-tab="scores">Scores</button>
             <button class="tab-button" data-tab="history">Historique</button>
-        </div>
+        </nav>
 
         <div id="tasks-tab" class="tab-content active">
-            <div class="current-podium-section" id="currentPodium">
+            <div id="currentPodium">
+                </div>
+            <h2>Tâches à faire</h2>
+            <div id="pendingTaskList" class="task-list">
                 </div>
 
-            <div class="task-section">
-                <h2>Tâches à faire</h2>
-                <div class="task-list" id="pendingTaskList">
-                    </div>
-            </div>
-
-            <div class="task-section">
-                <h2>Tâches terminées cette semaine</h2>
-                <div class="task-list" id="completedTaskList">
+            <div id="completedTasksSection">
+                <div class="completed-tasks-header collapsed">
+                    <h3>Tâches terminées <span class="arrow-icon">▼</span></h3>
+                </div>
+                <div id="completedTaskList" class="task-list completed-tasks-list">
                     </div>
             </div>
         </div>
 
         <div id="scores-tab" class="tab-content">
-            <div class="scores-section">
-                <h2>Scores de la semaine</h2>
-                <div class="scores-list" id="scoresList">
-                    </div>
-                <button id="resetScoresButton" class="flat-button">Réinitialiser les scores de la semaine</button>
-            </div>
+            <h2>Scores de la semaine</h2>
+            <div id="scoresList" class="scores-list">
+                </div>
+            <button id="resetScoresButton" class="flat-button reset-button hidden">Réinitialiser les scores de la semaine</button>
         </div>
 
         <div id="history-tab" class="tab-content">
-            <div class="history-section">
-                <h2>Historique des podiums</h2>
-                <div class="history-list" id="historyList">
-                    </div>
-            </div>
+            <h2>Historique des podiums</h2>
+            <div id="historyList" class="history-list">
+                </div>
         </div>
     </div>
 
-    <div id="loadingOverlay" style="display: none;">
-        <div class="spinner"></div>
-        <p>Chargement en cours...</p>
-    </div>
-
-    <div id="customAlertOverlay" class="alert-overlay">
-        <div class="alert-box">
-            <span class="close-alert">&times;</span>
-            <div class="alert-icon"></div>
+    <div id="customAlertOverlay" class="custom-alert-overlay">
+        <div class="custom-alert-box">
+            <span class="alert-icon"></span>
             <h3 id="alertTitle"></h3>
             <p id="alertMessage"></p>
-            <button class="alert-button">OK</button>
+            <button class="alert-button close-alert flat-button">OK</button>
         </div>
     </div>
 

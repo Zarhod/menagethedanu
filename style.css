@@ -9,7 +9,6 @@
     --dark-text: #343a40; /* Couleur de texte principale */
     --container-bg: #ffffff; /* Fond des conteneurs (blanc) */
     --shadow-light: rgba(0, 0, 0, 0.08); /* Ombre légère */
-    --main-bg-color: #38309a; /* Couleur de fond principale désirée */
 }
 
 /* Styles généraux du corps de la page */
@@ -22,9 +21,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: var(--main-bg-color); /* Nouvelle couleur de fond */
-    /* Ajout d'une légère texture subtile pour un fond plus riche */
-    background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23433b9e" fill-opacity="0.4"%3E%3Cpath d="M1 3h1v1H1V3zm2 0h1v1H3V3zM0 0h1v1H0V0zm2 0h1v1H2V0zm4 0h1v1H4V0zm0 2h1v1H4V2zm0 4h1v1H4V4zM2 4h1v1H2V4zm-2 2h1v1H0V4zm0-2h1v1H0V2z"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+    background-color: var(--light-gray); /* Fond de la page */
 }
 
 /* Conteneur principal de l'application */
@@ -38,8 +35,6 @@ body {
     max-width: 800px;
     box-sizing: border-box;
     position: relative;
-    /* Ajout d'une texture discrète au conteneur blanc */
-    background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23f0f0f0" fill-opacity="0.3"%3E%3Cpath d="M1 3h1v1H1V3zm2 0h1v1H3V3zM0 0h1v1H0V0zm2 0h1v1H2V0zm4 0h1v1H4V0zm0 2h1v1H4V2zm0 4h1v1H4V4zM2 4h1v1H2V4zm-2 2h1v1H0V4zm0-2h1v1H0V2z"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
 }
 
 /* Styles du titre et de l'en-tête */
@@ -47,47 +42,13 @@ header {
     text-align: center;
     margin-bottom: 30px;
     padding: 20px 0;
-    color: white; /* Texte du titre en blanc */
-    background-color: var(--main-bg-color); /* Le header prend la même couleur de fond que le body */
-    border-radius: 12px 12px 0 0; /* Arrondir juste les coins du haut si le header est inclus dans .container */
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: -30px; /* Remonte le header au-dessus du padding du container */
-    margin-left: -30px; /* Élargit le header sur toute la largeur du container */
-    margin-right: -30px; /* Élargit le header sur toute la largeur du container */
-    border-bottom: 3px solid rgba(255, 255, 255, 0.2); /* Ligne de séparation subtile */
-    
-    /* Image d'arrière-plan pour un effet de titre plus riche */
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://source.unsplash.com/random/800x200?cleaning,home-chores'); /* Exemple: image aléatoire de ménage */
-    background-size: cover;
-    background-position: center;
+    color: var(--primary-blue);
 }
 
 header h1 {
-    font-size: 3.5em; /* Taille plus grande pour le titre principal */
+    font-size: 2.8em;
     margin: 0;
-    font-weight: 800; /* Plus gras */
-    letter-spacing: 1.5px; /* Espacement des lettres */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Ombre pour le texte */
-    text-transform: uppercase; /* Tout en majuscules */
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espace entre le texte et l'icône */
-}
-
-header h1 .icon {
-    font-size: 1.2em; /* Taille de l'icône par rapport au texte */
-    animation: bounce 2s infinite ease-in-out; /* Animation subtile */
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    font-weight: 700;
 }
 
 /* Styles des onglets de navigation */
@@ -242,62 +203,6 @@ header h1 .icon {
 
 .task-item.completed h3 {
     color: #218838; /* Vert foncé pour le titre */
-}
-
-/* --- Menu déroulant pour les tâches terminées --- */
-.completed-tasks-header {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    background-color: var(--medium-gray);
-    padding: 12px 18px;
-    border-radius: 8px;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: var(--dark-text);
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.completed-tasks-header:hover {
-    background-color: #dde0e3;
-}
-
-.completed-tasks-header h3 {
-    margin: 0; /* Supprime la marge par défaut du h3 */
-    font-size: 1.15em;
-    color: var(--dark-text); /* S'assure que le titre du header est de la couleur normale */
-    flex-grow: 1; /* Permet au titre de prendre l'espace restant */
-}
-
-.completed-tasks-header .arrow-icon {
-    margin-left: auto; /* Pousse l'icône à droite */
-    font-size: 1.2em;
-    transition: transform 0.3s ease;
-    color: var(--primary-blue);
-}
-
-.completed-tasks-header.collapsed .arrow-icon {
-    transform: rotate(0deg); /* Flèche vers le bas par défaut (▼) */
-}
-
-.completed-tasks-header.expanded .arrow-icon {
-    transform: rotate(180deg); /* Flèche vers le haut quand déplié (▲) */
-}
-
-.completed-tasks-list {
-    max-height: 0; /* Initialement masqué */
-    overflow: hidden;
-    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
-    opacity: 0;
-    padding: 0 10px; /* Légère indentation */
-}
-
-.completed-tasks-list.visible {
-    max-height: 500px; /* Hauteur suffisante pour afficher le contenu (ajuster si nécessaire) */
-    opacity: 1;
-    margin-bottom: 20px;
 }
 
 /* Styles pour le podium et les scores */
@@ -588,20 +493,11 @@ header h1 .icon {
     }
 
     header {
-        padding-top: 30px;
-        padding-bottom: 30px;
-        margin-top: -20px;
-        margin-left: -20px;
-        margin-right: -20px;
+        padding: 15px 0;
     }
 
     header h1 {
-        font-size: 2.2em;
-        gap: 10px;
-    }
-
-    header h1 .icon {
-        font-size: 1em;
+        font-size: 2em;
     }
 
     .tabs {

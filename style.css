@@ -1,97 +1,143 @@
 /* public/style.css */
 
+/* --- Variables CSS (pour la cohérence et la facilité de modification) --- */
+:root {
+    --bg-color: #e0e5ec; /* Couleur de fond principale, base du neumorphisme */
+    --primary-color: #4A90E2; /* Bleu vif pour les éléments principaux */
+    --secondary-color: #2ECC71; /* Vert pour les actions positives/succès */
+    --text-color: #34495e; /* Texte principal foncé */
+    --light-text-color: #7f8c8d; /* Texte secondaire, info */
+    --shadow-light: #ffffff; /* Ombre claire pour l'effet de relief */
+    --shadow-dark: #c8d0e7; /* Ombre foncée pour l'effet de relief */
+    --border-color: #d1d9e6; /* Bordure subtile */
+    --gold: linear-gradient(145deg, #f1c40f, #e67e22);
+    --silver: linear-gradient(145deg, #bdc3c7, #95a5a6);
+    --bronze: linear-gradient(145deg, #d35400, #c0392b);
+}
+
 /* --- Styles Généraux --- */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
+    font-family: 'Poppins', sans-serif; /* Nouvelle police */
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
     margin: 0;
     padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Aligner en haut */
+    align-items: flex-start;
     min-height: 100vh;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
 }
 
 .container {
-    background-color: #ffffff;
+    background-color: var(--bg-color);
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; /* Rayon plus prononcé pour l'effet neumorphique */
+    box-shadow: 
+        8px 8px 15px var(--shadow-dark),
+        -8px -8px 15px var(--shadow-light); /* Ombre douce neumorphique */
     width: 100%;
-    max-width: 800px;
+    max-width: 850px; /* Légèrement plus large */
     box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+h1, h2, h3 {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700; /* Plus épais */
+}
+
+h1 {
+    font-size: 2.8em;
+    padding-bottom: 10px;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+/* Soulignement stylisé pour h1 */
+h1::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+h2 {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-top: 35px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Petite ombre textuelle */
+}
+
+p {
+    margin-bottom: 10px;
+    color: var(--light-text-color);
 }
 
 /* --- Logo --- */
 .logo-container {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .app-logo {
-    max-width: 150px; /* Ajustez la taille selon votre logo */
+    max-width: 180px; /* Taille légèrement plus grande */
     height: auto;
-    border-radius: 50%; /* Si vous voulez un effet rond */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark),
+        -5px -5px 10px var(--shadow-light); /* Effet neumorphique pour le logo */
+    transition: transform 0.3s ease;
 }
 
-
-h1, h2, h3 {
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 2.5em;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
-}
-
-h2 {
-    font-size: 1.8em;
-    color: #34495e;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-p {
-    margin-bottom: 10px;
+.app-logo:hover {
+    transform: scale(1.05);
 }
 
 /* --- Onglets --- */
 .tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    gap: 15px; /* Espace entre les boutons */
 }
 
 .tab-button {
-    background-color: #ecf0f1;
+    background-color: var(--bg-color);
     border: none;
-    padding: 12px 25px;
+    padding: 14px 30px; /* Plus grand padding */
     cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    color: #34495e;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 8px 8px 0 0;
-    margin: 0 5px;
+    font-size: 1.1em;
+    font-weight: 600; /* Plus épais */
+    color: var(--light-text-color);
+    transition: all 0.3s ease;
+    border-radius: 15px; /* Plus arrondi */
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark),
+        -5px -5px 10px var(--shadow-light); /* Ombre sortie par défaut */
 }
 
 .tab-button:hover {
-    background-color: #dde1e2;
+    color: var(--primary-color);
+    box-shadow: 
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé au survol */
 }
 
 .tab-button.active {
-    background-color: #3498db;
+    background: var(--primary-color); /* Couleur principale quand actif */
     color: #ffffff;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 1;
+    box-shadow: 
+        inset 5px 5px 10px rgba(0, 0, 0, 0.2), /* Ombre interne pour l'effet enfoncé */
+        inset -5px -5px 10px rgba(255, 255, 255, 0.3);
+    pointer-events: none; /* Ne pas permettre le clic sur l'onglet actif */
 }
 
 .tab-content {
@@ -105,121 +151,144 @@ p {
 
 /* --- Sections de Tâches et Scores --- */
 .task-section, .scores-section, .history-section {
-    background-color: #fdfdfd;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    background-color: var(--bg-color);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark),
+        -5px -5px 10px var(--shadow-light); /* Effet neumorphique de base */
 }
 
 .task-list, .scores-list, .history-list {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
-/* --- Style des cartes de tâches --- */
+/* --- Style des cartes de tâches (Pending/Active) --- */
 .task-item {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--bg-color);
+    border-radius: 15px;
+    padding: 18px 25px;
+    margin-bottom: 15px;
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark),
+        -5px -5px 10px var(--shadow-light);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
-.task-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.task-item:hover:not(.completed) {
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light); /* Effet d'enfoncement subtil au survol */
+    transform: translateY(0); /* Annuler le transform par défaut si il y en avait un */
 }
 
 .task-item h3 {
     margin-top: 0;
-    margin-bottom: 8px;
-    color: #2c3e50;
-    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 1.3em;
     text-align: left;
+    font-weight: 600;
 }
 
 .task-item p {
-    margin-bottom: 5px;
-    font-size: 0.95em;
-    color: #555;
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: var(--light-text-color);
 }
 
 .task-meta {
-    font-weight: bold;
-    color: #666;
+    font-weight: 600;
+    color: var(--primary-color);
 }
 
 .task-score {
-    font-weight: bold;
-    color: #27ae60;
+    font-weight: 700;
+    color: var(--secondary-color);
+    font-size: 1.1em;
 }
 
-/* Nouvelle style pour les tâches terminées */
+/* Style des tâches terminées (plus discrètes mais lisibles) */
 .task-item.completed {
-    background-color: #f0f0f0; /* Gris clair */
-    border-color: #ccc;
-    opacity: 0.8;
-    color: #666; /* Texte plus sombre pour la lisibilité sur fond gris */
+    background-color: var(--bg-color);
+    opacity: 0.7;
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light); /* Effet "enfoncé" plus prononcé */
+    color: var(--light-text-color);
+    cursor: not-allowed;
 }
 
-.task-item.completed h3 {
-    color: #555; /* Titre légèrement plus foncé */
-}
-
-.task-item.completed .task-meta, 
+.task-item.completed h3,
+.task-item.completed .task-meta,
 .task-item.completed .task-score {
-    color: #777; /* Meta et score également ajustés */
+    color: var(--light-text-color); /* Texte plus pâle */
 }
 
 
-/* --- Boutons --- */
+/* --- Boutons Généraux --- */
 button {
-    background-color: #3498db;
+    background: var(--primary-color);
     color: white;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 
+        3px 3px 7px var(--shadow-dark),
+        -3px -3px 7px var(--shadow-light); /* Ombre de bouton neumorphique */
 }
 
 button:hover {
-    background-color: #2980b9;
-    transform: translateY(-1px);
+    background: var(--primary-color);
+    box-shadow: 
+        inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.3); /* Effet enfoncé au survol */
+    transform: scale(0.98);
 }
 
 button:active {
-    transform: translateY(0);
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark),
+        inset -3px -3px 7px var(--shadow-light);
+    transform: scale(0.97);
 }
 
+/* Bouton spécifique de réinitialisation */
 #resetScoresButton {
+    background: #e74c3c; /* Rouge pour l'action de réinitialisation */
     display: block;
-    width: fit-content;
-    margin: 20px auto 0;
-    background-color: #e74c3c;
+    margin: 25px auto 0;
 }
 
 #resetScoresButton:hover {
-    background-color: #c0392b;
+    background: #c0392b;
 }
 
 /* --- Champ de saisie du nom (avec animation) --- */
 .name-input-wrapper {
     display: flex;
-    gap: 8px;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f0f8ff; /* Bleu très clair */
-    border: 1px solid #cceeff;
-    border-radius: 5px;
-    opacity: 1; /* Par défaut visible, géré par JS/CSS */
-    max-height: 50px; /* Taille maximale pour la transition */
-    overflow: hidden; /* Masque le débordement pendant la transition */
+    gap: 10px;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    box-shadow: 
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé pour l'input wrapper */
+    opacity: 1; 
+    max-height: 80px; /* Taille maximale pour la transition */
+    overflow: hidden; 
     transition: max-height 0.4s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out;
+    align-items: center;
 }
 
 .name-input-wrapper.hidden {
@@ -227,76 +296,78 @@ button:active {
     max-height: 0;
     padding-top: 0;
     padding-bottom: 0;
-    border: none; /* Cache la bordure quand masqué */
+    margin-top: 0;
+    margin-bottom: 0;
+    box-shadow: none;
 }
 
 .assignee-name-input {
     flex-grow: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.9em;
+    padding: 12px;
+    border: none; /* Pas de bordure par défaut */
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: var(--bg-color);
+    box-shadow: 
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé pour l'input */
+    color: var(--text-color);
+    outline: none; /* Pas de focus outline par défaut */
+    transition: box-shadow 0.3s ease;
+}
+
+.assignee-name-input:focus {
+    box-shadow: 
+        inset 1px 1px 3px var(--shadow-dark),
+        inset -1px -1px 3px var(--shadow-light),
+        0 0 0 3px var(--primary-color); /* Anneau de focus élégant */
 }
 
 .submit-assignee-name {
-    padding: 8px 12px;
-    font-size: 0.9em;
-    background-color: #2ecc71; /* Vert */
+    padding: 10px 18px;
+    font-size: 1em;
+    background: var(--secondary-color); /* Vert pour l'action de validation */
 }
 
 .submit-assignee-name:hover {
-    background-color: #27ae60;
+    background: var(--secondary-color);
 }
 
 /* --- Indicateur de chargement --- */
 #loadingOverlay {
-    position: fixed; /* Fixé par rapport à la fenêtre de visualisation */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Assure qu'il est au-dessus de tout */
-    color: #34495e;
-    font-size: 1.2em;
-    display: none; /* Caché par défaut, contrôlé par JS */
+    background-color: rgba(224, 229, 236, 0.9); /* Utilise la couleur de fond avec transparence */
+    color: var(--primary-color);
+    font-size: 1.3em;
+    font-weight: 600;
 }
 
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #3498db; /* Couleur du spinner */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite; /* Animation de rotation */
-    margin-bottom: 10px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary-color);
+    width: 50px;
+    height: 50px;
 }
 
 /* --- Styles du Podium --- */
 .current-podium-section {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-color);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark),
+        -5px -5px 10px var(--shadow-light);
     text-align: center;
-    border: 2px solid #3498db; /* Bordure pour le distinguer */
+    position: relative;
+    overflow: hidden; /* Pour la vague de fond */
 }
 
 .current-podium-section h2 {
-    color: #3498db;
+    color: var(--primary-color);
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    font-weight: 700;
 }
 
 .podium-list {
@@ -306,91 +377,89 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 12px; /* Espacement entre les podiums */
 }
 
 .podium-list li {
-    font-size: 1.1em;
-    padding: 8px 15px;
-    margin-bottom: 8px;
-    border-radius: 20px;
-    width: 80%;
-    max-width: 300px;
+    font-size: 1.2em;
+    padding: 15px 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 350px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    box-shadow: 
+        6px 6px 12px var(--shadow-dark),
+        -6px -6px 12px var(--shadow-light); /* Ombre sortie plus prononcée */
     transition: all 0.3s ease;
-    position: relative; /* Pour positionner les médailles */
-    padding-left: 40px; /* Espace pour la médaille */
+    position: relative;
+    overflow: hidden; /* Pour les arrière-plans des médailles */
 }
 
-/* Styles pour les médailles */
+.podium-list li:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        8px 8px 15px var(--shadow-dark),
+        -8px -8px 15px var(--shadow-light);
+}
+
+/* Styles pour les médailles avec émojis stylisés */
 .podium-list li::before {
-    content: ''; /* Contenu vide, l'icône viendra du background ou émoji */
+    font-size: 2.2em; /* Taille plus grande pour les émojis */
     position: absolute;
-    left: 10px;
-    font-size: 1.5em; /* Taille de l'émoji/icône */
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 1; /* Assure que l'émoji est au-dessus du fond */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Ombre pour les médailles */
 }
 
-.podium-list li.gold::before {
-    content: '🥇'; /* Émoji médaille d'or */
+.podium-list li.gold {
+    background: var(--gold);
+    color: #fff;
 }
+.podium-list li.gold::before { content: '🥇'; }
 
-.podium-list li.silver::before {
-    content: '🥈'; /* Émoji médaille d'argent */
+.podium-list li.silver {
+    background: var(--silver);
+    color: #fff;
 }
+.podium-list li.silver::before { content: '🥈'; }
 
-.podium-list li.bronze::before {
-    content: '🥉'; /* Émoji médaille de bronze */
+.podium-list li.bronze {
+    background: var(--bronze);
+    color: #fff;
 }
-
-
-.podium-list li .rank {
-    /* Supprimé car remplacé par les médailles emoji */
-    display: none; 
-}
+.podium-list li.bronze::before { content: '🥉'; }
 
 .podium-list li .player-name {
     flex-grow: 1;
     text-align: left;
+    margin-left: 45px; /* Espace pour la médaille */
+    color: inherit; /* Inherit pour les couleurs de dégradé */
 }
 
 .podium-list li .player-score {
     text-align: right;
     margin-left: 10px;
+    color: inherit;
+    font-size: 1.1em;
+    opacity: 0.9;
 }
 
-.podium-list li.gold {
-    background: linear-gradient(135deg, #f1c40f, #f39c12);
-    color: #ffffff;
-    border: 2px solid #e67e22;
-    transform: scale(1.05); /* Pour faire ressortir le premier */
-}
-
-.podium-list li.silver {
-    background: linear-gradient(135deg, #bdc3c7, #95a5a6);
-    color: #ffffff;
-    border: 2px solid #7f8c8d;
-}
-
-.podium-list li.bronze {
-    background: linear-gradient(135deg, #d35400, #e67e22);
-    color: #ffffff;
-    border: 2px solid #ba4a00;
-}
 
 .full-scores-button {
-    background-color: #2ecc71; /* Vert */
-    margin-top: 15px;
-    font-size: 1em;
-    padding: 10px 20px;
+    background: var(--secondary-color);
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.05em;
+    border-radius: 12px;
 }
 
 .full-scores-button:hover {
-    background-color: #27ae60;
+    background: var(--secondary-color);
 }
 
 /* --- Liste complète des scores (dans l'onglet Scores) --- */
@@ -401,111 +470,203 @@ button:active {
 }
 
 .scores-full-list li {
-    background-color: #f8f8f8;
-    border: 1px solid #eee;
-    padding: 10px 15px;
-    margin-bottom: 5px;
-    border-radius: 5px;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.2s ease;
+    box-shadow: 
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light); /* Effet enfoncé léger */
+    transition: all 0.2s ease;
 }
 
-.scores-full-list li:nth-child(even) {
-    background-color: #f0f0f0;
+.scores-full-list li:hover {
+    box-shadow: 
+        inset 1px 1px 3px var(--shadow-dark),
+        inset -1px -1px 3px var(--shadow-light);
+    transform: translateY(-1px);
 }
 
 .scores-full-list li strong {
-    color: #34495e;
+    color: var(--text-color);
+    font-weight: 600;
+}
+.scores-full-list li span {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 /* --- Liste historique du podium --- */
 .podium-history-list {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
+    margin-top: 15px;
+}
+
+.history-item {
+    background-color: var(--bg-color);
+    border-radius: 15px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 
+        4px 4px 8px var(--shadow-dark),
+        -4px -4px 8px var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.history-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        6px 6px 12px var(--shadow-dark),
+        -6px -6px 12px var(--shadow-light);
+}
+
+.history-item h3 {
+    text-align: left;
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .podium-history-list li {
-    font-size: 0.9em;
-    padding: 5px 10px;
-    margin-bottom: 3px;
-    border-radius: 15px;
+    font-size: 1em;
+    padding: 8px 15px;
+    margin-bottom: 6px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: normal;
-    background-color: #fefefe;
-    border: 1px solid #eee;
+    font-weight: 500;
+    background-color: var(--bg-color);
+    box-shadow: 
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light);
 }
 
-/* Ajout des médailles pour l'historique aussi */
 .podium-history-list li::before {
-    content: ''; 
-    position: relative; /* Relative pour l'historique car pas besoin de décalage parfait */
-    margin-right: 8px; /* Espacement après l'émoji */
-    font-size: 1.2em;
-    display: inline-block; /* Pour que margin-right fonctionne */
+    font-size: 1.5em;
+    margin-right: 10px;
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
 }
 
-.podium-history-list li.gold::before {
-    content: '🥇';
-}
+/* Couleurs spécifiques pour l'historique */
+.podium-history-list li.gold { background: rgba(241, 196, 15, 0.2); }
+.podium-history-list li.gold::before { content: '🥇'; }
 
-.podium-history-list li.silver::before {
-    content: '🥈';
-}
+.podium-history-list li.silver { background: rgba(189, 195, 199, 0.2); }
+.podium-history-list li.silver::before { content: '🥈'; }
 
-.podium-history-list li.bronze::before {
-    content: '🥉';
-}
+.podium-history-list li.bronze { background: rgba(211, 84, 0, 0.2); }
+.podium-history-list li.bronze::before { content: '🥉'; }
+
 
 /* --- Messages d'info/erreur --- */
 .loading-message, .info-message, .error-message {
     text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: 600;
+    box-shadow: 
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -2px -2px 5px var(--shadow-light);
 }
 
 .loading-message {
-    color: #3498db;
-    background-color: #eaf6fc;
+    color: var(--primary-color);
+    background-color: var(--bg-color);
 }
 
 .info-message {
-    color: #34495e;
-    background-color: #f0f4f7;
+    color: var(--light-text-color);
+    background-color: var(--bg-color);
 }
 
 .error-message {
     color: #e74c3c;
-    background-color: #fde8e8;
+    background-color: var(--bg-color);
     border: 1px solid #e74c3c;
 }
 
 /* --- Responsive Design --- */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .container {
-        padding: 15px;
+        padding: 20px;
+        border-radius: 15px;
     }
     h1 {
-        font-size: 2em;
+        font-size: 2.2em;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .app-logo {
+        max-width: 120px;
+    }
+    .tabs {
+        flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
+        gap: 10px;
     }
     .tab-button {
-        padding: 10px 15px;
-        font-size: 0.9em;
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 10px;
+    }
+    .task-item, .scores-full-list li, .history-item, .podium-list li {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    .podium-list li {
+        max-width: 95%; /* Prend plus de place sur mobile */
+        font-size: 1.1em;
+        padding-left: 40px;
+    }
+    .podium-list li::before {
+        font-size: 2em;
+        left: 10px;
+    }
+    .podium-list li .player-name {
+        margin-left: 30px;
     }
     .name-input-wrapper {
         flex-direction: column;
+        padding: 10px;
+    }
+    .assignee-name-input, .submit-assignee-name {
+        width: 100%;
+        margin-top: 5px;
+        box-sizing: border-box; /* S'assure que le padding n'ajoute pas à la largeur */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    .app-logo {
+        max-width: 100px;
+    }
+    .tab-button {
+        width: 100%; /* Boutons d'onglet sur toute la largeur */
+        margin: 5px 0;
     }
     .podium-list li {
-        width: 100%;
-        padding-left: 35px; /* Ajuster pour les petits écrans */
+        font-size: 1em;
+        padding: 12px 15px;
+        padding-left: 35px;
     }
     .podium-list li::before {
-        font-size: 1.3em;
-        left: 5px;
+        font-size: 1.8em;
+        left: 8px;
+    }
+    .podium-list li .player-name {
+        margin-left: 25px;
     }
 }

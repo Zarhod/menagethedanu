@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean'App Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="logo.png" alt="Clean'App Logo" class="app-logo">
+        </div>
+        <h1>Clean'App Challenge</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="tasks">Tâches</button>
+            <button class="tab-button" data-tab="scores">Scores</button>
+            <button class="tab-button" data-tab="history">Historique</button>
+        </div>
+
+        <div id="tasks-tab" class="tab-content active">
+            <div class="current-podium-section" id="currentPodium">
+                </div>
+
+            <div class="task-section">
+                <h2>Tâches à faire</h2>
+                <div class="task-list" id="pendingTaskList">
+                    </div>
+            </div>
+
+            <div class="task-section">
+                <h2>Tâches terminées cette semaine</h2>
+                <div class="task-list" id="completedTaskList">
+                    </div>
+            </div>
+        </div>
+
+        <div id="scores-tab" class="tab-content">
+            <div class="scores-section">
+                <h2>Scores de la semaine</h2>
+                <div class="scores-list" id="scoresList">
+                    </div>
+                <button id="resetScoresButton" class="flat-button">Réinitialiser les scores de la semaine</button>
+            </div>
+        </div>
+
+        <div id="history-tab" class="tab-content">
+            <div class="history-section">
+                <h2>Historique des podiums</h2>
+                <div class="history-list" id="historyList">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Chargement en cours...</p>
+    </div>
+
+    <div id="customAlertOverlay" class="alert-overlay">
+        <div class="alert-box">
+            <span class="close-alert">&times;</span>
+            <div class="alert-icon"></div>
+            <h3 id="alertTitle"></h3>
+            <p id="alertMessage"></p>
+            <button class="alert-button">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

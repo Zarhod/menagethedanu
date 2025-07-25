@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentNameInputWrapper = null;
     let currentOverlay = null;
 
+    // Nouvelle constante pour le header des tâches terminées
+    const completedTasksSection = document.getElementById('completedTasksSection');
+    const completedTasksHeader = completedTasksSection.querySelector('.completed-tasks-header');
+    const completedTasksList = document.getElementById('completedTaskList');
+
+
     // Cache le bouton de réinitialisation par défaut (à afficher selon les conditions si besoin)
     resetScoresButton.classList.add('hidden');
 
@@ -89,6 +95,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Logique pour le menu déroulant des tâches terminées
+    completedTasksHeader.addEventListener('click', () => {
+        const isCollapsed = completedTasksHeader.classList.contains('collapsed');
+        if (isCollapsed) {
+            completedTasksHeader.classList.remove('collapsed');
+            completedTasksHeader.classList.add('expanded');
+            completedTasksList.classList.add('visible');
+        } else {
+            completedTasksHeader.classList.remove('expanded');
+            completedTasksHeader.classList.add('collapsed');
+            completedTasksList.classList.remove('visible');
+        }
+    });
+
 
     /**
      * Charge et affiche le podium actuel dans l'onglet des tâches.
@@ -227,8 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pendingTaskListDiv.innerHTML = '';
 
         const completedTasks = tasks.filter(task => task.Statut === 'Terminé');
-        // NOTE : J'ai corrigé une faute de frappe potentielle ici ('Termifie' -> 'Terminé').
-        // Si 'Termifie' est un statut voulu, veuillez le remettre.
         const pendingTasks = tasks.filter(task => task.Statut !== 'Terminé');
 
         // Affiche les tâches terminées
@@ -243,8 +262,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 completedTaskListDiv.appendChild(taskItem);
             });
+            // Assurez-vous que le header est visible même si la liste est initialement repliée
+            completedTasksHeader.style.display = 'flex'; // Affiche l'en-tête du menu déroulant
         } else {
             completedTaskListDiv.innerHTML = '<p class="info-message">Aucune tâche terminée cette semaine.</p>';
+            completedTasksHeader.style.display = 'none'; // Masque l'en-tête si pas de tâches terminées
         }
 
         // Affiche les tâches en attente et ajoute des écouteurs d'événements
@@ -268,14 +290,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    // --- La correction cruciale est ici : 'taskId' est déclaré localement ---
-                    const taskId = taskCard.getAttribute('data-task-id'); // <<< C'est la clé de la correction
+                    // La correction cruciale : 'taskId' est déclaré localement ici.
+                    const taskId = taskCard.getAttribute('data-task-id'); 
 
                     // Crée et affiche l'overlay de fond sombre
                     const overlay = document.createElement('div');
                     overlay.classList.add('name-input-overlay');
                     document.body.appendChild(overlay);
-                    setTimeout(() => overlay.classList.add('visible'), 10); // Petite pause pour la transition
+                    setTimeout(() => overlay.classList.add('visible'), 10);
 
                     // Crée et affiche la pop-up de saisie du nom
                     const nameInputWrapper = document.createElement('div');
@@ -289,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                     document.body.appendChild(nameInputWrapper);
-                    setTimeout(() => nameInputWrapper.classList.add('visible'), 10); // Petite pause pour la transition
+                    setTimeout(() => nameInputWrapper.classList.add('visible'), 10);
 
                     // Affecte les variables globales pour pouvoir les gérer lors des clics extérieurs/escape
                     currentNameInputWrapper = nameInputWrapper;
@@ -299,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const submitButton = nameInputWrapper.querySelector('.submit-assignee-name');
                     const cancelButton = nameInputWrapper.querySelector('.cancel-button');
 
-                    nameInput.focus(); // Met le focus sur le champ de saisie
+                    nameInput.focus();
 
                     /**
                      * Masque la pop-up et l'overlay.
@@ -309,14 +331,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             nameInputWrapper.classList.remove('visible');
                             nameInputWrapper.addEventListener('transitionend', () => {
                                 nameInputWrapper.remove();
-                                currentNameInputWrapper = null; // Réinitialise la variable globale
+                                currentNameInputWrapper = null;
                             }, { once: true });
                         }
                         if (overlay) {
                             overlay.classList.remove('visible');
                             overlay.addEventListener('transitionend', () => {
                                 overlay.remove();
-                                currentOverlay = null; // Réinitialise la variable globale
+                                currentOverlay = null;
                             }, { once: true });
                         }
                     };
@@ -324,18 +346,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Gère la soumission du nom
                     submitButton.addEventListener('click', async () => {
                         const assigneeName = nameInput.value.trim();
-                        // Ici, 'taskId' est directement accessible grâce à la closure car il est défini dans le scope parent.
-                        if (assigneeName && taskId) { // Vérifie que le nom et l'ID de tâche sont présents
+                        // 'taskId' est accessible ici grâce à la closure
+                        if (assigneeName && taskId) {
                             const result = await postData('assignTask', { taskId: taskId, assigneeName });
                             if (result && result.success) {
                                 showAlert('Merci pour votre implication !', result.message, '🎉');
                                 hideInputWrapper();
-                                // Recharge les données après une modification réussie
                                 loadTasks();
                                 loadCurrentPodiumForTasksPage();
                                 loadCurrentWeeklyScores();
                             }
-                            // Si 'result' n'est pas successful, postData affiche déjà une alerte
                         } else {
                             showAlert('Champ vide ou tâche non sélectionnée', 'Veuillez entrer votre nom pour prendre la tâche.', '⚠️');
                             nameInput.focus();
@@ -388,7 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const ul = document.createElement('ul');
         ul.classList.add('scores-full-list');
-        // Trie les scores par ordre décroissant
         scores.sort((a, b) => b.score - a.score);
 
         scores.forEach(score => {
@@ -418,7 +437,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Trie les podiums du plus récent au plus ancien (par ordre lexicographique de la semaine)
         podiums.sort((a, b) => b.week.localeCompare(a.week));
 
         podiums.forEach(item => {
@@ -445,18 +463,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Gère le bouton de réinitialisation des scores (probablement dans l'onglet Scores)
     resetScoresButton.addEventListener('click', async () => {
-        // Personnalisation de la boîte de dialogue de confirmation
         const confirmReset = await new Promise(resolve => {
             showAlert(
                 'Confirmer la réinitialisation',
                 'Êtes-vous sûr de vouloir réinitialiser les scores de la semaine ? Cela archivera le podium actuel.',
                 '⚠️'
             );
-            // Redéfinit temporairement les gestionnaires pour cette alerte spécifique
             confirmAlertButton.onclick = () => {
                 customAlertOverlay.classList.remove('visible');
                 resolve(true);
-                // Rétablit les gestionnaires par défaut après la confirmation
                 resetAlertHandlers();
             };
             closeAlertButton.onclick = () => {
@@ -477,11 +492,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await postData('resetWeeklyScores', {});
             if (result && result.success) {
                 showAlert('Réinitialisation réussie', result.message, '✅');
-                // Recharge toutes les données pertinentes après la réinitialisation
                 loadTasks();
                 loadCurrentPodiumForTasksPage();
                 loadCurrentWeeklyScores();
-                loadWeeklyPodiums(); // Met à jour l'historique
+                loadWeeklyPodiums();
             }
         }
     });
@@ -494,7 +508,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === customAlertOverlay) { customAlertOverlay.classList.remove('visible'); }
         };
     }
-
 
     // Initialisation : charge les tâches et le podium au démarrage
     document.querySelector('.tab-button[data-tab="tasks"]').click();
